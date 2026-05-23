@@ -54,7 +54,7 @@ export function HeroSection() {
           <div
             className="flex flex-col justify-between gap-8 rounded-2xl p-8 md:p-10"
             style={{
-              background: "oklch(1 0 0)",
+              background: "var(--card)",
               border: "1px solid var(--border)",
             }}
           >
@@ -62,7 +62,7 @@ export function HeroSection() {
               <h1
                 style={{
                   fontFamily: "var(--font-display)",
-                  color: "var(--fw-navy)",
+                  color: "var(--foreground)",
                   fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
                   lineHeight: 1.05,
                   letterSpacing: "-0.01em",

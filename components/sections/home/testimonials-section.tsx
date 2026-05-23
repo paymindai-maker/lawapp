@@ -43,7 +43,7 @@ export function TestimonialsSection() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2.4rem, 5vw, 4rem)",
-              color: "var(--fw-navy)",
+              color: "var(--foreground)",
               lineHeight: 1.1,
             }}
           >

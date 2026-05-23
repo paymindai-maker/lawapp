@@ -40,7 +40,7 @@ export function ContactSection() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(2.4rem, 5vw, 4rem)",
-              color: "var(--fw-navy)",
+              color: "var(--foreground)",
               lineHeight: 1.08,
             }}
           >
@@ -106,13 +106,13 @@ export function ContactSection() {
           <div
             className="rounded-2xl p-8 md:col-span-3"
             style={{
-              background: "oklch(1 0 0)",
+              background: "var(--card)",
               border: "1px solid var(--border)",
             }}
           >
             <h3
               className="mb-6 text-lg font-semibold"
-              style={{ color: "var(--fw-navy)", fontWeight: 700 }}
+              style={{ color: "var(--foreground)", fontWeight: 700 }}
             >
               Send us a message
             </h3>

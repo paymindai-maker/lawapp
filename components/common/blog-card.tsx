@@ -13,7 +13,7 @@ export function BlogCard({ post, href = "#", featured = false }: BlogCardProps) 
     <a
       href={href}
       className="blog-card-editorial group flex flex-col overflow-hidden rounded-2xl"
-      style={{ border: "1px solid var(--border)", background: "oklch(1 0 0)" }}
+      style={{ border: "1px solid var(--border)", background: "var(--card)" }}
     >
       <div
         className="relative overflow-hidden"

@@ -53,7 +53,7 @@ export function WhyChooseUs() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "clamp(2.6rem, 5vw, 4.2rem)",
-                color: "var(--fw-navy)",
+                color: "var(--foreground)",
                 lineHeight: 1.08,
               }}
             >
@@ -100,7 +100,7 @@ export function WhyChooseUs() {
                 <div className="flex flex-col gap-2">
                   <h3
                     className="text-lg font-semibold"
-                    style={{ color: "var(--fw-navy)", fontWeight: 700 }}
+                    style={{ color: "var(--foreground)", fontWeight: 700 }}
                   >
                     {r.title}
                   </h3>

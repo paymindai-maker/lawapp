@@ -1,12 +1,13 @@
-import { Abril_Fatface, Barlow } from "next/font/google"
+import { Libre_Baskerville, Barlow } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
-const abril = Abril_Fatface({
+const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 })
@@ -27,7 +28,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", abril.variable, barlow.variable)}
+      className={cn("antialiased", libreBaskerville.variable, barlow.variable)}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
