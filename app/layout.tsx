@@ -1,14 +1,21 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
+import { Abril_Fatface, Barlow } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
+const abril = Abril_Fatface({
   subsets: ["latin"],
-  variable: "--font-mono",
+  weight: "400",
+  variable: "--font-display",
+  display: "swap",
+})
+
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  display: "swap",
 })
 
 export default function RootLayout({
@@ -20,7 +27,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
+      className={cn("antialiased", abril.variable, barlow.variable)}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>

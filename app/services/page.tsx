@@ -1,0 +1,59 @@
+import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
+import { ServiceCard } from "@/components/common/service-card"
+import { SERVICES } from "@/lib/data"
+
+export const metadata = {
+  title: "Services | ForLaw",
+  description: "Explore ForLaw's full range of legal and CA services for businesses across India.",
+}
+
+export default function ServicesPage() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        {/* Page hero */}
+        <section className="relative overflow-hidden py-24" style={{ background: "var(--fw-navy)" }}>
+          <div
+            className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 animate-orb-drift rounded-full opacity-15"
+            style={{ background: "radial-gradient(circle, var(--fw-blue), transparent 70%)" }}
+          />
+          <div className="relative mx-auto max-w-7xl px-6 text-center">
+            <p
+              className="mb-3 text-xs font-semibold uppercase tracking-widest"
+              style={{ color: "oklch(0.72 0.16 255)" }}
+            >
+              What We Offer
+            </p>
+            <h1
+              className="text-4xl font-semibold md:text-5xl"
+              style={{ fontFamily: "var(--font-heading)", color: "white" }}
+            >
+              Our <span style={{ color: "oklch(0.72 0.16 255)" }}>Legal Services</span>
+            </h1>
+            <p
+              className="mx-auto mt-5 max-w-[55ch] text-base leading-relaxed"
+              style={{ color: "oklch(0.65 0.05 255)" }}
+            >
+              From corporate structuring to trademark filing — a complete legal practice
+              for every stage of your business journey.
+            </p>
+          </div>
+        </section>
+
+        {/* All services grid */}
+        <section className="py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {SERVICES.map((svc) => (
+                <ServiceCard key={svc.slug} service={svc} href={`/services/${svc.slug}`} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
