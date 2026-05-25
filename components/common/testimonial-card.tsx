@@ -5,7 +5,7 @@ interface TestimonialCardProps {
   index?: number
 }
 
-export function TestimonialCard({ testimonial, index = 0 }: TestimonialCardProps) {
+export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
     <figure className="flex flex-col gap-6">
       <blockquote>

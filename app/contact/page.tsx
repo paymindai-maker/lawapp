@@ -3,8 +3,8 @@ import { Footer } from "@/components/layout/footer"
 import { ContactSection } from "@/components/sections/home/contact-section"
 
 export const metadata = {
-  title: "Contact | ForLaw",
-  description: "Get in touch with ForLaw for a consultation on your legal matters.",
+  title: "Contact | NEXGEN",
+  description: "Get in touch with NEXGEN for a consultation on your legal matters.",
 }
 
 export default function ContactPage() {

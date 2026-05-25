@@ -1,0 +1,159 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function validSlug(value) {
+      return value is string
+        && value.size() >= 1
+        && value.size() <= 120
+        && value.matches('^[a-z0-9-]+$');
+    }
+
+    function validShortText(value) {
+      return value is string && value.size() >= 1 && value.size() <= 180;
+    }
+
+    function validLongText(value) {
+      return value is string && value.size() >= 1 && value.size() <= 12000;
+    }
+
+    function validOptionalLongText(value) {
+      return value is string && value.size() <= 50000;
+    }
+
+    function validStatus(value) {
+      return value in ['draft', 'published', 'archived'];
+    }
+
+    function validTimestamp(value) {
+      return value is timestamp;
+    }
+
+    function validServiceCategory(data, isCreate) {
+      let required = ['name', 'slug', 'description', 'updatedAt'];
+      let allowed = required.concat(['createdAt', 'order']);
+      return data.keys().hasAll(required)
+        && data.keys().hasOnly(allowed)
+        && (!isCreate || data.keys().hasAll(['createdAt']))
+        && validShortText(data.name)
+        && validSlug(data.slug)
+        && validLongText(data.description)
+        && validTimestamp(data.updatedAt)
+        && (!data.keys().hasAny(['createdAt']) || validTimestamp(data.createdAt));
+    }
+
+    function validService(data, isCreate) {
+      let required = [
+        'title',
+        'slug',
+        'categoryId',
+        'icon',
+        'shortDescription',
+        'hero',
+        'quickInfo',
+        'benefits',
+        'eligibility',
+        'requiredDocuments',
+        'processSteps',
+        'whyChooseUs',
+        'faqs',
+        'relatedServices',
+        'seo',
+        'content',
+        'featuredImage',
+        'status',
+        'updatedAt'
+      ];
+      let allowed = required.concat(['createdAt']);
+      return data.keys().hasAll(required)
+        && data.keys().hasOnly(allowed)
+        && (!isCreate || data.keys().hasAll(['createdAt']))
+        && validShortText(data.title)
+        && validSlug(data.slug)
+        && validShortText(data.categoryId)
+        && validShortText(data.icon)
+        && validLongText(data.shortDescription)
+        && data.hero is map
+        && data.hero.keys().hasOnly(['heading', 'subheading', 'ctaText'])
+        && validShortText(data.hero.heading)
+        && validLongText(data.hero.subheading)
+        && validShortText(data.hero.ctaText)
+        && data.quickInfo is map
+        && data.quickInfo.keys().hasOnly(['timeline', 'consultation', 'startingPrice'])
+        && validShortText(data.quickInfo.timeline)
+        && validShortText(data.quickInfo.consultation)
+        && validShortText(data.quickInfo.startingPrice)
+        && data.benefits is list
+        && data.benefits.size() <= 30
+        && data.eligibility is list
+        && data.eligibility.size() <= 30
+        && data.requiredDocuments is list
+        && data.requiredDocuments.size() <= 60
+        && data.processSteps is list
+        && data.processSteps.size() <= 30
+        && data.whyChooseUs is list
+        && data.whyChooseUs.size() <= 30
+        && data.faqs is list
+        && data.faqs.size() <= 30
+        && data.relatedServices is list
+        && data.relatedServices.size() <= 12
+        && data.seo is map
+        && data.seo.keys().hasOnly(['title', 'description', 'keywords'])
+        && validShortText(data.seo.title)
+        && validLongText(data.seo.description)
+        && validLongText(data.seo.keywords)
+        && validOptionalLongText(data.content)
+        && data.featuredImage is string
+        && data.featuredImage.size() <= 1000
+        && validStatus(data.status)
+        && validTimestamp(data.updatedAt)
+        && (!data.keys().hasAny(['createdAt']) || validTimestamp(data.createdAt));
+    }
+
+    function validBlogPost(data, isCreate) {
+      let required = ['slug', 'tag', 'title', 'date', 'excerpt', 'updatedAt'];
+      let allowed = required.concat(['content', 'featuredImage', 'createdAt']);
+      return data.keys().hasAll(required)
+        && data.keys().hasOnly(allowed)
+        && (!isCreate || data.keys().hasAll(['createdAt']))
+        && validSlug(data.slug)
+        && validShortText(data.tag)
+        && validShortText(data.title)
+        && validShortText(data.date)
+        && validLongText(data.excerpt)
+        && validOptionalLongText(data.get('content', ''))
+        && (data.get('featuredImage', '') is string && data.get('featuredImage', '').size() <= 1000)
+        && validTimestamp(data.updatedAt)
+        && (!data.keys().hasAny(['createdAt']) || validTimestamp(data.createdAt));
+    }
+
+    match /service_categories/{categoryId} {
+      allow read: if true;
+      allow create: if isAdmin() && validServiceCategory(request.resource.data, true);
+      allow update: if isAdmin() && validServiceCategory(request.resource.data, false);
+      allow delete: if isAdmin();
+    }
+
+    match /services/{serviceId} {
+      allow read: if true;
+      allow create: if isAdmin() && validService(request.resource.data, true);
+      allow update: if isAdmin() && validService(request.resource.data, false);
+      allow delete: if isAdmin();
+    }
+
+    match /blog_posts/{postId} {
+      allow read: if true;
+      allow create: if isAdmin() && validBlogPost(request.resource.data, true);
+      allow update: if isAdmin() && validBlogPost(request.resource.data, false);
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -69,7 +69,7 @@ export function WhyChooseUs() {
               className="text-sm leading-relaxed"
               style={{ color: "var(--muted-foreground)", maxWidth: "30ch" }}
             >
-              ForLaw has operated from Mumbai&rsquo;s BKC since 2006. Our multidiscipline
+              NEXGEN has operated from Mumbai&rsquo;s BKC since 2006. Our multidiscipline
               team covers every legal need a growing Indian business will encounter.
             </p>
             <div className="h-px w-16" style={{ background: "var(--fw-gold)" }} />

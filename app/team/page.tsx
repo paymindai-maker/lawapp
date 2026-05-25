@@ -4,8 +4,8 @@ import { TeamCard } from "@/components/common/team-card"
 import { TEAM_MEMBERS } from "@/lib/data"
 
 export const metadata = {
-  title: "Our Team | ForLaw",
-  description: "Meet the experienced advocates and chartered accountants behind ForLaw.",
+  title: "Our Team | NEXGEN",
+  description: "Meet the experienced advocates and chartered accountants behind NEXGEN.",
 }
 
 export default function TeamPage() {
@@ -31,7 +31,7 @@ export default function TeamPage() {
         <section className="py-24">
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-              {TEAM_MEMBERS.map((member, i) => (
+              {TEAM_MEMBERS.map((member) => (
                 <TeamCard key={member.name} member={member} />
               ))}
             </div>

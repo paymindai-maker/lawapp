@@ -2,7 +2,6 @@ import { HeroSection } from "@/components/sections/home/hero"
 import { StatsStripe } from "@/components/sections/home/stats-stripe"
 import { ServicesPreview } from "@/components/sections/home/services-preview"
 import { WhyChooseUs } from "@/components/sections/home/why-choose-us"
-import { TeamPreview } from "@/components/sections/home/team-preview"
 import { TestimonialsSection } from "@/components/sections/home/testimonials-section"
 import { BlogPreview } from "@/components/sections/home/blog-preview"
 import { ContactSection } from "@/components/sections/home/contact-section"
@@ -18,8 +17,7 @@ export default function HomePage() {
         <StatsStripe />
         <ServicesPreview />
         <WhyChooseUs />
-        <TeamPreview />
-        <TestimonialsSection />
+<TestimonialsSection />
         <BlogPreview />
         <ContactSection />
       </main>

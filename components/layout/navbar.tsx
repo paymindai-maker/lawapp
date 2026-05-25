@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { Scale, Menu } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -25,7 +26,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-2.5">
           <div
             className="flex h-9 w-9 items-center justify-center rounded-xl"
             style={{ background: "var(--fw-blue)" }}
@@ -36,34 +37,34 @@ export function Navbar() {
             className="text-xl tracking-tight"
             style={{ fontFamily: "var(--font-display)", fontWeight: 400, color: "var(--foreground)" }}
           >
-            For<span style={{ color: "var(--fw-blue)" }}>Law</span>
+            NEX<span style={{ color: "var(--fw-blue)" }}>GEN</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((l) => (
-            <a
+            <Link
               key={l.label}
               href={l.href}
               className="nav-link text-sm font-medium"
               style={{ color: "var(--muted-foreground)" }}
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* CTA + Theme toggle */}
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <a
+          <Link
             href="/contact"
             className="btn-primary rounded-full px-5 py-2.5 text-sm font-semibold text-white"
             style={{ background: "var(--fw-blue)" }}
           >
             Get in touch
-          </a>
+          </Link>
         </div>
 
         {/* Mobile */}
@@ -79,7 +80,7 @@ export function Navbar() {
             <SheetContent side="right" className="w-72 pt-10">
               <div className="flex flex-col gap-7 p-2">
                 {NAV_LINKS.map((l) => (
-                  <a
+                  <Link
                     key={l.label}
                     href={l.href}
                     className="text-base font-medium"
@@ -87,17 +88,17 @@ export function Navbar() {
                     onClick={() => setMobileOpen(false)}
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 ))}
                 <Separator />
-                <a
+                <Link
                   href="/contact"
                   className="btn-primary rounded-full py-2.5 text-center text-sm font-semibold text-white"
                   style={{ background: "var(--fw-blue)" }}
                   onClick={() => setMobileOpen(false)}
                 >
                   Get in touch
-                </a>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

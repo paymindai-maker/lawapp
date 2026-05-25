@@ -22,7 +22,7 @@ export function Footer() {
                   color: "oklch(0.92 0.02 255)",
                 }}
               >
-                For<span style={{ color: "var(--fw-blue-mid)" }}>Law</span>
+                NEX<span style={{ color: "var(--fw-blue-mid)" }}>GEN</span>
               </span>
             </div>
             <p
@@ -80,7 +80,7 @@ export function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs" style={{ color: "oklch(0.45 0.04 255)" }}>
-            © {new Date().getFullYear()} ForLaw. All rights reserved.
+            © {new Date().getFullYear()} NEXGEN. All rights reserved.
           </p>
           <div className="flex gap-6">
             {["Privacy Policy", "Terms & Conditions"].map((l) => (

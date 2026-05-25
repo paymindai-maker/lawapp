@@ -1,10 +1,24 @@
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 import { SectionLabel } from "@/components/common/section-label"
 import { DotGridBg } from "@/components/common/orb-bg"
 import { DiagonalDivider } from "@/components/common/shape-divider"
-import { SERVICES } from "@/lib/data"
+import { getAdminDb } from "@/lib/firebase-admin"
+import type { ServiceCategoryDoc } from "@/types"
 
-export function ServicesPreview() {
+async function getCategories(): Promise<ServiceCategoryDoc[]> {
+  try {
+    const db = getAdminDb()
+    const snap = await db.collection("service_categories").orderBy("name").get()
+    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
+  } catch {
+    return []
+  }
+}
+
+export async function ServicesPreview() {
+  const categories = await getCategories()
+
   return (
     <section
       id="services"
@@ -38,21 +52,20 @@ export function ServicesPreview() {
           </p>
         </div>
 
-        {/* Editorial numbered rows */}
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid oklch(0.20 0.065 255)" }}
-        >
-          {SERVICES.map((svc, i) => {
-            const Icon = svc.icon
-            return (
-              <a
-                key={svc.slug}
-                href={`/services/${svc.slug}`}
+        {categories.length > 0 ? (
+          <div
+            className="rounded-xl overflow-hidden"
+            style={{ border: "1px solid oklch(0.20 0.065 255)" }}
+          >
+            {categories.map((cat, i) => (
+              <Link
+                key={cat.id}
+                href={`/services/${cat.slug}`}
                 className="svc-row group flex items-center gap-6 px-6 py-6 md:px-8 md:py-7"
                 style={{
+                  display: "flex",
                   background: "transparent",
-                  borderBottom: i < SERVICES.length - 1 ? "1px solid oklch(0.19 0.065 255)" : undefined,
+                  borderBottom: i < categories.length - 1 ? "1px solid oklch(0.19 0.065 255)" : undefined,
                   textDecoration: "none",
                 }}
               >
@@ -66,34 +79,22 @@ export function ServicesPreview() {
                     lineHeight: 1,
                   }}
                 >
-                  {svc.num}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
 
-                {/* Icon */}
-                <div
-                  className="hidden shrink-0 items-center justify-center rounded-lg sm:flex"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    background: "oklch(0.16 0.07 255)",
-                  }}
-                >
-                  <Icon className="h-5 w-5" style={{ color: "var(--fw-blue-mid)" }} />
-                </div>
-
-                {/* Title + description */}
+                {/* Name + description */}
                 <div className="flex flex-1 flex-col gap-1 min-w-0">
                   <p
                     className="text-base font-semibold leading-snug"
                     style={{ color: "oklch(0.94 0.015 255)" }}
                   >
-                    {svc.title}
+                    {cat.name}
                   </p>
                   <p
                     className="hidden text-sm leading-relaxed md:block"
                     style={{ color: "oklch(0.42 0.05 255)" }}
                   >
-                    {svc.description.length > 90 ? svc.description.slice(0, 90) + "…" : svc.description}
+                    {cat.description.length > 100 ? cat.description.slice(0, 100) + "…" : cat.description}
                   </p>
                 </div>
 
@@ -102,24 +103,23 @@ export function ServicesPreview() {
                   className="svc-row-arrow h-5 w-5 shrink-0"
                   style={{ color: "oklch(0.32 0.055 255)" }}
                 />
-              </a>
-            )
-          })}
-        </div>
+              </Link>
+            ))}
+          </div>
+        ) : null}
 
         <div className="mt-10 flex items-center justify-end gap-2">
-          <a
+          <Link
             href="/services"
             className="inline-flex items-center gap-2 text-sm font-semibold"
             style={{ color: "var(--fw-blue-mid)" }}
           >
             View all practice areas
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
 
-      {/* Diagonal transition to light Why Choose Us */}
       <DiagonalDivider fill="var(--fw-surface)" direction="left" height={72} />
     </section>
   )

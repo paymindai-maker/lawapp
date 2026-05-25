@@ -113,7 +113,7 @@ export function HeroSection() {
                   className="mb-0.5 text-lg leading-none"
                   style={{ fontFamily: "var(--font-display)", color: "white" }}
                 >
-                  ForLaw
+                  NEXGEN
                 </p>
                 <p
                   className="text-xs uppercase tracking-widest"

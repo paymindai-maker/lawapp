@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { BlogCard } from "@/components/common/blog-card"
 import { SectionLabel } from "@/components/common/section-label"
@@ -32,13 +33,13 @@ export function BlogPreview() {
               From the practice.
             </h2>
           </div>
-          <a
+          <Link
             href="/blog"
             className="hidden items-center gap-1.5 text-sm font-semibold md:flex"
             style={{ color: "var(--fw-blue)" }}
           >
             All articles <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
 
         {/* Equal 3-col grid — no space imbalance */}
@@ -54,13 +55,13 @@ export function BlogPreview() {
         </div>
 
         <div className="mt-8 md:hidden">
-          <a
+          <Link
             href="/blog"
             className="flex items-center gap-1.5 text-sm font-semibold"
             style={{ color: "var(--fw-blue)" }}
           >
             All articles <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -11,6 +11,7 @@ import {
 import type {
   NavLink,
   Service,
+  ServiceCategory,
   TeamMember,
   Testimonial,
   BlogPost,
@@ -22,14 +23,46 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Team", href: "/team" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
+]
+
+export const SERVICE_CATEGORIES: ServiceCategory[] = [
+  {
+    slug: "business-registration",
+    num: "01",
+    name: "Business Registration",
+    description:
+      "Company formation, entity structuring, founder documents, and early-stage legal setup for Indian businesses.",
+  },
+  {
+    slug: "tax-compliance",
+    num: "02",
+    name: "Tax & Compliance",
+    description:
+      "GST, income tax, ROC, audits, filings, and compliance support for operating companies.",
+  },
+  {
+    slug: "intellectual-property",
+    num: "03",
+    name: "Intellectual Property",
+    description:
+      "Trademark search, filing, prosecution, renewals, and brand protection strategy.",
+  },
+  {
+    slug: "legal-documentation",
+    num: "04",
+    name: "Legal Documentation",
+    description:
+      "Contracts, agreements, policies, notices, and business-critical legal drafting.",
+  },
 ]
 
 export const SERVICES: Service[] = [
   {
     slug: "corporate-law",
+    categorySlug: "business-registration",
+    categoryName: "Business Registration",
     num: "01",
     title: "Corporate & Business Law",
     description:
@@ -54,6 +87,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "taxation-gst",
+    categorySlug: "tax-compliance",
+    categoryName: "Tax & Compliance",
     num: "02",
     title: "Taxation & GST Compliance",
     description:
@@ -78,6 +113,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "trademark",
+    categorySlug: "intellectual-property",
+    categoryName: "Intellectual Property",
     num: "03",
     title: "Trademark Registration",
     description:
@@ -102,6 +139,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "startup-legal",
+    categorySlug: "business-registration",
+    categoryName: "Business Registration",
     num: "04",
     title: "Startup Legal Services",
     description:
@@ -126,6 +165,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "legal-documentation",
+    categorySlug: "legal-documentation",
+    categoryName: "Legal Documentation",
     num: "05",
     title: "Legal Documentation",
     description:
@@ -150,6 +191,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ca-audit",
+    categorySlug: "tax-compliance",
+    categoryName: "Tax & Compliance",
     num: "06",
     title: "CA & Audit Services",
     description:
@@ -174,6 +217,10 @@ export const SERVICES: Service[] = [
   },
 ]
 
+export function getServicesByCategory(categorySlug: string) {
+  return SERVICES.filter((service) => service.categorySlug === categorySlug)
+}
+
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Arjun Mehta",
@@ -185,7 +232,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: "Priya Sharma",
     title: "Senior Advocate",
     initials: "PS",
-    bio: "Specialist in IP law and trademark disputes. Former IP counsel at a leading FMCG group before joining ForLaw.",
+    bio: "Specialist in IP law and trademark disputes. Former IP counsel at a leading FMCG group before joining NEXGEN.",
   },
   {
     name: "Ravi Nair",
@@ -197,7 +244,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: "Neha Kapoor",
     title: "Founder & CEO",
     initials: "NK",
-    bio: "Advocate with 20+ years of practice. Founded ForLaw in 2006 with a vision to make premium legal services accessible to Indian businesses.",
+    bio: "Advocate with 20+ years of practice. Founded NEXGEN in 2006 with a vision to make premium legal services accessible to Indian businesses.",
   },
   {
     name: "Vikram Joshi",
@@ -216,14 +263,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "ForLaw handled my startup's incorporation and trademark filing with precision. Transparent, decisive, and deeply knowledgeable. Exactly what a growing business needs.",
+      "NEXGEN handled my startup's incorporation and trademark filing with precision. Transparent, decisive, and deeply knowledgeable. Exactly what a growing business needs.",
     name: "Rahul Agarwal",
     title: "CEO, Mindrise Technologies",
     initials: "RA",
   },
   {
     quote:
-      "I've worked with several firms, but ForLaw's clarity of communication set them apart entirely. Our GST compliance was resolved faster than I believed possible.",
+      "I've worked with several firms, but NEXGEN's clarity of communication set them apart entirely. Our GST compliance was resolved faster than I believed possible.",
     name: "Sunita Patel",
     title: "Director, Zenith Corp",
     initials: "SP",
@@ -316,8 +363,8 @@ export const CONTACT_INFO = {
 }
 
 export const FIRM_INFO = {
-  name: "ForLaw",
-  tagline: "Serving clients for 18+ years with proven legal expertise and a commitment to justice.",
+  name: "NEXGEN",
+  tagline: "Serving clients for 18+ years with proven legal expertise and a commitment to excellence.",
   established: "2006",
   city: "Mumbai, India",
 }
