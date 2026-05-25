@@ -67,9 +67,9 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.91 0.008 255);
     --input: oklch(0.91 0.008 255);
-    --ring: oklch(0.42 0.22 264);
+    --ring: oklch(0.58 0.16 255);
     --chart-1: oklch(0.13 0.055 264);
-    --chart-2: oklch(0.42 0.22 264);
+    --chart-2: oklch(0.58 0.16 255);
     --chart-3: oklch(0.72 0.09 78);
     --chart-4: oklch(0.55 0.20 264);
     --chart-5: oklch(0.94 0.018 255);
@@ -84,14 +84,14 @@
     --sidebar-ring: oklch(0.42 0.22 264);
 
     /* ForLaw brand tokens */
-    --fw-blue: oklch(0.42 0.22 264);
-    --fw-blue-hover: oklch(0.36 0.22 264);
-    --fw-blue-mid: oklch(0.55 0.20 264);
+    --fw-blue: oklch(0.58 0.16 255);
+    --fw-blue-hover: oklch(0.52 0.16 255);
+    --fw-blue-mid: oklch(0.70 0.13 255);
     --fw-blue-light: oklch(0.94 0.018 255);
     --fw-blue-pale: oklch(0.96 0.010 255);
-    --fw-navy: oklch(0.13 0.055 264);
-    --fw-navy-mid: oklch(0.18 0.05 264);
-    --fw-navy-surface: oklch(0.22 0.045 264);
+    --fw-navy: oklch(0.26 0.10 255);
+    --fw-navy-mid: oklch(0.30 0.09 255);
+    --fw-navy-surface: oklch(0.34 0.07 255);
     --fw-gold: oklch(0.72 0.09 78);
     --fw-surface: oklch(0.984 0.003 255);
 }
@@ -166,19 +166,29 @@
 /* ─── Service row (dark section) ────────────────────────────────────── */
 
 .svc-row {
-    transition: background 0.22s ease, padding-left 0.22s ease;
+    transition:
+        background 0.22s ease,
+        padding-left 0.22s ease,
+        border-color 0.22s ease;
     cursor: pointer;
 }
+
 .svc-row:hover {
     background: var(--fw-navy-mid) !important;
     padding-left: 1.75rem;
 }
+
 .svc-row:hover .svc-row-arrow {
     transform: translateX(6px);
-    color: var(--fw-blue-mid) !important;
+    color: white !important;
+    opacity: 1;
 }
+
 .svc-row-arrow {
-    transition: transform 0.22s ease, color 0.22s ease;
+    transition:
+        transform 0.22s ease,
+        color 0.22s ease,
+        opacity 0.22s ease;
 }
 
 /* ─── Team card ─────────────────────────────────────────────────────── */
@@ -276,30 +286,30 @@ textarea:focus {
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(0.22 0.04 255);
     --input: oklch(0.22 0.04 255);
-    --ring: oklch(0.50 0.22 264);
+    --ring: oklch(0.65 0.16 255);
     --chart-1: oklch(0.87 0.005 255);
-    --chart-2: oklch(0.60 0.20 264);
+    --chart-2: oklch(0.65 0.16 255);
     --chart-3: oklch(0.73 0.09 72);
     --chart-4: oklch(0.40 0.04 255);
     --chart-5: oklch(0.25 0.03 264);
-    --sidebar: oklch(0.13 0.055 264);
+    --sidebar: oklch(0.12 0.06 255);
     --sidebar-foreground: oklch(0.984 0.003 255);
-    --sidebar-primary: oklch(0.42 0.22 264);
+    --sidebar-primary: oklch(0.65 0.16 255);
     --sidebar-primary-foreground: oklch(0.97 0.014 255);
     --sidebar-accent: oklch(0.18 0.045 264);
     --sidebar-accent-foreground: oklch(0.984 0.003 255);
     --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.50 0.22 264);
+    --sidebar-ring: oklch(0.65 0.16 255);
 
     /* ForLaw brand tokens — dark overrides */
     /* fw-surface = elevated light section (#111827), fw-navy = deep dark section (#020617 depth) */
     --fw-surface: oklch(0.13 0.04 264);
-    --fw-navy: oklch(0.06 0.035 264);
-    --fw-navy-mid: oklch(0.09 0.04 264);
-    --fw-navy-surface: oklch(0.16 0.045 264);
-    --fw-blue: oklch(0.50 0.22 264);
-    --fw-blue-hover: oklch(0.44 0.22 264);
-    --fw-blue-mid: oklch(0.62 0.19 264);
+    --fw-navy: oklch(0.12 0.06 255);
+    --fw-navy-mid: oklch(0.16 0.06 255);
+    --fw-navy-surface: oklch(0.20 0.055 255);
+    --fw-blue: oklch(0.65 0.16 255);
+    --fw-blue-hover: oklch(0.59 0.16 255);
+    --fw-blue-mid: oklch(0.74 0.12 255);
     --fw-blue-light: oklch(0.22 0.05 264);
     --fw-blue-pale: oklch(0.20 0.045 264);
     --fw-gold: oklch(0.73 0.09 72);
@@ -383,4 +393,89 @@ textarea:focus {
   html {
     @apply font-sans;
   }
+}
+
+.blog-prose {
+    color: var(--foreground);
+    font-size: 1.02rem;
+    line-height: 1.75;
+    max-width: 72ch;
+}
+
+.blog-prose h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.08;
+    color: var(--foreground);
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+}
+
+.blog-prose h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.12;
+    color: var(--foreground);
+    margin-top: 2.2rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.blog-prose h3 {
+    font-size: 1.12rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--foreground);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.blog-prose p {
+    margin: 0.8rem 0;
+    color: var(--muted-foreground);
+}
+
+.blog-prose strong {
+    color: var(--foreground);
+    font-weight: 650;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+}
+
+.blog-prose li {
+    margin: 0.3rem 0;
+    color: var(--muted-foreground);
+}
+
+.blog-prose blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--fw-blue);
+    background: var(--muted);
+    border-radius: 0.75rem;
+    color: var(--foreground);
+}
+
+.blog-prose img {
+    width: 100%;
+    border-radius: 1rem;
+    margin: 1.75rem 0;
+    border: 1px solid var(--border);
+}
+
+.blog-prose a {
+    color: var(--fw-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.blog-prose hr {
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid var(--border);
 }

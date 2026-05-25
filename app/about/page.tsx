@@ -1,42 +1,51 @@
 import Link from "next/link"
-import {
-  ArrowRight, MessageCircle, Briefcase,
-  Building2, ReceiptText, Shield, Gavel, TrendingUp, BookOpen,
-  type LucideIcon,
-} from "lucide-react"
+import { ArrowRight, MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
-import { TestimonialCard } from "@/components/common/testimonial-card"
-import { TESTIMONIALS, FIRM_INFO, CONTACT_INFO } from "@/lib/data"
+import { ServiceCard } from "@/components/common/service-card"
+import { FIRM_INFO, CONTACT_INFO } from "@/lib/data"
 import { getAdminDb } from "@/lib/firebase-admin"
-import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
+import type { ServiceDoc } from "@/types"
 
 export const revalidate = 60
 
-// ─── Icon map ─────────────────────────────────────────────────────────────────
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  Building2, ReceiptText, Shield, Gavel, TrendingUp, BookOpen, Briefcase,
-}
-
-const SERVICES_PER_CATEGORY = 5
+const SERVICES_TOTAL = 5
 
 // ─── Firestore data ───────────────────────────────────────────────────────────
 
-async function getServicesData(): Promise<{ categories: ServiceCategoryDoc[]; services: ServiceDoc[] }> {
+async function getServicesData(): Promise<ServiceDoc[]> {
   try {
     const db = getAdminDb()
-    const [catSnap, svcSnap] = await Promise.all([
-      db.collection("service_categories").orderBy("name").get(),
-      db.collection("services").where("status", "==", "published").get(),
-    ])
-    const categories = catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
-    const services = svcSnap.docs
-      .map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) }))
+
+    const svcSnap = await db
+      .collection("services")
+      .where("status", "==", "published")
+      .limit(SERVICES_TOTAL)
+      .get()
+
+    return svcSnap.docs
+      .map((doc) => {
+        const data = doc.data() as any
+
+        return {
+          id: doc.id,
+          ...data,
+
+          createdAt:
+            typeof data.createdAt?.toDate === "function"
+              ? data.createdAt.toDate().toISOString()
+              : data.createdAt ?? null,
+
+          updatedAt:
+            typeof data.updatedAt?.toDate === "function"
+              ? data.updatedAt.toDate().toISOString()
+              : data.updatedAt ?? null,
+        }
+      })
       .sort((a, b) => a.title.localeCompare(b.title))
-    return { categories, services }
-  } catch {
-    return { categories: [], services: [] }
+  } catch (error) {
+    console.error("Failed to fetch services:", error)
+    return []
   }
 }
 
@@ -86,7 +95,8 @@ const METRICS = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function AboutPage() {
-  const { categories, services } = await getServicesData()
+  const services = await getServicesData()
+  const slots = Array.from({ length: SERVICES_TOTAL }, (_, i) => services[i] ?? null)
 
   return (
     <>
@@ -355,145 +365,7 @@ export default async function AboutPage() {
             </div>
           </div>
 
-          {/* Services Overview */}
-          {categories.length > 0 && (
-            <div style={{ borderTop: "1px solid var(--border)" }}>
-              <div className="mx-auto max-w-7xl px-6 py-16">
-                <div className="mb-8 flex items-end justify-between gap-4">
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      color: "var(--foreground)",
-                      fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    Our services
-                  </h2>
-                  <Link
-                    href="/services"
-                    className="hidden shrink-0 items-center gap-1.5 text-xs font-semibold transition-all hover:gap-2.5 md:flex"
-                    style={{ color: "var(--fw-blue)" }}
-                  >
-                    View all
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-
-                <div className="flex flex-col gap-10">
-                  {categories.map((cat) => {
-                    const catServices = services.filter((s) => s.categoryId === cat.id)
-                    const slots = Array.from({ length: SERVICES_PER_CATEGORY }, (_, i) => catServices[i] ?? null)
-
-                    return (
-                      <div key={cat.id}>
-                        <Link
-                          href={`/services/${cat.slug}`}
-                          className="mb-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest transition-all hover:gap-2.5"
-                          style={{ color: "var(--fw-blue)" }}
-                        >
-                          {cat.name}
-                          <ArrowRight className="h-3 w-3" />
-                        </Link>
-
-                        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
-                          {slots.map((svc, i) =>
-                            svc ? (
-                              <Link
-                                key={svc.id}
-                                href={`/services/${svc.slug}`}
-                                className="group flex flex-col gap-2.5 rounded-lg p-4 transition-colors hover:shadow-sm"
-                                style={{
-                                  background: "var(--card)",
-                                  border: "1px solid var(--border)",
-                                  textDecoration: "none",
-                                }}
-                              >
-                                <div
-                                  className="flex h-8 w-8 items-center justify-center rounded-md"
-                                  style={{ background: "color-mix(in oklch, var(--fw-blue) 10%, var(--card))" }}
-                                >
-                                  {(() => {
-                                    const Icon = ICON_MAP[svc.icon] ?? Briefcase
-                                    return <Icon className="h-4 w-4" style={{ color: "var(--fw-blue)" }} />
-                                  })()}
-                                </div>
-                                <p
-                                  className="text-xs font-semibold leading-snug"
-                                  style={{ color: "var(--foreground)" }}
-                                >
-                                  {svc.title}
-                                </p>
-                                {svc.quickInfo?.startingPrice && (
-                                  <p
-                                    className="mt-auto text-[10px] font-medium"
-                                    style={{ color: "var(--muted-foreground)" }}
-                                  >
-                                    From {svc.quickInfo.startingPrice}
-                                  </p>
-                                )}
-                              </Link>
-                            ) : (
-                              <div
-                                key={`placeholder-${i}`}
-                                className="flex items-center justify-center rounded-lg p-4"
-                                style={{ border: "1.5px dashed var(--border)", minHeight: "96px" }}
-                              >
-                                <p
-                                  className="text-[10px] font-semibold"
-                                  style={{ color: "var(--muted-foreground)" }}
-                                >
-                                  Coming soon
-                                </p>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-
-                <Link
-                  href="/services"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold transition-all hover:gap-2.5 md:hidden"
-                  style={{ color: "var(--fw-blue)" }}
-                >
-                  View all services
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {/* Testimonials */}
-          <div style={{ borderTop: "1px solid var(--border)" }}>
-            <div className="mx-auto max-w-7xl px-6 py-16">
-              <h2
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: "var(--foreground)",
-                  fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                  lineHeight: 1.1,
-                  marginBottom: "2.5rem",
-                }}
-              >
-                What clients say
-              </h2>
-              <div className="flex flex-col">
-                {TESTIMONIALS.map((t, i) => (
-                  <div
-                    key={t.name}
-                    className="py-8"
-                    style={{ borderTop: "1px solid var(--border)" }}
-                  >
-                    <TestimonialCard testimonial={t} index={i} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
+         
         </section>
 
         {/* ── Final CTA ── */}

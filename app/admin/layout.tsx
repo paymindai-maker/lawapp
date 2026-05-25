@@ -117,7 +117,7 @@ function AdminSidebar() {
             className="text-base font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            For<span style={{ color: "oklch(0.72 0.16 255)" }}>Law</span>
+            NEX<span style={{ color: "oklch(0.72 0.16 255)" }}>GEN</span>
           </span>
         </div>
       </SidebarHeader>

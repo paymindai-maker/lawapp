@@ -7,6 +7,7 @@ import { BlogPreview } from "@/components/sections/home/blog-preview"
 import { ContactSection } from "@/components/sections/home/contact-section"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { FeaturedServicesSection } from "@/components/sections/home/FeaturedServicesSection"
 
 export default function HomePage() {
   return (
@@ -17,6 +18,7 @@ export default function HomePage() {
         <StatsStripe />
         <ServicesPreview />
         <WhyChooseUs />
+        <FeaturedServicesSection/>
 <TestimonialsSection />
         <BlogPreview />
         <ContactSection />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Scale, Menu } from "lucide-react"
+import { Scale, Menu, MessageCircle } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
@@ -58,13 +58,16 @@ export function Navbar() {
         {/* CTA + Theme toggle */}
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Link
-            href="/contact"
-            className="btn-primary rounded-full px-5 py-2.5 text-sm font-semibold text-white"
+          <a
+            href="https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white"
             style={{ background: "var(--fw-blue)" }}
           >
+            <MessageCircle className="h-3.5 w-3.5" />
             Get in touch
-          </Link>
+          </a>
         </div>
 
         {/* Mobile */}
@@ -91,14 +94,17 @@ export function Navbar() {
                   </Link>
                 ))}
                 <Separator />
-                <Link
-                  href="/contact"
-                  className="btn-primary rounded-full py-2.5 text-center text-sm font-semibold text-white"
+                <a
+                  href="https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary inline-flex items-center justify-center gap-2 rounded-full py-2.5 text-center text-sm font-semibold text-white"
                   style={{ background: "var(--fw-blue)" }}
                   onClick={() => setMobileOpen(false)}
                 >
+                  <MessageCircle className="h-3.5 w-3.5" />
                   Get in touch
-                </Link>
+                </a>
               </div>
             </SheetContent>
           </Sheet>

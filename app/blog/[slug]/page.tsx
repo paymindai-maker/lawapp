@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: Props) {
         <section
           style={{ background: "var(--fw-navy)", paddingTop: "5rem", paddingBottom: "4.5rem", position: "relative", zIndex: 1 }}
         >
-          <div className="mx-auto max-w-3xl px-6">
+          <div className="mx-auto max-w-4xl px-6">
             {/* Back link */}
             <Link
               href="/blog"
@@ -156,7 +156,7 @@ export default async function BlogPostPage({ params }: Props) {
               position: "relative",
             }}
           >
-            <div className="mx-auto max-w-3xl px-6">
+            <div className="mx-auto max-w-4xl px-6">
               <div className="overflow-hidden rounded-xl" style={{ border: "1px solid var(--border)" }}>
                 <Image
                   src={post.featuredImage}
@@ -188,7 +188,7 @@ export default async function BlogPostPage({ params }: Props) {
             paddingBottom: "5rem",
           }}
         >
-          <div className="mx-auto max-w-3xl px-6">
+          <div className="mx-auto max-w-4xl px-6">
             {post.content ? (
               <div
                 className="blog-prose"
@@ -238,7 +238,7 @@ export default async function BlogPostPage({ params }: Props) {
               position: "relative",
             }}
           >
-            <div className="mx-auto max-w-3xl px-6">
+            <div className="mx-auto max-w-4xl px-6">
               <p
                 className="mb-6 text-xs font-semibold uppercase tracking-widest"
                 style={{ color: "oklch(0.44 0.08 255)" }}

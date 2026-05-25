@@ -1,42 +1,175 @@
-import { ArrowRight } from "lucide-react"
-import type { Service } from "@/types"
+"use client"
 
-interface ServiceCardProps {
-  service: Service
-  href?: string
+import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
+import {
+  ArrowRight, Phone, MessageCircle, X, Clock,
+  Building2, FileText, Shield, Rocket, Scale, Landmark, Briefcase,
+  Globe, Users, BookOpen, ReceiptText, ShieldCheck, FileCheck,
+  Banknote, TrendingUp, Award, Gavel, FilePlus,
+  type LucideIcon,
+} from "lucide-react"
+import type { ServiceDoc } from "@/types"
+
+// ─── Config ──────────────────────────────────────────────────────────────────
+
+const PHONE_RAW = "918799741288" // digits only for tel: and wa.me links
+const PHONE_DISPLAY = "+91 99 8765 4321"
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  Building2, FileText, Shield, Rocket, Scale, Landmark, Briefcase,
+  Globe, Users, BookOpen, ReceiptText, ShieldCheck, FileCheck,
+  Banknote, TrendingUp, Award, Gavel, FilePlus,
 }
 
-export function ServiceCard({ service, href = "#" }: ServiceCardProps) {
-  const Icon = service.icon
+function waLink(serviceTitle: string) {
+  const msg = `Hi, I'm interested in your *${serviceTitle}* service. Could you please share more details and pricing?`
+  return `https://wa.me/${PHONE_RAW}?text=${encodeURIComponent(msg)}`
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
+
+interface ServiceCardProps {
+  service: ServiceDoc
+}
+
+export function ServiceCard({ service }: ServiceCardProps) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const Icon = ICON_MAP[service.icon] ?? Briefcase
+  const price = service.quickInfo?.startingPrice
+  const timeline = service.quickInfo?.timeline
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [open])
+
   return (
     <div
-      className="service-card group cursor-pointer rounded-2xl border bg-white p-6"
-      style={{ borderColor: "var(--border)" }}
+      ref={ref}
+      className="group relative flex flex-col rounded-2xl transition-shadow hover:shadow-md"
+      style={{ border: "1px solid var(--border)", background: "var(--card)" }}
     >
-      <span
-        className="svc-num mb-4 block text-xs font-semibold tracking-widest transition-colors duration-300"
-        style={{ color: "var(--muted-foreground)" }}
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-6">
+        {/* Icon */}
+        <div
+          className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl"
+          style={{
+            background: "color-mix(in oklch, var(--fw-blue) 10%, var(--card))",
+            border: "1px solid color-mix(in oklch, var(--fw-blue) 18%, transparent)",
+          }}
+        >
+          <Icon className="h-5 w-5" style={{ color: "var(--fw-blue)" }} />
+        </div>
+
+        {/* Title */}
+        <h3
+          className="mb-2.5 text-base font-semibold leading-snug"
+          style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+        >
+          {service.title}
+        </h3>
+
+        {/* Description */}
+        <p
+          className="line-clamp-3 flex-1 text-sm leading-relaxed"
+          style={{ color: "var(--muted-foreground)" }}
+        >
+          {service.shortDescription}
+        </p>
+
+        {/* Meta row */}
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          {price && (
+            <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
+              From {price}
+            </span>
+          )}
+          {timeline && (
+            <span className="flex items-center gap-1 text-xs" style={{ color: "var(--muted-foreground)" }}>
+              <Clock className="h-3 w-3" />
+              {timeline}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Action bar */}
+      <div
+        className="flex items-center gap-px overflow-hidden rounded-b-2xl"
+        style={{ borderTop: "1px solid var(--border)" }}
       >
-        {service.num}
-      </span>
-      <Icon
-        className="svc-icon mb-4 h-6 w-6 transition-colors duration-300"
-        style={{ color: "var(--fw-blue)" }}
-      />
-      <h3
-        className="svc-title mb-4 text-base font-semibold transition-colors duration-300"
-        style={{ color: "var(--foreground)" }}
-      >
-        {service.title}
-      </h3>
-      <a
-        href={href}
-        className="svc-link flex items-center gap-1.5 text-sm font-medium transition-colors duration-300"
-        style={{ color: "var(--fw-blue)" }}
-      >
-        View Details
-        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-      </a>
+        <Link
+          href={`/services/${service.slug}`}
+          className="flex flex-1 items-center justify-center gap-1.5 py-3 text-xs font-semibold transition-colors hover:bg-muted/60"
+          style={{ color: "var(--fw-blue)" }}
+        >
+          View details
+          <ArrowRight className="h-3 w-3" />
+        </Link>
+        <div style={{ width: "1px", alignSelf: "stretch", background: "var(--border)" }} />
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="flex flex-1 items-center justify-center gap-1.5 py-3 text-xs font-semibold transition-colors hover:bg-muted/60"
+          style={{ color: open ? "var(--fw-blue)" : "var(--foreground)" }}
+        >
+          <MessageCircle className="h-3 w-3" />
+          Talk to expert
+        </button>
+      </div>
+
+      {/* Expert panel (slides in above action bar) */}
+      {open && (
+        <div
+          className="absolute bottom-[45px] left-0 right-0 z-20 rounded-b-none rounded-t-xl p-4"
+          style={{
+            background: "var(--fw-navy)",
+            boxShadow: "0 -8px 24px -4px oklch(0 0 0 / 0.18)",
+          }}
+        >
+          <div className="mb-3 flex items-center justify-between">
+            <p className="text-xs font-semibold text-white">Choose how to connect</p>
+            <button
+              onClick={() => setOpen(false)}
+              className="flex h-5 w-5 items-center justify-center rounded-full transition-colors"
+              style={{ color: "oklch(0.55 0.06 255)" }}
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <a
+              href={`tel:+${PHONE_RAW}`}
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-semibold transition-opacity hover:opacity-90"
+              style={{ background: "var(--fw-blue)", color: "white" }}
+            >
+              <Phone className="h-3.5 w-3.5" />
+              Call us
+            </a>
+            <a
+              href={waLink(service.title)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-semibold transition-opacity hover:opacity-90"
+              style={{ background: "oklch(0.52 0.18 148)", color: "white" }}
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              WhatsApp
+            </a>
+          </div>
+          <p className="mt-2.5 text-center text-[10px]" style={{ color: "oklch(0.44 0.06 255)" }}>
+            {PHONE_DISPLAY} · Typically replies in minutes
+          </p>
+        </div>
+      )}
     </div>
   )
 }

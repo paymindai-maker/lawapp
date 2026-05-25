@@ -52,62 +52,83 @@ export async function ServicesPreview() {
           </p>
         </div>
 
-        {categories.length > 0 ? (
-          <div
-            className="rounded-xl overflow-hidden"
-            style={{ border: "1px solid oklch(0.20 0.065 255)" }}
+    {/* Services List */}
+{categories.length > 0 ? (
+  <div
+    className="overflow-hidden rounded-2xl"
+    style={{
+      border: "1px solid oklch(0.28 0.055 255)",
+      background: "oklch(0.24 0.07 255 / 0.45)",
+      backdropFilter: "blur(10px)",
+    }}
+  >
+    {categories.map((cat, i) => (
+      <Link
+        key={cat.id}
+        href={`/services/${cat.slug}`}
+        className="svc-row group flex items-center gap-6 px-6 py-6 md:px-8 md:py-8"
+        style={{
+          display: "flex",
+          borderBottom:
+            i < categories.length - 1
+              ? "1px solid oklch(0.30 0.05 255 / 0.5)"
+              : undefined,
+          textDecoration: "none",
+        }}
+      >
+        {/* Number */}
+        <span
+          className="shrink-0 w-14 text-right"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(2.4rem, 4vw, 3.25rem)",
+            color: "oklch(0.95 0.01 255)",
+            lineHeight: 1,
+            opacity: 0.9,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {String(i + 1).padStart(2, "0")}
+        </span>
+
+        {/* Content */}
+        <div className="min-w-0 flex flex-1 flex-col gap-1.5">
+          <p
+            className="text-lg font-semibold leading-tight"
+            style={{
+              color: "white",
+              letterSpacing: "-0.02em",
+            }}
           >
-            {categories.map((cat, i) => (
-              <Link
-                key={cat.id}
-                href={`/services/${cat.slug}`}
-                className="svc-row group flex items-center gap-6 px-6 py-6 md:px-8 md:py-7"
-                style={{
-                  display: "flex",
-                  background: "transparent",
-                  borderBottom: i < categories.length - 1 ? "1px solid oklch(0.19 0.065 255)" : undefined,
-                  textDecoration: "none",
-                }}
-              >
-                {/* Number */}
-                <span
-                  className="shrink-0 w-12 text-right"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "2.2rem",
-                    color: "oklch(0.22 0.065 255)",
-                    lineHeight: 1,
-                  }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+            {cat.name}
+          </p>
 
-                {/* Name + description */}
-                <div className="flex flex-1 flex-col gap-1 min-w-0">
-                  <p
-                    className="text-base font-semibold leading-snug"
-                    style={{ color: "oklch(0.94 0.015 255)" }}
-                  >
-                    {cat.name}
-                  </p>
-                  <p
-                    className="hidden text-sm leading-relaxed md:block"
-                    style={{ color: "oklch(0.42 0.05 255)" }}
-                  >
-                    {cat.description.length > 100 ? cat.description.slice(0, 100) + "…" : cat.description}
-                  </p>
-                </div>
+          <p
+            className="hidden max-w-[70ch] text-sm leading-relaxed md:block"
+            style={{
+              color: "oklch(0.78 0.02 255 / 0.72)",
+            }}
+          >
+            {cat.description.length > 110
+              ? cat.description.slice(0, 110) + "…"
+              : cat.description}
+          </p>
+        </div>
 
-                {/* Arrow */}
-                <ArrowRight
-                  className="svc-row-arrow h-5 w-5 shrink-0"
-                  style={{ color: "oklch(0.32 0.055 255)" }}
-                />
-              </Link>
-            ))}
-          </div>
-        ) : null}
-
+        {/* Arrow */}
+        <div className="flex shrink-0 items-center justify-center">
+          <ArrowRight
+            className="svc-row-arrow h-5 w-5"
+            style={{
+              color: "oklch(0.88 0.015 255)",
+              opacity: 0.75,
+            }}
+          />
+        </div>
+      </Link>
+    ))}
+  </div>
+) : null}
         <div className="mt-10 flex items-center justify-end gap-2">
           <Link
             href="/services"

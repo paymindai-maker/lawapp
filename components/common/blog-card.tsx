@@ -1,61 +1,139 @@
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
-import type { BlogPost } from "@/types"
-import { DotGridBg } from "@/components/common/orb-bg"
+
+import type { BlogPostDoc } from "@/types"
 
 interface BlogCardProps {
-  post: BlogPost
+  post: BlogPostDoc
   href?: string
   featured?: boolean
 }
 
-export function BlogCard({ post, href = "#", featured = false }: BlogCardProps) {
+const TAG_COLORS: Record<string, string> = {
+  Corporate: "oklch(0.42 0.22 264)",
+  Advisory: "oklch(0.50 0.16 155)",
+  Startups: "oklch(0.52 0.18 285)",
+  Taxation: "oklch(0.62 0.12 78)",
+  "IP Law": "oklch(0.50 0.18 310)",
+  Litigation: "oklch(0.50 0.15 20)",
+  Compliance: "oklch(0.42 0.10 200)",
+  General: "oklch(0.46 0.05 255)",
+}
+
+function tagColor(tag: string) {
+  return TAG_COLORS[tag] ?? "oklch(0.46 0.05 255)"
+}
+
+export function BlogCard({
+  post,
+  href = "#",
+  featured = false,
+}: BlogCardProps) {
+  const color = tagColor(post.tag)
+
   return (
     <a
       href={href}
-      className="blog-card-editorial group flex flex-col overflow-hidden rounded-2xl"
-      style={{ border: "1px solid var(--border)", background: "var(--card)" }}
+      className="blog-card-editorial group flex h-full flex-col overflow-hidden rounded-2xl"
+      style={{
+        border: "1px solid var(--border)",
+        background: "var(--card)",
+        textDecoration: "none",
+      }}
     >
+      {/* Cover */}
       <div
         className="relative overflow-hidden"
         style={{
-          height: featured ? "220px" : "140px",
+          height: featured ? "240px" : "180px",
           background: "var(--fw-navy)",
           flexShrink: 0,
         }}
       >
-        <DotGridBg opacity={0.06} />
-        <div className="absolute inset-0 flex items-end p-5">
+        {post.featuredImage ? (
+          <>
+            <Image
+              src={post.featuredImage}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+            />
+
+            {/* Overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.08))",
+              }}
+            />
+          </>
+        ) : (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(135deg, ${color}, color-mix(in oklch, ${color} 38%, black))`,
+            }}
+          />
+        )}
+
+        {/* Meta */}
+        <div className="absolute inset-x-0 bottom-0 flex items-end p-5">
           <div className="flex items-center gap-3">
             <span
               className="rounded-sm px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest"
-              style={{ background: "var(--fw-gold)", color: "var(--fw-navy)" }}
+              style={{
+                background: "rgba(255,255,255,0.12)",
+                backdropFilter: "blur(10px)",
+                color: "white",
+                border: "1px solid rgba(255,255,255,0.14)",
+              }}
             >
               {post.tag}
             </span>
-            <span className="text-xs" style={{ color: "oklch(0.48 0.055 255)" }}>
+
+            <span
+              className="text-xs"
+              style={{
+                color: "rgba(255,255,255,0.78)",
+              }}
+            >
               {post.date}
             </span>
           </div>
         </div>
       </div>
 
+      {/* Content */}
       <div className="flex flex-1 flex-col gap-3 p-6">
         <h3
-          className="blog-card-title text-sm font-semibold leading-snug transition-colors duration-200 md:text-base"
-          style={{ color: "var(--foreground)" }}
+          className="blog-card-title text-base font-semibold leading-snug transition-colors duration-200"
+          style={{
+            color: "var(--foreground)",
+            letterSpacing: "-0.02em",
+            fontFamily: "var(--font-display)",
+          }}
         >
           {post.title}
         </h3>
-        {featured && (
-          <p className="text-sm leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
-            {post.excerpt}
-          </p>
-        )}
+
+        <p
+          className="text-sm leading-relaxed"
+          style={{
+            color: "var(--muted-foreground)",
+          }}
+        >
+          {post.excerpt.length > (featured ? 140 : 90)
+            ? `${post.excerpt.slice(0, featured ? 140 : 90)}...`
+            : post.excerpt}
+        </p>
+
         <div
           className="mt-auto flex items-center gap-1 text-xs font-semibold"
           style={{ color: "var(--fw-blue)" }}
         >
           Read article
+
           <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
         </div>
       </div>

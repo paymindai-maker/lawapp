@@ -1,13 +1,8 @@
 import Link from "next/link"
-import {
-  ArrowRight, MessageCircle, DollarSign,
-  Building2, FileText, Shield, Rocket, Scale, Landmark, Briefcase,
-  Globe, Users, BookOpen, ReceiptText, ShieldCheck, FileCheck,
-  Banknote, TrendingUp, Award, Gavel, FilePlus,
-  type LucideIcon,
-} from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { ServiceCard } from "@/components/common/service-card"
 import { getAdminDb } from "@/lib/firebase-admin"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 
@@ -18,30 +13,65 @@ export const metadata = {
   description: "Explore NEXGEN's full range of legal and CA services for businesses across India.",
 }
 
-// ─── Icon map ────────────────────────────────────────────────────────────────
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  Building2, FileText, Shield, Rocket, Scale, Landmark, Briefcase,
-  Globe, Users, BookOpen, ReceiptText, ShieldCheck, FileCheck,
-  Banknote, TrendingUp, Award, Gavel, FilePlus,
-}
-
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 async function getData() {
   try {
     const db = getAdminDb()
+
     const [catSnap, svcSnap] = await Promise.all([
       db.collection("service_categories").orderBy("name").get(),
       db.collection("services").where("status", "==", "published").get(),
     ])
-    const categories = catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
+
+    const categories = catSnap.docs.map((doc) => {
+      const data = doc.data() as any
+
+      return {
+        id: doc.id,
+        ...data,
+
+        createdAt:
+          typeof data.createdAt?.toDate === "function"
+            ? data.createdAt.toDate().toISOString()
+            : data.createdAt ?? null,
+
+        updatedAt:
+          typeof data.updatedAt?.toDate === "function"
+            ? data.updatedAt.toDate().toISOString()
+            : data.updatedAt ?? null,
+      }
+    })
+
     const services = svcSnap.docs
-      .map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) }))
+      .map((doc) => {
+        const data = doc.data() as any
+
+        return {
+          id: doc.id,
+          ...data,
+
+          createdAt:
+            typeof data.createdAt?.toDate === "function"
+              ? data.createdAt.toDate().toISOString()
+              : data.createdAt ?? null,
+
+          updatedAt:
+            typeof data.updatedAt?.toDate === "function"
+              ? data.updatedAt.toDate().toISOString()
+              : data.updatedAt ?? null,
+        }
+      })
       .sort((a, b) => a.title.localeCompare(b.title))
+
     return { categories, services }
-  } catch {
-    return { categories: [], services: [] }
+  } catch (error) {
+    console.error("Failed to fetch services page data:", error)
+
+    return {
+      categories: [],
+      services: [],
+    }
   }
 }
 
@@ -155,78 +185,6 @@ export default async function ServicesPage() {
   )
 }
 
-// ─── Service card ─────────────────────────────────────────────────────────────
-
-function ServiceCard({ service }: { service: ServiceDoc }) {
-  const Icon = ICON_MAP[service.icon] ?? Briefcase
-  const price = service.quickInfo?.startingPrice
-
-  return (
-    <div
-      className="group flex flex-col rounded-2xl transition-shadow hover:shadow-md"
-      style={{ border: "1px solid var(--border)", background: "var(--card)" }}
-    >
-      {/* Top */}
-      <div className="flex flex-1 flex-col p-8">
-        <div
-          className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl"
-          style={{ background: "var(--fw-blue-pale)", border: "1px solid var(--fw-blue-light)" }}
-        >
-          <Icon className="h-6 w-6" style={{ color: "var(--fw-blue)" }} />
-        </div>
-
-        <h3
-          className="mb-3 text-lg font-semibold leading-snug"
-          style={{ color: "var(--foreground)" }}
-        >
-          {service.title}
-        </h3>
-
-        <p
-          className="line-clamp-3 flex-1 text-sm leading-relaxed"
-          style={{ color: "var(--muted-foreground)" }}
-        >
-          {service.shortDescription}
-        </p>
-
-        {/* Price */}
-        {price && (
-          <div className="mt-5 flex items-center gap-1.5">
-            <DollarSign className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
-            <span className="text-sm font-semibold" style={{ color: "var(--fw-navy)" }}>
-              Starting {price}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div
-        className="flex items-center gap-px overflow-hidden rounded-b-2xl"
-        style={{ borderTop: "1px solid var(--border)" }}
-      >
-        <Link
-          href={`/services/${service.slug}`}
-          className="flex flex-1 items-center justify-center gap-1.5 py-3 text-xs font-semibold transition-colors hover:bg-muted/60"
-          style={{ color: "var(--fw-blue)" }}
-        >
-          View details
-          <ArrowRight className="h-3 w-3" />
-        </Link>
-        <div style={{ width: "1px", alignSelf: "stretch", background: "var(--border)" }} />
-        <Link
-          href="/contact"
-          className="flex flex-1 items-center justify-center gap-1.5 py-3 text-xs font-semibold transition-colors hover:bg-muted/60"
-          style={{ color: "var(--fw-navy)" }}
-        >
-          <MessageCircle className="h-3 w-3" />
-          Talk to expert
-        </Link>
-      </div>
-    </div>
-  )
-}
-
 function ComingSoonCard() {
   return (
     <div
@@ -237,7 +195,7 @@ function ComingSoonCard() {
         minHeight: "200px",
       }}
     >
-      <p className="text-sm font-semibold" style={{ color: "var(--fw-navy)" }}>
+      <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
         Coming Soon
       </p>
       <p className="mt-1 text-xs" style={{ color: "var(--muted-foreground)" }}>

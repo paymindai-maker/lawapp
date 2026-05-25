@@ -36,16 +36,7 @@ export function HeroSection() {
       <div
         className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 md:py-20"
       >
-        {/* Eyebrow */}
-        <div className="mb-8 flex items-center gap-3">
-          <div className="h-px w-6 shrink-0" style={{ background: "var(--fw-gold)" }} />
-          <span
-            className="text-xs font-semibold uppercase tracking-[0.2em]"
-            style={{ color: "var(--fw-gold)" }}
-          >
-            Est. {FIRM_INFO.established} &middot; {FIRM_INFO.city}
-          </span>
-        </div>
+    
 
         {/* Bento grid — equal columns */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">

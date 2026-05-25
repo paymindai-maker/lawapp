@@ -231,208 +231,196 @@ function HeroSection({
       className="relative overflow-hidden"
       style={{
         background: "var(--fw-navy)",
-        paddingTop: "6rem",
-        paddingBottom: "8rem",
+        paddingTop: "5.5rem",
+        paddingBottom: "4.5rem",
         position: "relative",
         zIndex,
       }}
     >
-      {/* Background grid */}
+      {/* subtle grid */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <pattern id="hero-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+          <pattern
+            id="hero-grid"
+            x="0"
+            y="0"
+            width="40"
+            height="40"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.5"
+            />
           </pattern>
         </defs>
+
         <rect width="100%" height="100%" fill="url(#hero-grid)" />
       </svg>
 
-      {/* Floating geometric shapes */}
-      <div
-        aria-hidden
-        className="animate-shape-float pointer-events-none absolute right-[8%] top-[12%] h-40 w-40 opacity-[0.06]"
-        style={{
-          background: "conic-gradient(from 45deg, var(--fw-gold), transparent 50%)",
-          clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="animate-shape-float-slow pointer-events-none absolute left-[5%] bottom-[20%] h-24 w-24 opacity-[0.05]"
-        style={{
-          background: "var(--fw-blue)",
-          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="animate-shape-float-mid pointer-events-none absolute right-[20%] bottom-[15%] h-16 w-16 rounded-full opacity-[0.08]"
-        style={{ background: "radial-gradient(circle, var(--fw-gold), transparent 70%)" }}
-      />
+      <div className="relative mx-auto max-w-5xl px-6">
+        {/* Breadcrumb */}
+        <nav
+          className="mb-8 flex items-center justify-center gap-2 text-[11px] font-medium"
+          aria-label="Breadcrumb"
+        >
+          <Link
+            href="/services"
+            style={{ color: "oklch(0.52 0.08 255)" }}
+          >
+            Services
+          </Link>
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_auto]">
-          {/* Left: text */}
-          <div className="max-w-3xl">
-            {/* Breadcrumb */}
-            <nav className="mb-6 flex items-center gap-2 text-xs font-medium" aria-label="Breadcrumb">
+          {category && (
+            <>
+              <ChevronRight
+                className="h-3 w-3"
+                style={{ color: "oklch(0.38 0.07 255)" }}
+              />
+
               <Link
-                href="/services"
-                className="transition-colors"
-                style={{ color: "oklch(0.50 0.10 255)" }}
+                href={`/services/${category.slug}`}
+                style={{ color: "oklch(0.52 0.08 255)" }}
               >
-                Services
+                {category.name}
               </Link>
-              {category && (
-                <>
-                  <ChevronRight className="h-3 w-3" style={{ color: "oklch(0.38 0.07 255)" }} />
-                  <Link
-                    href={`/services/${category.slug}`}
-                    className="transition-colors"
-                    style={{ color: "oklch(0.50 0.10 255)" }}
-                  >
-                    {category.name}
-                  </Link>
-                </>
+            </>
+          )}
+
+          <ChevronRight
+            className="h-3 w-3"
+            style={{ color: "oklch(0.38 0.07 255)" }}
+          />
+
+          <span style={{ color: "oklch(0.68 0.03 255)" }}>
+            {service.title}
+          </span>
+        </nav>
+
+        {/* Main content */}
+        <div className="mx-auto max-w-3xl text-center">
+          {/* Heading */}
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              color: "white",
+              fontSize: "clamp(2.4rem, 5vw, 4.2rem)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.045em",
+              textWrap: "balance",
+            }}
+          >
+            {service.hero?.heading || service.title}
+          </h1>
+
+          {/* Description */}
+          {service.hero?.subheading && (
+            <p
+              className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base"
+              style={{
+                color: "oklch(0.70 0.03 255)",
+              }}
+            >
+              {service.hero.subheading}
+            </p>
+          )}
+
+          {/* Quick info */}
+          {service.quickInfo && (
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
+              {service.quickInfo.timeline && (
+                <div
+                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "oklch(0.74 0.03 255)",
+                  }}
+                >
+                  {service.quickInfo.timeline}
+                </div>
               )}
-              <ChevronRight className="h-3 w-3" style={{ color: "oklch(0.38 0.07 255)" }} />
-              <span style={{ color: "oklch(0.65 0.08 255)" }}>{service.title}</span>
-            </nav>
 
-            {/* Icon + title */}
-            <div className="mb-4 flex items-start gap-4">
-              <div
-                className="mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                }}
-              >
-                <ServiceIcon
-                  name={service.icon}
-                  className="h-6 w-6"
-                  style={{ color: "var(--fw-gold)" }}
-                />
-              </div>
-              <h1
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: "white",
-                  fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {service.hero?.heading || service.title}
-              </h1>
+              {service.quickInfo.consultation && (
+                <div
+                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "oklch(0.74 0.03 255)",
+                  }}
+                >
+                  {service.quickInfo.consultation}
+                </div>
+              )}
+
+              {service.quickInfo.startingPrice && (
+                <div
+                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "oklch(0.74 0.03 255)",
+                  }}
+                >
+                  Starting {service.quickInfo.startingPrice}
+                </div>
+              )}
             </div>
+          )}
 
-            {/* Subheading */}
-            {service.hero?.subheading && (
-              <p
-                className="mb-8 max-w-[58ch] text-base leading-relaxed"
-                style={{ color: "oklch(0.62 0.05 255)" }}
-              >
-                {service.hero.subheading}
-              </p>
-            )}
-
-            {/* Quick info chips */}
-            {service.quickInfo && (
-              <div className="mb-8 flex flex-wrap gap-3">
-                {service.quickInfo.timeline && (
-                  <div
-                    className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium"
-                    style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      color: "oklch(0.72 0.05 255)",
-                    }}
-                  >
-                    <Clock className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
-                    {service.quickInfo.timeline}
-                  </div>
-                )}
-                {service.quickInfo.consultation && (
-                  <div
-                    className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium"
-                    style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      color: "oklch(0.72 0.05 255)",
-                    }}
-                  >
-                    <MessageSquare className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
-                    {service.quickInfo.consultation}
-                  </div>
-                )}
-                {service.quickInfo.startingPrice && (
-                  <div
-                    className="flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium"
-                    style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                      color: "oklch(0.72 0.05 255)",
-                    }}
-                  >
-                    <DollarSign className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
-                    Starting {service.quickInfo.startingPrice}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* CTA */}
+          {/* CTA */}
+          <div className="mt-8">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all"
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all"
               style={{
                 background: "var(--fw-gold)",
                 color: "var(--fw-navy)",
               }}
             >
-              {service.hero?.ctaText || "Get Started"}
+              {service.hero?.ctaText || "Book Consultation"}
+
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+        </div>
 
-          {/* Right: featured image */}
-          {service.featuredImage && (
+        {/* Visual */}
+        {service.featuredImage && (
+          <div className="mx-auto mt-12 max-w-4xl">
             <div
-              className="hidden lg:block"
+              className="relative overflow-hidden rounded-2xl"
               style={{
-                width: "360px",
-                flexShrink: 0,
+                aspectRatio: "16 / 7",
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.04)",
               }}
             >
+              <Image
+                src={service.featuredImage}
+                alt={service.title}
+                fill
+                className="object-cover"
+                priority
+              />
+
               <div
-                className="relative overflow-hidden rounded-2xl"
+                className="absolute inset-0"
                 style={{
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  aspectRatio: "4/3",
+                  background:
+                    "linear-gradient(to top, rgba(3,12,38,0.18), rgba(3,12,38,0.03))",
                 }}
-              >
-                <Image
-                  src={service.featuredImage}
-                  alt={service.title}
-                  fill
-                  className="object-cover"
-                  sizes="360px"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(10,20,60,0.3) 0%, transparent 60%)",
-                  }}
-                />
-              </div>
+              />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   )

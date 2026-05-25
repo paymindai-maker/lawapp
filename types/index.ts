@@ -115,4 +115,5 @@ export interface BlogPostDoc {
   featuredImage?: string
   createdAt?: string
   updatedAt?: string
+  status?: "draft" | "published" | "archived"
 }
