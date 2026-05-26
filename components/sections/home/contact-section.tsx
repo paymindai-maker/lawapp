@@ -10,7 +10,13 @@ const CONTACT_ITEMS = [
   { icon: MapPin, val: CONTACT_INFO.address, label: "Office" },
 ]
 
-export function ContactSection() {
+interface ContactSectionProps {
+  /** "homepage" (default): includes DiagonalDivider at bottom for section stacking.
+   *  "inner": clean flat end, no divider — for service/contact pages. */
+  variant?: "homepage" | "inner"
+}
+
+export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
   return (
     <section
       id="contact"
@@ -18,11 +24,11 @@ export function ContactSection() {
       style={{
         background: "var(--fw-surface)",
         paddingTop: "6rem",
-        paddingBottom: "8rem",
-        zIndex: 8,
+        paddingBottom: variant === "inner" ? "6rem" : "8rem",
+        ...(variant === "homepage" ? { zIndex: 8 } : {}),
       }}
     >
-      <CrosshatchBg opacity={0.025} />
+      <CrosshatchBg opacity={0.06} />
 
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Section header */}
@@ -186,8 +192,10 @@ export function ContactSection() {
         </div>
       </div>
 
-      {/* Diagonal into dark footer */}
-      <DiagonalDivider fill="var(--fw-navy)" direction="right" height={72} />
+      {/* Diagonal into dark footer — homepage only */}
+      {variant === "homepage" && (
+        <DiagonalDivider fill="var(--fw-navy)" direction="right" height={72} />
+      )}
     </section>
   )
 }

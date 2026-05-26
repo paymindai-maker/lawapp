@@ -5,25 +5,6 @@ export interface NavLink {
   href: string
 }
 
-export interface Service {
-  slug: string
-  categorySlug: string
-  categoryName: string
-  num: string
-  title: string
-  description: string
-  process: string[]
-  faqs: { q: string; a: string }[]
-  icon: LucideIcon
-}
-
-export interface ServiceCategory {
-  slug: string
-  num: string
-  name: string
-  description: string
-}
-
 export interface TeamMember {
   name: string
   title: string
@@ -38,14 +19,6 @@ export interface Testimonial {
   initials: string
 }
 
-export interface BlogPost {
-  slug: string
-  tag: string
-  title: string
-  date: string
-  excerpt: string
-}
-
 export interface StatItem {
   val: string
   label: string
@@ -57,7 +30,8 @@ export interface FooterColumn {
   links: { label: string; href: string }[]
 }
 
-// Firestore document types (no LucideIcon refs)
+// ─── Firestore document types ─────────────────────────────────────────────────
+
 export interface ServiceDoc {
   id: string
   slug: string

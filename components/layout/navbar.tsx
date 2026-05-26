@@ -6,7 +6,7 @@ import { Scale, Menu, MessageCircle } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { NAV_LINKS } from "@/lib/data"
+import { NAV_LINKS, CONTACT_INFO } from "@/lib/data"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -59,7 +59,7 @@ export function Navbar() {
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
           <a
-            href="https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services."
+            href="{CONTACT_INFO.whatsappGeneral}"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white"
@@ -95,7 +95,7 @@ export function Navbar() {
                 ))}
                 <Separator />
                 <a
-                  href="https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services."
+                  href="{CONTACT_INFO.whatsappGeneral}"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary inline-flex items-center justify-center gap-2 rounded-full py-2.5 text-center text-sm font-semibold text-white"

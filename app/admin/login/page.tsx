@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
               className="text-2xl font-bold text-white"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              For<span style={{ color: "oklch(0.72 0.16 255)" }}>Law</span> Admin
+              NEX<span style={{ color: "oklch(0.72 0.16 255)" }}>GEN</span> Admin
             </h1>
             <p className="mt-1 text-sm" style={{ color: "oklch(0.55 0.05 255)" }}>
               Admin access only

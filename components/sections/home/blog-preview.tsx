@@ -4,62 +4,12 @@ import { ArrowRight } from "lucide-react"
 import { BlogCard } from "@/components/common/blog-card"
 import { SectionLabel } from "@/components/common/section-label"
 
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getRecentBlogPosts } from "@/lib/firestore/blog"
 
 import type { BlogPostDoc } from "@/types"
 
-async function getBlogPosts(): Promise<BlogPostDoc[]> {
-  try {
-    const db = getAdminDb()
-
-    const snap = await db
-      .collection("blog_posts")
-      
-      .orderBy("createdAt", "desc")
-      .limit(3)
-      .get()
-
-    return snap.docs.map((doc) => {
-      const data = doc.data() as any
-
-      return {
-        id: doc.id,
-
-        slug: data.slug ?? "",
-        tag: data.tag ?? "Legal",
-        title: data.title ?? "",
-        date:
-          typeof data.createdAt?.toDate === "function"
-            ? data.createdAt.toDate().toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })
-            : data.date ?? "",
-
-        excerpt: data.excerpt ?? "",
-        content: data.content ?? "",
-        featuredImage: data.featuredImage ?? "",
-
-        createdAt:
-          typeof data.createdAt?.toDate === "function"
-            ? data.createdAt.toDate().toISOString()
-            : data.createdAt ?? null,
-
-        updatedAt:
-          typeof data.updatedAt?.toDate === "function"
-            ? data.updatedAt.toDate().toISOString()
-            : data.updatedAt ?? null,
-      }
-    })
-  } catch (error) {
-    console.error("Failed to fetch blog posts:", error)
-    return []
-  }
-}
-
 export async function BlogPreview() {
-  const posts = await getBlogPosts()
+  const posts = await getRecentBlogPosts(3)
 
   if (posts.length === 0) {
     return null

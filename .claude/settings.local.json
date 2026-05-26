@@ -1,11 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__shadcn__get_add_command_for_items",
+      "PowerShell(npm install sanitize-html @types/sanitize-html 2>&1)"
+    ]
+  },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "shadcn"
-  ],
-  "permissions": {
-    "allow": [
-      "mcp__shadcn__get_add_command_for_items"
-    ]
-  }
+  ]
 }

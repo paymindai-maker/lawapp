@@ -10,11 +10,12 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import type { ServiceDoc } from "@/types"
+import { CONTACT_INFO } from "@/lib/data"
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const PHONE_RAW = "918799741288" // digits only for tel: and wa.me links
-const PHONE_DISPLAY = "+91 99 8765 4321"
+const PHONE_RAW = CONTACT_INFO.phoneRaw
+const PHONE_DISPLAY = CONTACT_INFO.phone
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Building2, FileText, Shield, Rocket, Scale, Landmark, Briefcase,

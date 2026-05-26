@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation"
 import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
+import { revalidateAfterSave } from "@/lib/revalidate"
 import type { BlogPostDoc } from "@/types"
 import { BlogForm, buildBlogData } from "../../_components/blog-form"
 import type { BlogFormValues } from "../../_components/blog-form"
@@ -20,26 +21,31 @@ export default function EditBlogPostPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const [postDoc, postsSnap, svcSnap, catSnap] = await Promise.all([
-        getDoc(doc(db, "blog_posts", id)),
-        getDocs(collection(db, "blog_posts")),
-        getDocs(collection(db, "services")),
-        getDocs(collection(db, "service_categories")),
-      ])
+      try {
+        const [postDoc, postsSnap, svcSnap, catSnap] = await Promise.all([
+          getDoc(doc(db, "blog_posts", id)),
+          getDocs(collection(db, "blog_posts")),
+          getDocs(collection(db, "services")),
+          getDocs(collection(db, "service_categories")),
+        ])
 
-      if (!postDoc.exists()) {
-        toast.error("Post not found")
-        router.push("/admin/blog")
-        return
+        if (!postDoc.exists()) {
+          toast.error("Post not found")
+          router.push("/admin/blog")
+          return
+        }
+
+        setPost({ id: postDoc.id, ...(postDoc.data() as Omit<BlogPostDoc, "id">) })
+        setAllPosts(postsSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) })))
+        setReservedSlugs([
+          ...svcSnap.docs.map((d) => String(d.data().slug ?? "")),
+          ...catSnap.docs.map((d) => String(d.data().slug ?? "")),
+        ])
+      } catch {
+        toast.error("Failed to load data. Please refresh.")
+      } finally {
+        setLoading(false)
       }
-
-      setPost({ id: postDoc.id, ...(postDoc.data() as Omit<BlogPostDoc, "id">) })
-      setAllPosts(postsSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) })))
-      setReservedSlugs([
-        ...svcSnap.docs.map((d) => String(d.data().slug ?? "")),
-        ...catSnap.docs.map((d) => String(d.data().slug ?? "")),
-      ])
-      setLoading(false)
     }
     fetchData()
   }, [id, router])
@@ -61,6 +67,7 @@ export default function EditBlogPostPage() {
       const data = buildBlogData(values)
       await updateDoc(doc(db, "blog_posts", post.id), data)
       toast.success("Post updated")
+      await revalidateAfterSave(["/blog", `/blog/${slug}`])
       router.push("/admin/blog")
     } catch {
       toast.error("Failed to save. Try again.")

@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation"
 import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
+import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc } from "@/types"
 import { CategoryForm, buildCategoryData } from "../../_components/category-form"
 import type { CategoryFormValues } from "../../_components/category-form"
@@ -20,22 +21,27 @@ export default function EditCategoryPage() {
 
   useEffect(() => {
     async function fetchData() {
-      const [catDoc, allCatSnap, svcSnap] = await Promise.all([
-        getDoc(doc(db, "service_categories", id)),
-        getDocs(collection(db, "service_categories")),
-        getDocs(collection(db, "services")),
-      ])
+      try {
+        const [catDoc, allCatSnap, svcSnap] = await Promise.all([
+          getDoc(doc(db, "service_categories", id)),
+          getDocs(collection(db, "service_categories")),
+          getDocs(collection(db, "services")),
+        ])
 
-      if (!catDoc.exists()) {
-        toast.error("Category not found")
-        router.push("/admin/categories")
-        return
+        if (!catDoc.exists()) {
+          toast.error("Category not found")
+          router.push("/admin/categories")
+          return
+        }
+
+        setCategory({ id: catDoc.id, ...(catDoc.data() as Omit<ServiceCategoryDoc, "id">) })
+        setAllCategories(allCatSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
+        setServiceSlugs(svcSnap.docs.map((d) => String(d.data().slug ?? "")))
+      } catch {
+        toast.error("Failed to load data. Please refresh.")
+      } finally {
+        setLoading(false)
       }
-
-      setCategory({ id: catDoc.id, ...(catDoc.data() as Omit<ServiceCategoryDoc, "id">) })
-      setAllCategories(allCatSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
-      setServiceSlugs(svcSnap.docs.map((d) => String(d.data().slug ?? "")))
-      setLoading(false)
     }
     fetchData()
   }, [id, router])
@@ -56,6 +62,7 @@ export default function EditCategoryPage() {
       const data = buildCategoryData(values)
       await updateDoc(doc(db, "service_categories", category.id), data)
       toast.success("Category updated")
+      await revalidateAfterSave(["/services", "/about"])
       router.push("/admin/categories")
     } catch {
       toast.error("Failed to save. Try again.")

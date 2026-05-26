@@ -1,15 +1,34 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
+import sanitizeHtml from "sanitize-html"
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getBlogPostBySlug, getRelatedBlogPosts, getAllBlogSlugs } from "@/lib/firestore/blog"
 import type { BlogPostDoc } from "@/types"
 
-export const revalidate = 60
+export const revalidate = 1800
 
-// ─── Tag colors (same as listing page) ───────────────────────────────────────
+// ─── HTML sanitizer config ────────────────────────────────────────────────────
+
+const SANITIZE_CONFIG: sanitizeHtml.IOptions = {
+  allowedTags: [
+    "h2", "h3", "h4", "p", "ul", "ol", "li", "blockquote",
+    "strong", "em", "a", "img", "br", "hr", "code", "pre",
+  ],
+  allowedAttributes: {
+    a: ["href", "target", "rel"],
+    img: ["src", "alt", "width", "height"],
+  },
+  allowedSchemes: ["https", "http", "mailto"],
+}
+
+function safe(html: string) {
+  return sanitizeHtml(html, SANITIZE_CONFIG)
+}
+
+// ─── Tag colors ───────────────────────────────────────────────────────────────
 
 const TAG_COLORS: Record<string, string> = {
   Corporate:   "oklch(0.42 0.22 264)",
@@ -26,31 +45,11 @@ function tagColor(tag: string) {
   return TAG_COLORS[tag] ?? "oklch(0.46 0.05 255)"
 }
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Static params (ISR) ─────────────────────────────────────────────────────
 
-async function getPost(slug: string): Promise<BlogPostDoc | null> {
-  try {
-    const db = getAdminDb()
-    const snap = await db.collection("blog_posts").where("slug", "==", slug).limit(1).get()
-    if (snap.empty) return null
-    const doc = snap.docs[0]
-    return { id: doc.id, ...(doc.data() as Omit<BlogPostDoc, "id">) }
-  } catch {
-    return null
-  }
-}
-
-async function getRelatedPosts(currentId: string, tag: string): Promise<BlogPostDoc[]> {
-  try {
-    const db = getAdminDb()
-    const snap = await db.collection("blog_posts").where("tag", "==", tag).limit(4).get()
-    return snap.docs
-      .map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) }))
-      .filter((p) => p.id !== currentId)
-      .slice(0, 3)
-  } catch {
-    return []
-  }
+export async function generateStaticParams() {
+  const slugs = await getAllBlogSlugs()
+  return slugs.map((slug) => ({ slug }))
 }
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
@@ -61,7 +60,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  const post = await getPost(slug)
+  const post = await getBlogPostBySlug(slug)
   if (!post) return {}
   return {
     title: `${post.title} | NEXGEN Blog`,
@@ -73,10 +72,10 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const post = await getPost(slug)
+  const post = await getBlogPostBySlug(slug)
   if (!post) notFound()
 
-  const related = await getRelatedPosts(post.id, post.tag)
+  const related = await getRelatedBlogPosts(post.id, post.tag)
   const color = tagColor(post.tag)
 
   return (
@@ -89,7 +88,6 @@ export default async function BlogPostPage({ params }: Props) {
           style={{ background: "var(--fw-navy)", paddingTop: "5rem", paddingBottom: "4.5rem", position: "relative", zIndex: 1 }}
         >
           <div className="mx-auto max-w-4xl px-6">
-            {/* Back link */}
             <Link
               href="/blog"
               className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold transition-all hover:gap-2.5"
@@ -99,7 +97,6 @@ export default async function BlogPostPage({ params }: Props) {
               All articles
             </Link>
 
-            {/* Tag */}
             <div className="mb-5">
               <span
                 className="rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest"
@@ -113,7 +110,6 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
             </div>
 
-            {/* Title */}
             <h1
               style={{
                 fontFamily: "var(--font-display)",
@@ -125,7 +121,6 @@ export default async function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
 
-            {/* Excerpt */}
             <p
               className="mt-4 max-w-[60ch] text-base leading-relaxed"
               style={{ color: "oklch(0.58 0.055 255)" }}
@@ -133,7 +128,6 @@ export default async function BlogPostPage({ params }: Props) {
               {post.excerpt}
             </p>
 
-            {/* Meta row */}
             <div className="mt-6 flex items-center gap-2 text-xs" style={{ color: "oklch(0.44 0.07 255)" }}>
               <CalendarDays className="h-3.5 w-3.5" />
               <span>{post.date}</span>
@@ -143,7 +137,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── Featured image (if present) ── */}
+        {/* ── Featured image ── */}
         {post.featuredImage && (
           <div
             style={{
@@ -192,7 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
             {post.content ? (
               <div
                 className="blog-prose"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                dangerouslySetInnerHTML={{ __html: safe(post.content) }}
               />
             ) : (
               <div
@@ -205,7 +199,6 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             )}
 
-            {/* Bottom meta */}
             <div
               className="mt-12 flex items-center justify-between pt-6"
               style={{ borderTop: "1px solid var(--border)" }}
@@ -256,7 +249,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <div className="flex-1">
                       <p className="text-xs mb-1" style={{ color: "oklch(0.42 0.07 255)" }}>{r.date}</p>
                       <h3
-                        className="text-sm font-semibold leading-snug transition-colors"
+                        className="text-sm font-semibold leading-snug"
                         style={{ color: "white", fontFamily: "var(--font-display)" }}
                       >
                         {r.title}

@@ -3,21 +3,11 @@ import Link from "next/link"
 import { SectionLabel } from "@/components/common/section-label"
 import { DotGridBg } from "@/components/common/orb-bg"
 import { DiagonalDivider } from "@/components/common/shape-divider"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getAllCategories } from "@/lib/firestore/services"
 import type { ServiceCategoryDoc } from "@/types"
 
-async function getCategories(): Promise<ServiceCategoryDoc[]> {
-  try {
-    const db = getAdminDb()
-    const snap = await db.collection("service_categories").orderBy("name").get()
-    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
-  } catch {
-    return []
-  }
-}
-
 export async function ServicesPreview() {
-  const categories = await getCategories()
+  const categories = await getAllCategories()
 
   return (
     <section
@@ -25,7 +15,7 @@ export async function ServicesPreview() {
       className="relative overflow-hidden"
       style={{ background: "var(--fw-navy)", paddingBottom: "6rem" }}
     >
-      <DotGridBg opacity={0.04} size={32} />
+      <DotGridBg opacity={0.09} size={32} />
 
       <div className="relative mx-auto max-w-7xl px-6 pt-20">
         <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

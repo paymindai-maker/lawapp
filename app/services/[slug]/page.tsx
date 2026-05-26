@@ -12,11 +12,26 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { ContactSection } from "@/components/sections/home/contact-section"
 import { SectionLabel } from "@/components/common/section-label"
-import { getAdminDb } from "@/lib/firebase-admin"
+import {
+  getServiceBySlug,
+  getCategoryBySlug,
+  getCategoryById,
+  getRelatedServices,
+  getServicesByCategory,
+  getAllServiceSlugs,
+} from "@/lib/firestore/services"
 import type { ServiceDoc, ServiceCategoryDoc } from "@/types"
+import { RuleDivider } from "@/components/common/shape-divider"
 import { FaqAccordion } from "./_components/faq-accordion"
 
-export const revalidate = 60
+export const revalidate = 3600
+
+// ─── Static params (ISR) ─────────────────────────────────────────────────────
+
+export async function generateStaticParams() {
+  const slugs = await getAllServiceSlugs()
+  return slugs.map((slug) => ({ slug }))
+}
 
 // ─── Icon map ───────────────────────────────────────────────────────────────
 
@@ -29,79 +44,6 @@ const ICON_MAP: Record<string, LucideIcon> = {
 function ServiceIcon({ name, className, style }: { name: string; className?: string; style?: React.CSSProperties }) {
   const Icon = ICON_MAP[name] ?? Briefcase
   return <Icon className={className} style={style} />
-}
-
-// ─── Data fetchers ───────────────────────────────────────────────────────────
-
-async function getServiceBySlug(slug: string): Promise<ServiceDoc | null> {
-  try {
-    const db = getAdminDb()
-    const snap = await db
-      .collection("services")
-      .where("slug", "==", slug)
-      .where("status", "==", "published")
-      .limit(1)
-      .get()
-    if (snap.empty) return null
-    const d = snap.docs[0]
-    return { id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) }
-  } catch {
-    return null
-  }
-}
-
-async function getCategoryBySlug(slug: string): Promise<ServiceCategoryDoc | null> {
-  try {
-    const db = getAdminDb()
-    const snap = await db
-      .collection("service_categories")
-      .where("slug", "==", slug)
-      .limit(1)
-      .get()
-    if (snap.empty) return null
-    const d = snap.docs[0]
-    return { id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }
-  } catch {
-    return null
-  }
-}
-
-async function getCategoryById(id: string): Promise<ServiceCategoryDoc | null> {
-  try {
-    const db = getAdminDb()
-    const d = await db.collection("service_categories").doc(id).get()
-    if (!d.exists) return null
-    return { id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }
-  } catch {
-    return null
-  }
-}
-
-async function getRelatedServices(ids: string[]): Promise<ServiceDoc[]> {
-  if (!ids?.length) return []
-  try {
-    const db = getAdminDb()
-    const docs = await Promise.all(ids.slice(0, 4).map((id) => db.collection("services").doc(id).get()))
-    return docs
-      .filter((d) => d.exists && (d.data() as ServiceDoc)?.status === "published")
-      .map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) }))
-  } catch {
-    return []
-  }
-}
-
-async function getServicesByCategory(categoryId: string): Promise<ServiceDoc[]> {
-  try {
-    const db = getAdminDb()
-    const snap = await db
-      .collection("services")
-      .where("categoryId", "==", categoryId)
-      .where("status", "==", "published")
-      .get()
-    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) }))
-  } catch {
-    return []
-  }
 }
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
@@ -176,39 +118,65 @@ function IndividualServicePage({
   const hasWhyUs = (service.whyChooseUs?.length ?? 0) > 0
   const hasRelated = relatedServices.length > 0
 
-  // Z-indices for clip-path stacking
-  let z = 1
+  const hasBenefits = (service.benefits?.length ?? 0) > 0 || (service.eligibility?.length ?? 0) > 0
+  const hasProcess = (service.processSteps?.length ?? 0) > 0
 
   return (
     <>
       <Navbar />
-      <main style={{ overflow: "hidden" }}>
+      <main>
         {/* ── Hero ── */}
-        <HeroSection service={service} category={category} zIndex={z++} />
+        <HeroSection service={service} category={category} />
 
         {/* ── Benefits + Eligibility ── */}
-        {((service.benefits?.length ?? 0) > 0 || (service.eligibility?.length ?? 0) > 0) && (
-          <BenefitsSection service={service} zIndex={z++} />
+        {hasBenefits && (
+          <>
+            <RuleDivider />
+            <BenefitsSection service={service} />
+          </>
         )}
 
         {/* ── Process ── */}
-        {(service.processSteps?.length ?? 0) > 0 && (
-          <ProcessSection service={service} zIndex={z++} />
+        {hasProcess && (
+          <>
+            <RuleDivider />
+            <ProcessSection service={service} />
+          </>
         )}
 
         {/* ── Documents ── */}
-        {hasDocuments && <DocumentsSection service={service} zIndex={z++} />}
+        {hasDocuments && (
+          <>
+            <RuleDivider />
+            <DocumentsSection service={service} />
+          </>
+        )}
 
         {/* ── FAQs ── */}
-        {hasFaqs && <FaqSection service={service} zIndex={z++} />}
+        {hasFaqs && (
+          <>
+            <RuleDivider />
+            <FaqSection service={service} />
+          </>
+        )}
 
         {/* ── Why Choose Us ── */}
-        {hasWhyUs && <WhyUsSection service={service} zIndex={z++} />}
+        {hasWhyUs && (
+          <>
+            <RuleDivider />
+            <WhyUsSection service={service} />
+          </>
+        )}
 
         {/* ── Related services ── */}
-        {hasRelated && <RelatedSection services={relatedServices} zIndex={z++} />}
+        {hasRelated && (
+          <>
+            <RuleDivider />
+            <RelatedSection services={relatedServices} />
+          </>
+        )}
 
-        <ContactSection />
+        <ContactSection variant="inner" />
       </main>
       <Footer />
     </>
@@ -220,11 +188,9 @@ function IndividualServicePage({
 function HeroSection({
   service,
   category,
-  zIndex,
 }: {
   service: ServiceDoc
   category: ServiceCategoryDoc | null
-  zIndex: number
 }) {
   return (
     <section
@@ -233,14 +199,12 @@ function HeroSection({
         background: "var(--fw-navy)",
         paddingTop: "5.5rem",
         paddingBottom: "4.5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       {/* subtle grid */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.08]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -428,7 +392,7 @@ function HeroSection({
 
 // ─── Benefits + Eligibility ───────────────────────────────────────────────────
 
-function BenefitsSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }) {
+function BenefitsSection({ service }: { service: ServiceDoc }) {
   const benefits = service.benefits ?? []
   const eligibility = service.eligibility ?? []
 
@@ -436,18 +400,15 @@ function BenefitsSection({ service, zIndex }: { service: ServiceDoc; zIndex: num
     <section
       style={{
         background: "var(--fw-surface)",
-        clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
         position: "relative",
-        zIndex,
       }}
     >
       {/* Subtle dot grid */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.07]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -549,19 +510,15 @@ function BenefitsSection({ service, zIndex }: { service: ServiceDoc; zIndex: num
 
 // ─── Process ──────────────────────────────────────────────────────────────────
 
-function ProcessSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }) {
+function ProcessSection({ service }: { service: ServiceDoc }) {
   const steps = service.processSteps ?? []
 
   return (
     <section
       style={{
         background: "var(--fw-navy-mid)",
-        clipPath: "polygon(0 0, 100% 72px, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -618,19 +575,15 @@ function ProcessSection({ service, zIndex }: { service: ServiceDoc; zIndex: numb
 
 // ─── Documents ────────────────────────────────────────────────────────────────
 
-function DocumentsSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }) {
+function DocumentsSection({ service }: { service: ServiceDoc }) {
   const docs = service.requiredDocuments ?? []
 
   return (
     <section
       style={{
         background: "var(--fw-surface)",
-        clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -674,19 +627,15 @@ function DocumentsSection({ service, zIndex }: { service: ServiceDoc; zIndex: nu
 
 // ─── FAQs ─────────────────────────────────────────────────────────────────────
 
-function FaqSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }) {
+function FaqSection({ service }: { service: ServiceDoc }) {
   const faqs = service.faqs ?? []
 
   return (
     <section
       style={{
         background: "var(--fw-navy)",
-        clipPath: "polygon(0 0, 100% 72px, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -728,19 +677,15 @@ function FaqSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }
 
 // ─── Why Choose Us ────────────────────────────────────────────────────────────
 
-function WhyUsSection({ service, zIndex }: { service: ServiceDoc; zIndex: number }) {
+function WhyUsSection({ service }: { service: ServiceDoc }) {
   const reasons = service.whyChooseUs ?? []
 
   return (
     <section
       style={{
         background: "var(--fw-surface)",
-        clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -792,17 +737,13 @@ function WhyUsSection({ service, zIndex }: { service: ServiceDoc; zIndex: number
 
 // ─── Related Services ─────────────────────────────────────────────────────────
 
-function RelatedSection({ services, zIndex }: { services: ServiceDoc[]; zIndex: number }) {
+function RelatedSection({ services }: { services: ServiceDoc[] }) {
   return (
     <section
       style={{
         background: "var(--fw-navy-mid)",
-        clipPath: "polygon(0 0, 100% 72px, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
+        paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
-        zIndex,
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -894,15 +835,15 @@ function CategoryPage({
   return (
     <>
       <Navbar />
-      <main style={{ overflow: "hidden" }}>
+      <main>
         {/* Hero */}
         <section
           className="relative overflow-hidden"
-          style={{ background: "var(--fw-navy)", paddingTop: "6rem", paddingBottom: "8rem" }}
+          style={{ background: "var(--fw-navy)", paddingTop: "6rem", paddingBottom: "6rem" }}
         >
           <svg
             aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]"
+            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.08]"
           >
             <defs>
               <pattern id="cat-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -949,15 +890,12 @@ function CategoryPage({
         </section>
 
         {/* Services grid */}
+        <RuleDivider />
         <section
           style={{
             background: "var(--fw-surface)",
-            clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-            marginTop: "-72px",
-            paddingTop: "calc(72px + 5rem)",
+            paddingTop: "5rem",
             paddingBottom: "5rem",
-            position: "relative",
-            zIndex: 2,
           }}
         >
           <div className="mx-auto max-w-7xl px-6">
@@ -1041,7 +979,7 @@ function CategoryPage({
           </div>
         </section>
 
-        <ContactSection />
+        <ContactSection variant="inner" />
       </main>
       <Footer />
     </>

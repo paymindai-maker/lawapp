@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { ImageUpload } from "@/components/ui/image-upload"
+import { RichTextEditor } from "@/components/ui/rich-text-editor"
 
 const ICON_OPTIONS = [
   "Building2",
@@ -412,11 +413,16 @@ export function ServiceForm({
           />
         </Field>
         <Field label="Full Content" error={errors.content?.message}>
-          <Textarea
-            rows={14}
-            placeholder="Full long-form service page content..."
-            className="font-mono text-sm"
-            {...register("content")}
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                placeholder="Full long-form service page content..."
+              />
+            )}
           />
         </Field>
       </FormSection>

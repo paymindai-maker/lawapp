@@ -2,16 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import {
-  addDoc,
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore"
+import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
+import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 import { ServiceForm, buildServiceData } from "../_components/service-form"
 import type { ServiceFormValues } from "../_components/service-form"
@@ -25,13 +19,18 @@ export default function NewServicePage() {
 
   useEffect(() => {
     async function fetchData() {
-      const [catSnap, svcSnap] = await Promise.all([
-        getDocs(query(collection(db, "service_categories"), orderBy("name"))),
-        getDocs(query(collection(db, "services"), orderBy("title"))),
-      ])
-      setCategories(catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
-      setAllServices(svcSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) })))
-      setLoading(false)
+      try {
+        const [catSnap, svcSnap] = await Promise.all([
+          getDocs(query(collection(db, "service_categories"), orderBy("name"))),
+          getDocs(query(collection(db, "services"), orderBy("title"))),
+        ])
+        setCategories(catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
+        setAllServices(svcSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) })))
+      } catch {
+        toast.error("Failed to load data. Please refresh.")
+      } finally {
+        setLoading(false)
+      }
     }
     fetchData()
   }, [])
@@ -51,6 +50,7 @@ export default function NewServicePage() {
       const data = buildServiceData(values)
       await addDoc(collection(db, "services"), { ...data, createdAt: serverTimestamp() })
       toast.success("Service added")
+      await revalidateAfterSave(["/services", `/services/${slug}`, "/about"])
       router.push("/admin/services")
     } catch {
       toast.error("Failed to save. Try again.")

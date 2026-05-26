@@ -34,12 +34,12 @@ export function WhyChooseUs() {
         zIndex: 4,
       }}
     >
-      <CrosshatchBg opacity={0.025} />
+      <CrosshatchBg opacity={0.06} />
       <FloatingShape
         size={160}
         top="15%"
         right="5%"
-        opacity={0.04}
+        opacity={0.09}
         animationClass="animate-shape-float-mid"
         sides={5}
       />

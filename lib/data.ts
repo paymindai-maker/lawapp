@@ -1,20 +1,13 @@
 import {
   Building2,
-  ReceiptText,
-  Shield,
-  Rocket,
-  FileText,
-  PenLine,
   Scale,
+  Shield,
   TrendingUp,
 } from "lucide-react"
 import type {
   NavLink,
-  Service,
-  ServiceCategory,
   TeamMember,
   Testimonial,
-  BlogPost,
   StatItem,
   FooterColumn,
 } from "@/types"
@@ -27,199 +20,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ]
 
-export const SERVICE_CATEGORIES: ServiceCategory[] = [
-  {
-    slug: "business-registration",
-    num: "01",
-    name: "Business Registration",
-    description:
-      "Company formation, entity structuring, founder documents, and early-stage legal setup for Indian businesses.",
-  },
-  {
-    slug: "tax-compliance",
-    num: "02",
-    name: "Tax & Compliance",
-    description:
-      "GST, income tax, ROC, audits, filings, and compliance support for operating companies.",
-  },
-  {
-    slug: "intellectual-property",
-    num: "03",
-    name: "Intellectual Property",
-    description:
-      "Trademark search, filing, prosecution, renewals, and brand protection strategy.",
-  },
-  {
-    slug: "legal-documentation",
-    num: "04",
-    name: "Legal Documentation",
-    description:
-      "Contracts, agreements, policies, notices, and business-critical legal drafting.",
-  },
-]
-
-export const SERVICES: Service[] = [
-  {
-    slug: "corporate-law",
-    categorySlug: "business-registration",
-    categoryName: "Business Registration",
-    num: "01",
-    title: "Corporate & Business Law",
-    description:
-      "End-to-end legal support for companies at every stage — from incorporation and structuring to governance, contracts, and M&A advisory.",
-    icon: Building2,
-    process: [
-      "Initial consultation & needs assessment",
-      "Entity structuring & incorporation filing",
-      "Drafting shareholder & founder agreements",
-      "Ongoing governance & compliance support",
-    ],
-    faqs: [
-      {
-        q: "What entity type is best for my startup?",
-        a: "Most Indian startups opt for a Private Limited Company for its liability protection, ease of raising funding, and DPIIT recognition eligibility.",
-      },
-      {
-        q: "How long does incorporation take?",
-        a: "Typically 7–15 business days after all documents are in order.",
-      },
-    ],
-  },
-  {
-    slug: "taxation-gst",
-    categorySlug: "tax-compliance",
-    categoryName: "Tax & Compliance",
-    num: "02",
-    title: "Taxation & GST Compliance",
-    description:
-      "Comprehensive tax planning, GST registration, return filing, and advisory to keep your business compliant and tax-efficient year-round.",
-    icon: ReceiptText,
-    process: [
-      "GST registration & GSTIN procurement",
-      "Monthly / quarterly return filing (GSTR-1, 3B)",
-      "Annual tax computation & ITR filing",
-      "Tax dispute resolution & representation",
-    ],
-    faqs: [
-      {
-        q: "When is GST registration mandatory?",
-        a: "If your aggregate turnover exceeds ₹40L (goods) or ₹20L (services) in a financial year, GST registration is mandatory.",
-      },
-      {
-        q: "Can you handle tax notices?",
-        a: "Yes. We represent clients before GST authorities and Income Tax officers for assessments, appeals, and scrutiny notices.",
-      },
-    ],
-  },
-  {
-    slug: "trademark",
-    categorySlug: "intellectual-property",
-    categoryName: "Intellectual Property",
-    num: "03",
-    title: "Trademark Registration",
-    description:
-      "Protect your brand identity with expert trademark search, filing, prosecution, and enforcement across India and internationally.",
-    icon: Shield,
-    process: [
-      "Trademark availability search",
-      "Class selection & application filing",
-      "Examination response & objection handling",
-      "Certificate issuance & renewal tracking",
-    ],
-    faqs: [
-      {
-        q: "How long does trademark registration take in India?",
-        a: "Typically 18–24 months from filing to registration, assuming no objections or oppositions.",
-      },
-      {
-        q: "Can I use ™ before registration?",
-        a: "Yes. The ™ symbol can be used after filing. The ® symbol is reserved for fully registered trademarks.",
-      },
-    ],
-  },
-  {
-    slug: "startup-legal",
-    categorySlug: "business-registration",
-    categoryName: "Business Registration",
-    num: "04",
-    title: "Startup Legal Services",
-    description:
-      "From founder agreements to DPIIT recognition and ESOP structuring — a complete legal toolkit built for the pace of startup growth.",
-    icon: Rocket,
-    process: [
-      "Co-founder agreement drafting",
-      "DPIIT startup recognition filing",
-      "ESOP policy design & implementation",
-      "Term sheet & investment round support",
-    ],
-    faqs: [
-      {
-        q: "What is DPIIT startup recognition?",
-        a: "Recognition by the Department for Promotion of Industry and Internal Trade that unlocks tax exemptions, funding access, and regulatory benefits.",
-      },
-      {
-        q: "Do I need a co-founder agreement?",
-        a: "Strongly recommended. It defines equity splits, vesting schedules, IP ownership, and exit terms — preventing costly disputes later.",
-      },
-    ],
-  },
-  {
-    slug: "legal-documentation",
-    categorySlug: "legal-documentation",
-    categoryName: "Legal Documentation",
-    num: "05",
-    title: "Legal Documentation",
-    description:
-      "Precise drafting and review of contracts, NDAs, MOUs, employment agreements, and all business-critical legal documents.",
-    icon: FileText,
-    process: [
-      "Requirement briefing & scope definition",
-      "First draft preparation",
-      "Review cycles & negotiation support",
-      "Execution & secure storage guidance",
-    ],
-    faqs: [
-      {
-        q: "How fast can you draft a contract?",
-        a: "Standard agreements are typically turned around within 2–3 business days. Complex multi-party agreements may require 5–7 days.",
-      },
-      {
-        q: "Do you review contracts drafted by the other party?",
-        a: "Yes. We provide a detailed redline review highlighting risks, missing clauses, and recommended modifications.",
-      },
-    ],
-  },
-  {
-    slug: "ca-audit",
-    categorySlug: "tax-compliance",
-    categoryName: "Tax & Compliance",
-    num: "06",
-    title: "CA & Audit Services",
-    description:
-      "Statutory audits, internal audits, financial due diligence, and ROC compliance handled by our in-house Chartered Accountants.",
-    icon: PenLine,
-    process: [
-      "Audit planning & risk assessment",
-      "Financial statement review & verification",
-      "Management letter & findings report",
-      "ROC filing & MCA compliance",
-    ],
-    faqs: [
-      {
-        q: "Is a statutory audit mandatory for my company?",
-        a: "Every company registered under the Companies Act must undergo a statutory audit annually, regardless of turnover.",
-      },
-      {
-        q: "What is ROC compliance?",
-        a: "Filing of annual returns (MGT-7) and financial statements (AOC-4) with the Registrar of Companies — mandatory for all private limited companies.",
-      },
-    ],
-  },
-]
-
-export function getServicesByCategory(categorySlug: string) {
-  return SERVICES.filter((service) => service.categorySlug === categorySlug)
-}
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -284,40 +84,6 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    slug: "understanding-contract-disputes",
-    tag: "Corporate",
-    title: "Understanding Contract Disputes: A Simple Guide for Businesses",
-    date: "May 2025",
-    excerpt:
-      "Contract disputes are among the most common legal challenges businesses face. This guide walks through types, prevention strategies, and resolution options.",
-  },
-  {
-    slug: "lawyer-on-retainer",
-    tag: "Advisory",
-    title: "Why Every Business Needs a Lawyer on Retainer",
-    date: "Apr 2025",
-    excerpt:
-      "A retainer arrangement gives your business on-demand legal access — proactive advice instead of reactive crisis management.",
-  },
-  {
-    slug: "startup-legal-essentials-2025",
-    tag: "Startups",
-    title: "Startup Legal Essentials: What Founders Must Know in 2025",
-    date: "Mar 2025",
-    excerpt:
-      "From co-founder agreements to DPIIT recognition, here are the five legal steps every Indian founder should take in the first 90 days.",
-  },
-  {
-    slug: "gst-compliance-guide",
-    tag: "Taxation",
-    title: "GST Compliance Guide for Small Businesses in India",
-    date: "Feb 2025",
-    excerpt:
-      "Navigating GST can be complex. We break down registration thresholds, filing deadlines, and common mistakes to avoid.",
-  },
-]
 
 export const STATS: StatItem[] = [
   { val: "500+", label: "Cases Resolved", icon: Building2 },
@@ -357,8 +123,10 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
 ]
 
 export const CONTACT_INFO = {
-  phone: "+91 99 8765 4321",
-  email: "contact@forlaw.in",
+  phone: "+91 87997 41288",
+  phoneRaw: "918799741288", // digits-only for tel: and wa.me links
+  whatsappGeneral: "https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services.",
+  email: "contact@nexgen.in",
   address: "Level 12, One BKC, Bandra Kurla Complex, Mumbai 400051",
 }
 

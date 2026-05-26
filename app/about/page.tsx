@@ -4,50 +4,12 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { ServiceCard } from "@/components/common/service-card"
 import { FIRM_INFO, CONTACT_INFO } from "@/lib/data"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getFeaturedServices } from "@/lib/firestore/services"
 import type { ServiceDoc } from "@/types"
 
-export const revalidate = 60
+export const revalidate = 3600
 
 const SERVICES_TOTAL = 5
-
-// ─── Firestore data ───────────────────────────────────────────────────────────
-
-async function getServicesData(): Promise<ServiceDoc[]> {
-  try {
-    const db = getAdminDb()
-
-    const svcSnap = await db
-      .collection("services")
-      .where("status", "==", "published")
-      .limit(SERVICES_TOTAL)
-      .get()
-
-    return svcSnap.docs
-      .map((doc) => {
-        const data = doc.data() as any
-
-        return {
-          id: doc.id,
-          ...data,
-
-          createdAt:
-            typeof data.createdAt?.toDate === "function"
-              ? data.createdAt.toDate().toISOString()
-              : data.createdAt ?? null,
-
-          updatedAt:
-            typeof data.updatedAt?.toDate === "function"
-              ? data.updatedAt.toDate().toISOString()
-              : data.updatedAt ?? null,
-        }
-      })
-      .sort((a, b) => a.title.localeCompare(b.title))
-  } catch (error) {
-    console.error("Failed to fetch services:", error)
-    return []
-  }
-}
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
@@ -95,7 +57,7 @@ const METRICS = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function AboutPage() {
-  const services = await getServicesData()
+  const services = await getFeaturedServices(SERVICES_TOTAL)
   const slots = Array.from({ length: SERVICES_TOTAL }, (_, i) => services[i] ?? null)
 
   return (

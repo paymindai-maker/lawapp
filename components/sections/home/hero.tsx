@@ -14,13 +14,13 @@ export function HeroSection() {
         flexDirection: "column",
       }}
     >
-      <CrosshatchBg opacity={0.028} />
+      <CrosshatchBg opacity={0.06} />
 
       <FloatingShape
         size={160}
         top="10%"
         right="4%"
-        opacity={0.045}
+        opacity={0.09}
         animationClass="animate-shape-float-slow"
         sides={6}
       />
@@ -28,7 +28,7 @@ export function HeroSection() {
         size={100}
         bottom="30%"
         left="2%"
-        opacity={0.035}
+        opacity={0.07}
         animationClass="animate-shape-float"
         sides={3}
       />

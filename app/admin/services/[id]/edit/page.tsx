@@ -2,18 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore"
+import { collection, doc, getDoc, getDocs, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
+import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 import { ServiceForm, buildServiceData } from "../../_components/service-form"
 import type { ServiceFormValues } from "../../_components/service-form"
@@ -29,22 +21,27 @@ export default function EditServicePage() {
 
   useEffect(() => {
     async function fetchData() {
-      const [svcDoc, catSnap, svcSnap] = await Promise.all([
-        getDoc(doc(db, "services", id)),
-        getDocs(query(collection(db, "service_categories"), orderBy("name"))),
-        getDocs(query(collection(db, "services"), orderBy("title"))),
-      ])
+      try {
+        const [svcDoc, catSnap, svcSnap] = await Promise.all([
+          getDoc(doc(db, "services", id)),
+          getDocs(query(collection(db, "service_categories"), orderBy("name"))),
+          getDocs(query(collection(db, "services"), orderBy("title"))),
+        ])
 
-      if (!svcDoc.exists()) {
-        toast.error("Service not found")
-        router.push("/admin/services")
-        return
+        if (!svcDoc.exists()) {
+          toast.error("Service not found")
+          router.push("/admin/services")
+          return
+        }
+
+        setService({ id: svcDoc.id, ...(svcDoc.data() as Omit<ServiceDoc, "id">) })
+        setCategories(catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
+        setAllServices(svcSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) })))
+      } catch {
+        toast.error("Failed to load data. Please refresh.")
+      } finally {
+        setLoading(false)
       }
-
-      setService({ id: svcDoc.id, ...(svcDoc.data() as Omit<ServiceDoc, "id">) })
-      setCategories(catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
-      setAllServices(svcSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceDoc, "id">) })))
-      setLoading(false)
     }
     fetchData()
   }, [id, router])
@@ -63,8 +60,9 @@ export default function EditServicePage() {
       }
 
       const data = buildServiceData(values)
-      await updateDoc(doc(db, "services", service.id), data)
+      await updateDoc(doc(db, "services", service.id), { ...data, updatedAt: serverTimestamp() })
       toast.success("Service updated")
+      await revalidateAfterSave(["/services", `/services/${slug}`, "/about"])
       router.push("/admin/services")
     } catch {
       toast.error("Failed to save. Try again.")

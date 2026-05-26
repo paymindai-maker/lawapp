@@ -20,7 +20,7 @@ export function TeamPreview() {
         zIndex: 5,
       }}
     >
-      <HorizontalRulesBg opacity={0.04} spacing={44} />
+      <HorizontalRulesBg opacity={0.09} spacing={44} />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">

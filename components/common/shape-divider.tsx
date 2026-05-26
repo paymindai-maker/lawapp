@@ -1,3 +1,30 @@
+// ─── Inner-page section divider ──────────────────────────────────────────────
+
+export function RuleDivider({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      className={`flex items-center ${className ?? ""}`}
+      style={{ padding: "0 1.5rem" }}
+    >
+      <div className="h-px flex-1" style={{ background: "var(--border)" }} />
+      <div
+        className="mx-3 rotate-45"
+        style={{
+          width: "5px",
+          height: "5px",
+          background: "var(--fw-blue)",
+          opacity: 0.45,
+          flexShrink: 0,
+        }}
+      />
+      <div className="h-px flex-1" style={{ background: "var(--border)" }} />
+    </div>
+  )
+}
+
+// ─── Homepage shape dividers ──────────────────────────────────────────────────
+
 interface ShapeDividerProps {
   fill: string
   direction?: "right" | "left"

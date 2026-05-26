@@ -2,10 +2,10 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getAllBlogPosts } from "@/lib/firestore/blog"
 import type { BlogPostDoc } from "@/types"
 
-export const revalidate = 60
+export const revalidate = 1800
 
 export const metadata = {
   title: "Blog | NEXGEN",
@@ -32,13 +32,7 @@ function tagColor(tag: string) {
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 async function getPosts(): Promise<BlogPostDoc[]> {
-  try {
-    const db = getAdminDb()
-    const snap = await db.collection("blog_posts").orderBy("date", "desc").get()
-    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) }))
-  } catch {
-    return []
-  }
+  return getAllBlogPosts()
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────────
@@ -86,7 +80,7 @@ export default async function BlogPage() {
                     lineHeight: 1.05,
                   }}
                 >
-                  The ForLaw Brief
+                  The NEXGEN Brief
                 </h1>
               </div>
               <p className="max-w-[38ch] text-sm leading-relaxed md:text-right" style={{ color: "oklch(0.55 0.055 255)" }}>

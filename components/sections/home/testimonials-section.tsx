@@ -19,7 +19,7 @@ export function TestimonialsSection() {
         zIndex: 6,
       }}
     >
-      <CrosshatchBg opacity={0.02} />
+      <CrosshatchBg opacity={0.055} />
 
       {/* Decorative large quote — editorial touch */}
       <span

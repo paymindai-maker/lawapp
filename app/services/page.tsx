@@ -3,10 +3,10 @@ import { ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { ServiceCard } from "@/components/common/service-card"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getAllCategories, getAllPublishedServices } from "@/lib/firestore/services"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export const metadata = {
   title: "Services | NEXGEN",
@@ -16,63 +16,11 @@ export const metadata = {
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 async function getData() {
-  try {
-    const db = getAdminDb()
-
-    const [catSnap, svcSnap] = await Promise.all([
-      db.collection("service_categories").orderBy("name").get(),
-      db.collection("services").where("status", "==", "published").get(),
-    ])
-
-    const categories = catSnap.docs.map((doc) => {
-      const data = doc.data() as any
-
-      return {
-        id: doc.id,
-        ...data,
-
-        createdAt:
-          typeof data.createdAt?.toDate === "function"
-            ? data.createdAt.toDate().toISOString()
-            : data.createdAt ?? null,
-
-        updatedAt:
-          typeof data.updatedAt?.toDate === "function"
-            ? data.updatedAt.toDate().toISOString()
-            : data.updatedAt ?? null,
-      }
-    })
-
-    const services = svcSnap.docs
-      .map((doc) => {
-        const data = doc.data() as any
-
-        return {
-          id: doc.id,
-          ...data,
-
-          createdAt:
-            typeof data.createdAt?.toDate === "function"
-              ? data.createdAt.toDate().toISOString()
-              : data.createdAt ?? null,
-
-          updatedAt:
-            typeof data.updatedAt?.toDate === "function"
-              ? data.updatedAt.toDate().toISOString()
-              : data.updatedAt ?? null,
-        }
-      })
-      .sort((a, b) => a.title.localeCompare(b.title))
-
-    return { categories, services }
-  } catch (error) {
-    console.error("Failed to fetch services page data:", error)
-
-    return {
-      categories: [],
-      services: [],
-    }
-  }
+  const [categories, services] = await Promise.all([
+    getAllCategories(),
+    getAllPublishedServices(),
+  ])
+  return { categories, services }
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────────

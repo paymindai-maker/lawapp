@@ -29,7 +29,7 @@ export default function ContactPage() {
             </p>
           </div>
         </section>
-        <ContactSection />
+        <ContactSection variant="inner" />
       </main>
       <Footer />
     </>
