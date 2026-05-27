@@ -9,8 +9,9 @@ import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 export const revalidate = 3600
 
 export const metadata = {
-  title: "Services | NEXGEN",
-  description: "Explore NEXGEN's full range of legal and CA services for businesses across India.",
+  title: "Legal & Tax Services | Business Registration, GST, Litigation | NEXGEN",
+  description:
+    "NEXGEN offers business registration, business licensing, income tax & GST compliance, litigation, and mutual fund advisory. Expert Advocates and CAs. Mumbai-based, serving India since 2006.",
 }
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -53,7 +54,7 @@ export default async function ServicesPage() {
               className="mb-3 text-xs font-semibold uppercase tracking-widest"
               style={{ color: "var(--fw-gold)" }}
             >
-              What We Offer
+              Expert Legal &amp; Financial Services
             </p>
             <h1
               style={{
@@ -63,14 +64,13 @@ export default async function ServicesPage() {
                 lineHeight: 1.1,
               }}
             >
-              Our Legal Services
+              Legal, Tax &amp; Compliance Services for Indian Businesses
             </h1>
             <p
               className="mx-auto mt-5 max-w-[55ch] text-base leading-relaxed"
               style={{ color: "oklch(0.62 0.05 255)" }}
             >
-              From corporate structuring to trademark filing — a complete legal practice
-              for every stage of your business journey.
+              Business registration, licensing, GST compliance, income tax filing, litigation representation, and mutual fund advisory — a complete practice for every stage of your business journey.
             </p>
           </div>
         </section>

@@ -86,9 +86,9 @@ export const TESTIMONIALS: Testimonial[] = [
 
 
 export const STATS: StatItem[] = [
-  { val: "500+", label: "Cases Resolved", icon: Building2 },
-  { val: "18 yrs", label: "Legal Expertise", icon: Scale },
-  { val: "6", label: "Practice Areas", icon: Shield },
+  { val: "500+", label: "Businesses Served", icon: Building2 },
+  { val: "18 yrs", label: "Active Legal Practice", icon: Scale },
+  { val: "5", label: "Practice Areas", icon: Shield },
   { val: "98%", label: "Client Satisfaction", icon: TrendingUp },
 ]
 
@@ -132,7 +132,7 @@ export const CONTACT_INFO = {
 
 export const FIRM_INFO = {
   name: "NEXGEN",
-  tagline: "Serving clients for 18+ years with proven legal expertise and a commitment to excellence.",
+  tagline: "Mumbai's integrated legal and tax firm — Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
   established: "2006",
   city: "Mumbai, India",
 }

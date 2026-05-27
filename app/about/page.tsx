@@ -14,43 +14,64 @@ const SERVICES_TOTAL = 5
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
 export const metadata = {
-  title: "About Us | NEXGEN",
-  description: "NEXGEN — trusted legal, tax and compliance firm in Mumbai. Serving Indian businesses for 18+ years.",
+  title: "About NEXGEN | Legal, Tax & Compliance Firm in Mumbai, India",
+  description:
+    "NEXGEN is a full-service legal and compliance firm in Mumbai with 18+ years of expertise in business registration, GST, income tax, litigation, and corporate advisory. Trusted by 500+ clients.",
 }
 
 // ─── Static content ───────────────────────────────────────────────────────────
 
 const WHY_US = [
   {
-    title: "Trusted Expertise",
-    body: "18+ years of practice across corporate law, taxation, and compliance — backed by deep domain knowledge.",
+    title: "18+ Years of Proven Expertise",
+    body: "Founded in 2006, NEXGEN has guided 500+ businesses through India's evolving legal and tax landscape. Our track record spans startups, SMEs, and listed companies.",
   },
   {
-    title: "Timely Delivery",
-    body: "Clear timelines, proactive updates, no unnecessary delays. We respect your business calendar.",
+    title: "Deadline Guarantee",
+    body: "We have never missed a statutory filing deadline for a managed client. Proactive reminders, advance tax alerts, and GST due date calendars keep you perpetually compliant.",
   },
   {
-    title: "End-to-End Compliance",
-    body: "From incorporation to annual filings, we manage the complete compliance lifecycle so nothing falls through.",
+    title: "Integrated Legal + CA Practice",
+    body: "Unlike single-discipline firms, NEXGEN combines qualified Advocates and Chartered Accountants under one roof — so your legal strategy and tax planning always work together.",
   },
   {
-    title: "Dedicated Assistance",
-    body: "A dedicated point of contact for every client. Accessible, responsive, and invested in your outcomes.",
+    title: "Flat-Fee Transparency",
+    body: "Every engagement starts with a clear, itemized quote. No surprise billings, no per-call charges, no fine print. Government fees are always passed through at actuals with receipts.",
   },
 ]
 
 const PROCESS = [
-  { num: "01", title: "Consultation", body: "Free initial call to understand your requirements." },
-  { num: "02", title: "Analysis", body: "We map your needs to the exact process and timeline." },
-  { num: "03", title: "Documentation", body: "Preparation and collection of all required documents." },
-  { num: "04", title: "Filing", body: "End-to-end submission with relevant authorities." },
-  { num: "05", title: "Ongoing Support", body: "Post-filing assistance and compliance reminders." },
+  {
+    num: "01",
+    title: "Free Consultation",
+    body: "30-minute call to understand your legal, tax, or registration requirements — with no obligation.",
+  },
+  {
+    num: "02",
+    title: "Scope & Timeline",
+    body: "Written proposal with fixed fees, exact deliverables, and a day-by-day completion timeline.",
+  },
+  {
+    num: "03",
+    title: "Document Collection",
+    body: "Secure digital document submission — our team pre-checks every file before proceeding.",
+  },
+  {
+    num: "04",
+    title: "Filing & Liaison",
+    body: "We handle all authority submissions, respond to queries, and track approvals on your behalf.",
+  },
+  {
+    num: "05",
+    title: "Ongoing Compliance",
+    body: "Annual compliance calendars, renewal reminders, and a dedicated manager for all future needs.",
+  },
 ]
 
 const METRICS = [
-  { val: "500+", label: "Cases Resolved" },
+  { val: "500+", label: "Businesses Served" },
   { val: "18+", label: "Years of Practice" },
-  { val: "6", label: "Practice Areas" },
+  { val: "5", label: "Practice Areas" },
   { val: "98%", label: "Client Satisfaction" },
 ]
 
@@ -91,14 +112,13 @@ export default async function AboutPage() {
                   lineHeight: 1.07,
                 }}
               >
-                Trusted Legal, Tax &amp; Compliance Solutions for Modern Businesses
+                India&apos;s Trusted Legal, Tax &amp; Compliance Partner for Growing Businesses
               </h1>
               <p
                 className="mt-5 max-w-[52ch] text-base leading-relaxed"
                 style={{ color: "oklch(0.60 0.05 255)" }}
               >
-                We help startups, businesses, and professionals navigate legal, taxation,
-                registration, and compliance requirements with clarity and confidence.
+                From company incorporation and business licensing to GST compliance, income tax filing, mutual fund advisory, and commercial litigation — NEXGEN delivers expert legal and financial services under one roof.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
@@ -147,17 +167,18 @@ export default async function AboutPage() {
                     marginBottom: "1.25rem",
                   }}
                 >
-                  Comprehensive Legal Services Since {FIRM_INFO.established}
+                  Full-Service Legal &amp; Financial Advisory Since {FIRM_INFO.established}
                 </h2>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--muted-foreground)", maxWidth: "55ch" }}>
-                  NEXGEN is a full-service legal and compliance firm based in {FIRM_INFO.city}.
-                  We provide integrated support across company law, taxation, regulatory
-                  compliance, and business advisory — serving founders, SMEs, and growing
-                  enterprises across India.
+                  NEXGEN is a Mumbai-based legal and compliance firm that has served 500+
+                  businesses across India since 2006. Our integrated team of qualified Advocates
+                  and Chartered Accountants covers every compliance need your business faces —
+                  from first registration to complex commercial litigation.
                 </p>
                 <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--muted-foreground)", maxWidth: "55ch" }}>
-                  Our practice spans business registration, GST and income tax compliance,
-                  trademark filings, corporate documentation, and commercial litigation.
+                  We specialize in business registration, business licensing, GST and income tax
+                  compliance, mutual fund advisory, and courtroom representation — making
+                  premium legal counsel accessible to businesses at every stage of growth.
                 </p>
               </div>
               <div className="flex flex-col justify-center">
@@ -196,9 +217,9 @@ export default async function AboutPage() {
                     Mission
                   </p>
                   <p className="text-base leading-relaxed" style={{ color: "var(--foreground)", maxWidth: "52ch" }}>
-                    To simplify legal, tax, and compliance processes for businesses through
-                    professional guidance and transparent support — making reliable legal counsel
-                    accessible at every stage of growth.
+                    To simplify legal, tax, and compliance for Indian businesses — delivering
+                    expert Advocate and CA services with transparent pricing, guaranteed
+                    timelines, and zero missed deadlines.
                   </p>
                 </div>
                 <div>
@@ -209,9 +230,9 @@ export default async function AboutPage() {
                     Vision
                   </p>
                   <p className="text-base leading-relaxed" style={{ color: "var(--foreground)", maxWidth: "52ch" }}>
-                    To become the most trusted legal and compliance partner for modern
-                    businesses and entrepreneurs across India — known for integrity, expertise,
-                    and dependable guidance at every stage.
+                    To be India&apos;s most trusted integrated legal and financial advisory firm —
+                    where every business, from a first-time founder to a seasoned enterprise,
+                    gets counsel that is rigorous, honest, and built for their growth.
                   </p>
                 </div>
               </div>
@@ -230,7 +251,7 @@ export default async function AboutPage() {
                   marginBottom: "2.5rem",
                 }}
               >
-                Why businesses choose NEXGEN
+                Why 500+ businesses choose NEXGEN
               </h2>
               <div className="grid gap-8 sm:grid-cols-2">
                 {WHY_US.map(({ title, body }) => (
@@ -259,7 +280,7 @@ export default async function AboutPage() {
                   marginBottom: "3rem",
                 }}
               >
-                How we work
+                Our process — clear, fast, and fully managed
               </h2>
 
               {/* Desktop: horizontal connected steps */}
@@ -352,14 +373,14 @@ export default async function AboutPage() {
                 marginBottom: "1rem",
               }}
             >
-              Ready to speak with a legal expert?
+              Ready to speak with a legal or tax expert?
             </h2>
             <p
               className="mx-auto mb-8 max-w-[48ch] text-sm leading-relaxed"
               style={{ color: "oklch(0.58 0.055 255)" }}
             >
-              Book a free consultation to discuss your legal, tax, or compliance requirements.
-              Our team responds within one business day.
+              Book a free 30-minute consultation on business registration, GST compliance,
+              income tax, litigation, or mutual fund advisory. Response within one business day.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link

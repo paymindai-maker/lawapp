@@ -8,8 +8,9 @@ import type { BlogPostDoc } from "@/types"
 export const revalidate = 1800
 
 export const metadata = {
-  title: "Blog | NEXGEN",
-  description: "Legal insights, updates, and guides from the NEXGEN team.",
+  title: "Legal Insights & Compliance Guides | NEXGEN Blog",
+  description:
+    "Practical guides, regulatory updates, and expert commentary on business registration, GST, income tax, litigation, and compliance in India — from NEXGEN's Advocates and CAs.",
 }
 
 // ─── Tag colors ───────────────────────────────────────────────────────────────
@@ -83,8 +84,8 @@ export default async function BlogPage() {
                   The NEXGEN Brief
                 </h1>
               </div>
-              <p className="max-w-[38ch] text-sm leading-relaxed md:text-right" style={{ color: "oklch(0.55 0.055 255)" }}>
-                Expert commentary, regulatory updates, and practical guides for Indian businesses.
+              <p className="max-w-[40ch] text-sm leading-relaxed md:text-right" style={{ color: "oklch(0.55 0.055 255)" }}>
+                GST updates, tax planning strategies, business registration guides, and compliance insights — written by NEXGEN&apos;s Advocates and Chartered Accountants.
               </p>
             </div>
           </div>
