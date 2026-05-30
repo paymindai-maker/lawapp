@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* dark mode removed */
 
 @theme inline {
     --font-display: var(--font-display);
@@ -67,13 +67,13 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.91 0.008 255);
     --input: oklch(0.91 0.008 255);
-    --ring: oklch(0.58 0.16 255);
+    --ring: oklch(0.45 0.105 252);
     --chart-1: oklch(0.13 0.055 264);
-    --chart-2: oklch(0.58 0.16 255);
-    --chart-3: oklch(0.72 0.09 78);
-    --chart-4: oklch(0.55 0.20 264);
-    --chart-5: oklch(0.94 0.018 255);
-    --radius: 0.5rem;
+    --chart-2: oklch(0.45 0.105 252);
+    --chart-3: oklch(0.68 0.07 80);
+    --chart-4: oklch(0.30 0.06 258);
+    --chart-5: oklch(0.94 0.012 252);
+    --radius: 0.25rem;
     --sidebar: oklch(0.97 0.004 255);
     --sidebar-foreground: oklch(0.16 0.05 264);
     --sidebar-primary: oklch(0.13 0.055 264);
@@ -83,32 +83,31 @@
     --sidebar-border: oklch(0.91 0.008 255);
     --sidebar-ring: oklch(0.42 0.22 264);
 
-    /* ForLaw brand tokens */
-    --fw-blue: oklch(0.58 0.16 255);
-    --fw-blue-hover: oklch(0.52 0.16 255);
-    --fw-blue-mid: oklch(0.70 0.13 255);
-    --fw-blue-light: oklch(0.94 0.018 255);
-    --fw-blue-pale: oklch(0.96 0.010 255);
-    --fw-navy: oklch(0.26 0.10 255);
-    --fw-navy-mid: oklch(0.30 0.09 255);
-    --fw-navy-surface: oklch(0.34 0.07 255);
-    --fw-gold: oklch(0.72 0.09 78);
+    /* ForLaw brand tokens — restrained ink-navy + steel-blue accent */
+    --fw-blue: oklch(0.45 0.105 252);
+    --fw-blue-hover: oklch(0.39 0.10 252);
+    --fw-blue-mid: oklch(0.60 0.09 252);
+    --fw-blue-light: oklch(0.95 0.012 252);
+    --fw-blue-pale: oklch(0.97 0.007 252);
+    --fw-navy: oklch(0.22 0.045 258);
+    --fw-navy-mid: oklch(0.29 0.05 258);
+    --fw-navy-surface: oklch(0.34 0.045 258);
+    --fw-gold: oklch(0.68 0.07 80);
     --fw-surface: oklch(0.984 0.003 255);
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────────────── */
 
 @keyframes shape-float {
-    0%   { transform: translateY(0) rotate(0deg); }
-    33%  { transform: translateY(-18px) rotate(60deg); }
-    66%  { transform: translateY(8px) rotate(120deg); }
-    100% { transform: translateY(0) rotate(180deg); }
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
 @keyframes shape-float-slow {
-    0%   { transform: translateY(0) rotate(0deg) scale(1); }
-    50%  { transform: translateY(-24px) rotate(-90deg) scale(1.05); }
-    100% { transform: translateY(0) rotate(-180deg) scale(1); }
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
 }
 
 @keyframes reveal-up {
@@ -123,7 +122,7 @@
 
 @keyframes card-float {
     0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-8px); }
+    50%       { transform: translateY(-4px); }
 }
 
 @keyframes shimmer {
@@ -163,6 +162,52 @@
 }
 .nav-link:hover::after { width: 100%; }
 
+/* ─── Navbar triggers + mega-menu ───────────────────────────────────── */
+
+.nav-trigger {
+    position: relative;
+    border-radius: 3px;
+    transition: color 0.18s ease, background 0.18s ease;
+}
+.nav-trigger:hover {
+    color: var(--fw-navy) !important;
+    background: var(--muted);
+}
+
+.mega-row {
+    transition: background 0.16s ease;
+}
+.mega-row:hover { background: var(--muted); }
+
+.mega-service {
+    position: relative;
+    width: fit-content;
+    transition: color 0.16s ease;
+}
+.mega-service::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 0;
+    height: 1px;
+    background: var(--fw-blue);
+    transition: width 0.2s ease-out;
+}
+.mega-service:hover {
+    color: var(--fw-navy) !important;
+}
+.mega-service:hover::after { width: 100%; }
+
+.dropdown-enter {
+    animation: dropdown-enter 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+    margin-top: 6px;
+}
+@keyframes dropdown-enter {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ─── Service row (dark section) ────────────────────────────────────── */
 
 .svc-row {
@@ -194,20 +239,16 @@
 /* ─── Team card ─────────────────────────────────────────────────────── */
 
 .team-card-editorial {
-    transition: background 0.22s ease, transform 0.22s ease;
+    transition: background 0.22s ease;
 }
 .team-card-editorial:hover {
     background: var(--fw-navy-surface) !important;
-    transform: translateY(-4px);
 }
 
 /* ─── Blog card editorial ───────────────────────────────────────────── */
 
 .blog-card-editorial {
-    transition: transform 0.22s ease;
-}
-.blog-card-editorial:hover {
-    transform: translateY(-3px);
+    transition: border-color 0.22s ease;
 }
 .blog-card-editorial:hover .blog-card-title {
     color: var(--fw-blue) !important;
@@ -218,12 +259,10 @@
 .btn-primary {
     font-family: var(--font-sans);
     font-weight: 500;
-    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.18s ease;
 }
 .btn-primary:hover {
     background: var(--fw-blue-hover) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px oklch(0.13 0.055 264 / 0.35);
 }
 
 /* ─── Textarea focus ────────────────────────────────────────────────── */
@@ -256,64 +295,7 @@ textarea:focus {
     border-bottom: 1px solid var(--border);
     box-shadow: 0 4px 24px -4px oklch(0.13 0.055 264 / 0.08);
 }
-.dark .navbar-bg {
-    background: oklch(0.09 0.03 264 / 0.98);
-}
-.dark .navbar-bg[data-scrolled="true"] {
-    background: oklch(0.09 0.03 264 / 0.95);
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 4px 24px -4px oklch(0.04 0.02 264 / 0.6);
-}
-
-/* ─── Dark mode ─────────────────────────────────────────────────────── */
-
-.dark {
-    /* #020617 bg, #0F172A surface, #111827 cards, #1E293B border, #CBD5E1 muted */
-    --background: oklch(0.09 0.03 264);
-    --foreground: oklch(0.984 0.003 255);
-    --card: oklch(0.16 0.04 264);
-    --card-foreground: oklch(0.984 0.003 255);
-    --popover: oklch(0.16 0.04 264);
-    --popover-foreground: oklch(0.984 0.003 255);
-    --primary: oklch(0.42 0.22 264);
-    --primary-foreground: oklch(0.99 0 0);
-    --secondary: oklch(0.18 0.045 264);
-    --secondary-foreground: oklch(0.90 0.012 255);
-    --muted: oklch(0.16 0.04 264);
-    --muted-foreground: oklch(0.86 0.018 255);
-    --accent: oklch(0.18 0.045 264);
-    --accent-foreground: oklch(0.90 0.012 255);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(0.22 0.04 255);
-    --input: oklch(0.22 0.04 255);
-    --ring: oklch(0.65 0.16 255);
-    --chart-1: oklch(0.87 0.005 255);
-    --chart-2: oklch(0.65 0.16 255);
-    --chart-3: oklch(0.73 0.09 72);
-    --chart-4: oklch(0.40 0.04 255);
-    --chart-5: oklch(0.25 0.03 264);
-    --sidebar: oklch(0.12 0.06 255);
-    --sidebar-foreground: oklch(0.984 0.003 255);
-    --sidebar-primary: oklch(0.65 0.16 255);
-    --sidebar-primary-foreground: oklch(0.97 0.014 255);
-    --sidebar-accent: oklch(0.18 0.045 264);
-    --sidebar-accent-foreground: oklch(0.984 0.003 255);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.65 0.16 255);
-
-    /* ForLaw brand tokens — dark overrides */
-    /* fw-surface = elevated light section (#111827), fw-navy = deep dark section (#020617 depth) */
-    --fw-surface: oklch(0.13 0.04 264);
-    --fw-navy: oklch(0.12 0.06 255);
-    --fw-navy-mid: oklch(0.16 0.06 255);
-    --fw-navy-surface: oklch(0.20 0.055 255);
-    --fw-blue: oklch(0.65 0.16 255);
-    --fw-blue-hover: oklch(0.59 0.16 255);
-    --fw-blue-mid: oklch(0.74 0.12 255);
-    --fw-blue-light: oklch(0.22 0.05 264);
-    --fw-blue-pale: oklch(0.20 0.045 264);
-    --fw-gold: oklch(0.73 0.09 72);
-}
+/* dark mode removed — light only */
 
 /* ─── Rich text editor ──────────────────────────────────────────────── */
 
@@ -356,11 +338,15 @@ textarea:focus {
 .rte-content .tiptap ol { list-style: decimal; }
 .rte-content .tiptap li { margin: 0.2rem 0; }
 .rte-content .tiptap blockquote {
-    border-left: 3px solid var(--fw-blue);
-    padding-left: 1rem;
-    margin: 1rem 0;
-    color: var(--muted-foreground);
-    font-style: italic;
+    padding: 0.75rem 1.25rem;
+    margin: 1.25rem 0;
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--foreground);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.5;
 }
 .rte-content .tiptap a {
     color: var(--fw-blue);
@@ -441,24 +427,34 @@ textarea:focus {
     font-weight: 650;
 }
 
-.blog-prose ul,
+.blog-prose ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+}
+
 .blog-prose ol {
     margin: 1rem 0;
-    padding-left: 1.25rem;
+    padding-left: 1.5rem;
+    list-style: decimal;
 }
 
 .blog-prose li {
-    margin: 0.3rem 0;
+    display: list-item;
+    margin: 0.4rem 0;
     color: var(--muted-foreground);
 }
 
 .blog-prose blockquote {
-    margin: 1.5rem 0;
-    padding: 1rem 1.25rem;
-    border-left: 3px solid var(--fw-blue);
+    margin: 1.75rem 0;
+    padding: 1.25rem 1.5rem;
     background: var(--muted);
-    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     color: var(--foreground);
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    line-height: 1.4;
 }
 
 .blog-prose img {
@@ -479,3 +475,32 @@ textarea:focus {
     border: none;
     border-top: 1px solid var(--border);
 }
+
+/* ── Read-mode article body ── */
+
+.article-body {
+    max-width: none;
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
+.article-body > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.72;
+    padding: 0.05em 0.1em 0 0;
+    color: var(--fw-navy);
+}
+
+.article-body > p:first-of-type {
+    color: var(--foreground);
+}
+
+/* ── Hairline card grids (blog list / related) ── */
+
+.post-card:hover {
+    background: var(--muted) !important;
+}
+
+/* dark article drop-cap removed with dark mode */

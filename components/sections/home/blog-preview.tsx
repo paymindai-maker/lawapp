@@ -23,7 +23,7 @@ export async function BlogPreview() {
         background: "var(--fw-surface)",
         paddingTop: "6rem",
         paddingBottom: "6rem",
-        zIndex: 7,
+        borderTop: "1px solid var(--border)",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">

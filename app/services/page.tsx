@@ -4,7 +4,6 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { ServiceCard } from "@/components/common/service-card"
 import { getAllCategories, getAllPublishedServices } from "@/lib/firestore/services"
-import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 
 export const revalidate = 3600
 
@@ -34,42 +33,26 @@ export default async function ServicesPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section
-          className="relative overflow-hidden py-24"
-          style={{ background: "var(--fw-navy)" }}
-        >
-          <svg
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]"
-          >
-            <defs>
-              <pattern id="svc-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#svc-grid)" />
-          </svg>
-          <div className="relative mx-auto max-w-7xl px-6 text-center">
-            <p
-              className="mb-3 text-xs font-semibold uppercase tracking-widest"
-              style={{ color: "var(--fw-gold)" }}
-            >
-              Expert Legal &amp; Financial Services
-            </p>
+        <section style={{ background: "var(--background)", borderBottom: "1px solid var(--border)", paddingTop: "4rem", paddingBottom: "3rem" }}>
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="h-px w-8" style={{ background: "var(--fw-gold)" }} />
+              <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--fw-gold)" }}>
+                Expert Legal &amp; Financial Services
+              </p>
+            </div>
             <h1
+              className="max-w-[20ch]"
               style={{
                 fontFamily: "var(--font-display)",
-                color: "white",
+                color: "var(--fw-navy)",
                 fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
                 lineHeight: 1.1,
               }}
             >
               Legal, Tax &amp; Compliance Services for Indian Businesses
             </h1>
-            <p
-              className="mx-auto mt-5 max-w-[55ch] text-base leading-relaxed"
-              style={{ color: "oklch(0.62 0.05 255)" }}
-            >
+            <p className="mt-5 max-w-[55ch] text-base leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
               Business registration, licensing, GST compliance, income tax filing, litigation representation, and mutual fund advisory — a complete practice for every stage of your business journey.
             </p>
           </div>
@@ -136,11 +119,12 @@ export default async function ServicesPage() {
 function ComingSoonCard() {
   return (
     <div
-      className="flex flex-col items-center justify-center rounded-2xl p-8 text-center"
+      className="flex flex-col items-center justify-center p-8 text-center"
       style={{
-        border: "1.5px dashed var(--border)",
+        border: "1px dashed var(--border)",
         background: "var(--muted)",
         minHeight: "200px",
+        borderRadius: "3px",
       }}
     >
       <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>

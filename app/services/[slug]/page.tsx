@@ -192,199 +192,138 @@ function HeroSection({
   service: ServiceDoc
   category: ServiceCategoryDoc | null
 }) {
+  const facts: { icon: LucideIcon; label: string; value: string }[] = []
+  if (service.quickInfo?.timeline) facts.push({ icon: Clock, label: "Typical timeline", value: service.quickInfo.timeline })
+  if (service.quickInfo?.consultation) facts.push({ icon: MessageSquare, label: "Consultation", value: service.quickInfo.consultation })
+  if (service.quickInfo?.startingPrice) facts.push({ icon: DollarSign, label: "Starting fee", value: service.quickInfo.startingPrice })
+
+  const hasImage = !!service.featuredImage
+
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        background: "var(--fw-navy)",
-        paddingTop: "5.5rem",
-        paddingBottom: "4.5rem",
-      }}
-    >
-      {/* subtle grid */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.08]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            id="hero-grid"
-            x="0"
-            y="0"
-            width="40"
-            height="40"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 40 0 L 0 0 0 40"
-              fill="none"
-              stroke="white"
-              strokeWidth="0.5"
-            />
-          </pattern>
-        </defs>
-
-        <rect width="100%" height="100%" fill="url(#hero-grid)" />
-      </svg>
-
-      <div className="relative mx-auto max-w-5xl px-6">
+    <section style={{ background: "var(--background)" }}>
+      <div className="mx-auto max-w-7xl px-6">
         {/* Breadcrumb */}
         <nav
-          className="mb-8 flex items-center justify-center gap-2 text-[11px] font-medium"
+          className="flex items-center gap-2 py-5 text-[11px] font-medium"
+          style={{ borderBottom: "1px solid var(--border)" }}
           aria-label="Breadcrumb"
         >
-          <Link
-            href="/services"
-            style={{ color: "oklch(0.52 0.08 255)" }}
-          >
-            Services
-          </Link>
-
+          <Link href="/services" style={{ color: "var(--fw-blue)" }}>Services</Link>
           {category && (
             <>
-              <ChevronRight
-                className="h-3 w-3"
-                style={{ color: "oklch(0.38 0.07 255)" }}
-              />
-
-              <Link
-                href={`/services/${category.slug}`}
-                style={{ color: "oklch(0.52 0.08 255)" }}
-              >
+              <ChevronRight className="h-3 w-3" style={{ color: "var(--muted-foreground)" }} />
+              <Link href={`/services/${category.slug}`} style={{ color: "var(--fw-blue)" }}>
                 {category.name}
               </Link>
             </>
           )}
-
-          <ChevronRight
-            className="h-3 w-3"
-            style={{ color: "oklch(0.38 0.07 255)" }}
-          />
-
-          <span style={{ color: "oklch(0.68 0.03 255)" }}>
-            {service.title}
-          </span>
+          <ChevronRight className="h-3 w-3" style={{ color: "var(--muted-foreground)" }} />
+          <span style={{ color: "var(--foreground)" }}>{service.title}</span>
         </nav>
 
-        {/* Main content */}
-        <div className="mx-auto max-w-3xl text-center">
-          {/* Heading */}
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "white",
-              fontSize: "clamp(2.4rem, 5vw, 4.2rem)",
-              lineHeight: 1.02,
-              letterSpacing: "-0.045em",
-              textWrap: "balance",
-            }}
-          >
-            {service.hero?.heading || service.title}
-          </h1>
+        {/* Split: content left, image OR facts right */}
+        <div className={`grid gap-0 py-14 md:gap-14 md:py-20 ${hasImage ? "md:grid-cols-2" : "md:grid-cols-12"}`}>
+          {/* Left — content */}
+          <div className={hasImage ? "" : "md:col-span-7"}>
+            {category && (
+              <div className="mb-5 flex items-center gap-3">
+                <div className="h-px w-8" style={{ background: "var(--fw-gold)" }} />
+                <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--fw-gold)" }}>
+                  {category.name}
+                </span>
+              </div>
+            )}
 
-          {/* Description */}
-          {service.hero?.subheading && (
-            <p
-              className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base"
+            <h1
               style={{
-                color: "oklch(0.70 0.03 255)",
-              }}
-            >
-              {service.hero.subheading}
-            </p>
-          )}
-
-          {/* Quick info */}
-          {service.quickInfo && (
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-              {service.quickInfo.timeline && (
-                <div
-                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "oklch(0.74 0.03 255)",
-                  }}
-                >
-                  {service.quickInfo.timeline}
-                </div>
-              )}
-
-              {service.quickInfo.consultation && (
-                <div
-                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "oklch(0.74 0.03 255)",
-                  }}
-                >
-                  {service.quickInfo.consultation}
-                </div>
-              )}
-
-              {service.quickInfo.startingPrice && (
-                <div
-                  className="rounded-full px-3 py-1.5 text-[11px] font-medium"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "oklch(0.74 0.03 255)",
-                  }}
-                >
-                  Starting {service.quickInfo.startingPrice}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* CTA */}
-          <div className="mt-8">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all"
-              style={{
-                background: "var(--fw-gold)",
+                fontFamily: "var(--font-display)",
                 color: "var(--fw-navy)",
+                fontSize: "clamp(2.3rem, 4.5vw, 3.75rem)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.035em",
+                textWrap: "balance",
               }}
             >
-              {service.hero?.ctaText || "Book Consultation"}
+              {service.hero?.heading || service.title}
+            </h1>
 
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
+            {service.hero?.subheading && (
+              <p className="mt-6 text-base leading-relaxed" style={{ color: "var(--muted-foreground)", maxWidth: "52ch" }}>
+                {service.hero.subheading}
+              </p>
+            )}
 
-        {/* Visual */}
-        {service.featuredImage && (
-          <div className="mx-auto mt-12 max-w-4xl">
-            <div
-              className="relative overflow-hidden rounded-2xl"
-              style={{
-                aspectRatio: "16 / 7",
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.04)",
-              }}
-            >
-              <Image
-                src={service.featuredImage}
-                alt={service.title}
-                fill
-                className="object-cover"
-                priority
-              />
-
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(3,12,38,0.18), rgba(3,12,38,0.03))",
-                }}
-              />
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all"
+                style={{ background: "var(--fw-navy)", borderRadius: "3px" }}
+              >
+                {service.hero?.ctaText || "Book a consultation"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a href="#process" className="text-sm font-semibold" style={{ color: "var(--fw-blue)" }}>
+                See how we work
+              </a>
             </div>
+
+            {/* Inline facts — only when image takes the right col */}
+            {hasImage && facts.length > 0 && (
+              <dl className="mt-10 flex flex-col divide-y" style={{ borderTop: "1px solid var(--border)", borderColor: "var(--border)" }}>
+                {facts.map((f) => {
+                  const Icon = f.icon
+                  return (
+                    <div key={f.label} className="flex items-center justify-between py-3">
+                      <dt className="flex items-center gap-2 text-xs" style={{ color: "var(--muted-foreground)" }}>
+                        <Icon className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
+                        {f.label}
+                      </dt>
+                      <dd className="text-sm font-semibold" style={{ color: "var(--fw-navy)" }}>{f.value}</dd>
+                    </div>
+                  )
+                })}
+              </dl>
+            )}
           </div>
-        )}
+
+          {/* Right — image OR facts panel */}
+          {hasImage ? (
+            <div className="mt-10 md:mt-0">
+              <div
+                className="relative h-full min-h-[320px] overflow-hidden"
+                style={{ border: "1px solid var(--border)", borderRadius: "3px" }}
+              >
+                <Image src={service.featuredImage!} alt={service.title} fill className="object-cover" priority />
+              </div>
+            </div>
+          ) : facts.length > 0 ? (
+            <div className="mt-12 md:col-span-5 md:mt-0">
+              <div className="p-7" style={{ background: "oklch(0.97 0.008 258)", border: "1px solid var(--border)", borderRadius: "3px" }}>
+                <p className="mb-6 text-[10px] font-semibold uppercase tracking-widest" style={{ color: "var(--muted-foreground)" }}>
+                  Engagement details
+                </p>
+                <dl>
+                  {facts.map((f, i) => {
+                    const Icon = f.icon
+                    return (
+                      <div
+                        key={f.label}
+                        className="flex items-start justify-between gap-4 py-4"
+                        style={i > 0 ? { borderTop: "1px solid var(--border)" } : undefined}
+                      >
+                        <dt className="flex items-center gap-2.5 text-xs" style={{ color: "var(--muted-foreground)" }}>
+                          <Icon className="h-3.5 w-3.5" style={{ color: "var(--fw-gold)" }} />
+                          {f.label}
+                        </dt>
+                        <dd className="text-right text-sm font-semibold" style={{ color: "var(--fw-navy)" }}>{f.value}</dd>
+                      </div>
+                    )
+                  })}
+                </dl>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
     </section>
   )
@@ -402,24 +341,9 @@ function BenefitsSection({ service }: { service: ServiceDoc }) {
         background: "var(--fw-surface)",
         paddingTop: "5rem",
         paddingBottom: "5rem",
-        position: "relative",
       }}
     >
-      {/* Subtle dot grid */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.07]"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="var(--fw-navy)" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
-
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         <SectionLabel>What to Expect</SectionLabel>
         <h2
           className="mb-12"
@@ -437,11 +361,11 @@ function BenefitsSection({ service }: { service: ServiceDoc }) {
           {/* Benefits */}
           {benefits.length > 0 && (
             <div
-              className="rounded-2xl p-8"
+              className="p-8"
               style={{
-                background: "white",
+                background: "var(--card)",
                 border: "1px solid var(--border)",
-                boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04)",
+                borderRadius: "3px",
               }}
             >
               <p
@@ -469,10 +393,11 @@ function BenefitsSection({ service }: { service: ServiceDoc }) {
           {/* Eligibility */}
           {eligibility.length > 0 && (
             <div
-              className="rounded-2xl p-8"
+              className="p-8"
               style={{
-                background: "oklch(0.13 0.055 264 / 0.03)",
+                background: "var(--fw-blue-pale)",
                 border: "1px solid var(--border)",
+                borderRadius: "3px",
               }}
             >
               <p
@@ -485,11 +410,12 @@ function BenefitsSection({ service }: { service: ServiceDoc }) {
                 {eligibility.map((e, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span
-                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
+                      className="flex h-5 w-5 shrink-0 items-center justify-center text-[10px] font-bold"
                       style={{
                         background: "var(--fw-gold)",
                         color: "white",
                         marginTop: "1px",
+                        borderRadius: "2px",
                       }}
                     >
                       {i + 1}
@@ -515,19 +441,22 @@ function ProcessSection({ service }: { service: ServiceDoc }) {
 
   return (
     <section
+      id="process"
       style={{
-        background: "var(--fw-navy-mid)",
+        background: "oklch(0.97 0.008 258)",
         paddingTop: "5rem",
         paddingBottom: "5rem",
+        scrollMarginTop: "4rem",
+        borderTop: "1px solid var(--border)",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
-        <SectionLabel light>Our Approach</SectionLabel>
+        <SectionLabel>Our Approach</SectionLabel>
         <h2
           className="mb-16"
           style={{
             fontFamily: "var(--font-display)",
-            color: "white",
+            color: "var(--fw-navy)",
             fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             lineHeight: 1.15,
           }}
@@ -539,19 +468,19 @@ function ProcessSection({ service }: { service: ServiceDoc }) {
           {steps.map((step, i) => (
             <div
               key={i}
-              className="group relative rounded-2xl p-6 transition-all"
+              className="group relative p-6 transition-colors"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "3px",
               }}
             >
-              {/* Large step number */}
               <span
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "3.5rem",
+                  fontSize: "3rem",
                   lineHeight: 1,
-                  color: "rgba(255,255,255,0.07)",
+                  color: "oklch(0.91 0.012 258)",
                   display: "block",
                   marginBottom: "0.75rem",
                   userSelect: "none",
@@ -559,10 +488,7 @@ function ProcessSection({ service }: { service: ServiceDoc }) {
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: "oklch(0.70 0.05 255)" }}
-              >
+              <p className="text-sm leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
                 {step}
               </p>
             </div>
@@ -607,10 +533,11 @@ function DocumentsSection({ service }: { service: ServiceDoc }) {
           {docs.map((doc, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 rounded-xl px-4 py-3.5"
+              className="flex items-center gap-3 px-4 py-3.5"
               style={{
-                background: "white",
+                background: "var(--card)",
                 border: "1px solid var(--border)",
+                borderRadius: "2px",
               }}
             >
               <FileText className="h-4 w-4 shrink-0" style={{ color: "var(--fw-blue)" }} />
@@ -633,34 +560,34 @@ function FaqSection({ service }: { service: ServiceDoc }) {
   return (
     <section
       style={{
-        background: "var(--fw-navy)",
+        background: "var(--background)",
+        borderTop: "1px solid var(--border)",
         paddingTop: "5rem",
         paddingBottom: "5rem",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-16 lg:grid-cols-[1fr_2fr]">
-          {/* Left: label + heading */}
           <div>
-            <SectionLabel light>Common Questions</SectionLabel>
+            <SectionLabel>Common Questions</SectionLabel>
             <h2
               className="mt-3"
               style={{
                 fontFamily: "var(--font-display)",
-                color: "white",
+                color: "var(--fw-navy)",
                 fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
                 lineHeight: 1.15,
               }}
             >
               Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-sm leading-relaxed" style={{ color: "oklch(0.55 0.05 255)" }}>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
               Have more questions? We&apos;re here to help.
             </p>
             <Link
               href="/contact"
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium"
-              style={{ color: "var(--fw-gold)" }}
+              style={{ color: "var(--fw-blue)" }}
             >
               Contact us
               <ArrowRight className="h-3.5 w-3.5" />
@@ -683,52 +610,59 @@ function WhyUsSection({ service }: { service: ServiceDoc }) {
   return (
     <section
       style={{
-        background: "var(--fw-surface)",
+        background: "oklch(0.97 0.008 258)",
+        borderTop: "1px solid var(--border)",
         paddingTop: "5rem",
         paddingBottom: "5rem",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
-        <SectionLabel>Our Advantage</SectionLabel>
-        <h2
-          className="mb-12"
-          style={{
-            fontFamily: "var(--font-display)",
-            color: "var(--fw-navy)",
-            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-            lineHeight: 1.15,
-          }}
-        >
-          Why Choose Us
-        </h2>
-
-        <div
-          className="grid gap-4"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
-        >
-          {reasons.map((reason, i) => (
-            <div
-              key={i}
-              className="group rounded-2xl p-6 transition-all"
+        <div className="grid gap-16 lg:grid-cols-[300px_1fr]">
+          {/* Left — sticky label */}
+          <div>
+            <SectionLabel>Our Advantage</SectionLabel>
+            <h2
               style={{
-                background: "white",
-                border: "1px solid var(--border)",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+                fontFamily: "var(--font-display)",
+                color: "var(--fw-navy)",
+                fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+                lineHeight: 1.15,
               }}
             >
-              <div className="mb-4 flex items-center gap-3">
+              Why choose NEXGEN
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
+              Every engagement is backed by 18+ years of practice, fixed-fee transparency, and a team that handles both legal and CA work in-house.
+            </p>
+          </div>
+
+          {/* Right — vertical numbered guide */}
+          <div style={{ borderTop: "1px solid var(--border)" }}>
+            {reasons.map((reason, i) => (
+              <div
+                key={i}
+                className="flex gap-8 py-7"
+                style={{ borderBottom: "1px solid var(--border)" }}
+              >
                 <span
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold"
-                  style={{ background: "var(--fw-blue-light)", color: "var(--fw-blue)" }}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "2.25rem",
+                    lineHeight: 1,
+                    color: "oklch(0.88 0.014 258)",
+                    flexShrink: 0,
+                    width: "3rem",
+                    userSelect: "none",
+                  }}
                 >
-                  {i + 1}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
+                <p className="pt-1 text-base leading-relaxed" style={{ color: "var(--foreground)" }}>
+                  {reason}
+                </p>
               </div>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--foreground)" }}>
-                {reason}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -741,7 +675,8 @@ function RelatedSection({ services }: { services: ServiceDoc[] }) {
   return (
     <section
       style={{
-        background: "var(--fw-navy-mid)",
+        background: "var(--background)",
+        borderTop: "1px solid var(--border)",
         paddingTop: "5rem",
         paddingBottom: "5rem",
       }}
@@ -749,12 +684,12 @@ function RelatedSection({ services }: { services: ServiceDoc[] }) {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <SectionLabel light>Explore More</SectionLabel>
+            <SectionLabel>Explore More</SectionLabel>
             <h2
               className="mt-2"
               style={{
                 fontFamily: "var(--font-display)",
-                color: "white",
+                color: "var(--fw-navy)",
                 fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
                 lineHeight: 1.2,
               }}
@@ -765,7 +700,7 @@ function RelatedSection({ services }: { services: ServiceDoc[] }) {
           <Link
             href="/services"
             className="hidden items-center gap-1.5 text-sm font-medium sm:flex"
-            style={{ color: "var(--fw-gold)" }}
+            style={{ color: "var(--fw-blue)" }}
           >
             View all
             <ArrowRight className="h-3.5 w-3.5" />
@@ -780,38 +715,25 @@ function RelatedSection({ services }: { services: ServiceDoc[] }) {
             <Link
               key={svc.id}
               href={`/services/${svc.slug}`}
-              className="group block rounded-2xl p-5 transition-all"
+              className="group block p-5 transition-colors"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "3px",
               }}
             >
-              <div
-                className="mb-4 flex h-9 w-9 items-center justify-center rounded-xl"
-                style={{ background: "rgba(255,255,255,0.06)" }}
-              >
-                <ServiceIcon
-                  name={svc.icon}
-                  className="h-4 w-4"
-                  style={{ color: "var(--fw-gold)" }}
-                />
-              </div>
-              <p
-                className="mb-2 text-sm font-semibold leading-snug"
-                style={{ color: "white" }}
-              >
+              <ServiceIcon
+                name={svc.icon}
+                className="mb-4 h-5 w-5"
+                style={{ color: "var(--fw-blue)" }}
+              />
+              <p className="mb-2 text-sm font-semibold leading-snug" style={{ color: "var(--fw-navy)" }}>
                 {svc.title}
               </p>
-              <p
-                className="line-clamp-2 text-xs leading-relaxed"
-                style={{ color: "oklch(0.52 0.04 255)" }}
-              >
+              <p className="line-clamp-2 text-xs leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
                 {svc.shortDescription}
               </p>
-              <div
-                className="mt-4 flex items-center gap-1 text-xs font-medium"
-                style={{ color: "var(--fw-gold)" }}
-              >
+              <div className="mt-4 flex items-center gap-1 text-xs font-medium" style={{ color: "var(--fw-blue)" }}>
                 Learn more
                 <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
               </div>
@@ -837,63 +759,36 @@ function CategoryPage({
       <Navbar />
       <main>
         {/* Hero */}
-        <section
-          className="relative overflow-hidden"
-          style={{ background: "var(--fw-navy)", paddingTop: "6rem", paddingBottom: "6rem" }}
-        >
-          <svg
-            aria-hidden
-            className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.08]"
-          >
-            <defs>
-              <pattern id="cat-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#cat-grid)" />
-          </svg>
-
-          <div
-            aria-hidden
-            className="animate-shape-float pointer-events-none absolute right-[8%] top-[12%] h-48 w-48 opacity-[0.06]"
-            style={{
-              background: "conic-gradient(from 45deg, var(--fw-gold), transparent 50%)",
-              clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
-            }}
-          />
-
-          <div className="relative mx-auto max-w-7xl px-6">
-            <nav className="mb-6 flex items-center gap-2 text-xs font-medium">
-              <Link href="/services" style={{ color: "oklch(0.50 0.10 255)" }}>Services</Link>
-              <ChevronRight className="h-3 w-3" style={{ color: "oklch(0.38 0.07 255)" }} />
-              <span style={{ color: "oklch(0.65 0.08 255)" }}>{category.name}</span>
+        <section style={{ background: "var(--background)", borderBottom: "1px solid var(--border)", paddingTop: "4rem", paddingBottom: "3rem" }}>
+          <div className="mx-auto max-w-7xl px-6">
+            <nav className="mb-5 flex items-center gap-2 text-xs font-medium">
+              <Link href="/services" style={{ color: "var(--fw-blue)" }}>Services</Link>
+              <ChevronRight className="h-3 w-3" style={{ color: "var(--muted-foreground)" }} />
+              <span style={{ color: "var(--foreground)" }}>{category.name}</span>
             </nav>
-
+            <div className="mb-4 flex items-center gap-3">
+              <div className="h-px w-8" style={{ background: "var(--fw-gold)" }} />
+              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--fw-gold)" }}>
+                Practice Area
+              </span>
+            </div>
             <h1
-              className="mb-5 max-w-3xl"
-              style={{
-                fontFamily: "var(--font-display)",
-                color: "white",
-                fontSize: "clamp(2.25rem, 4vw, 3.5rem)",
-                lineHeight: 1.1,
-              }}
+              className="mb-4 max-w-3xl"
+              style={{ fontFamily: "var(--font-display)", color: "var(--fw-navy)", fontSize: "clamp(2.25rem, 4vw, 3.5rem)", lineHeight: 1.1 }}
             >
               {category.name}
             </h1>
-            <p
-              className="max-w-[58ch] text-base leading-relaxed"
-              style={{ color: "oklch(0.62 0.05 255)" }}
-            >
+            <p className="max-w-[58ch] text-base leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
               {category.description}
             </p>
           </div>
         </section>
 
         {/* Services grid */}
-        <RuleDivider />
         <section
           style={{
-            background: "var(--fw-surface)",
+            background: "var(--background)",
+            borderTop: "1px solid var(--border)",
             paddingTop: "5rem",
             paddingBottom: "5rem",
           }}
@@ -932,23 +827,18 @@ function CategoryPage({
                   <Link
                     key={svc.id}
                     href={`/services/${svc.slug}`}
-                    className="group block rounded-2xl p-6 transition-all"
+                    className="group block p-6 transition-colors"
                     style={{
-                      background: "white",
+                      background: "var(--card)",
                       border: "1px solid var(--border)",
-                      boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+                      borderRadius: "3px",
                     }}
                   >
-                    <div
-                      className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl"
-                      style={{ background: "var(--fw-blue-pale)", border: "1px solid var(--fw-blue-light)" }}
-                    >
-                      <ServiceIcon
-                        name={svc.icon}
-                        className="h-5 w-5"
-                        style={{ color: "var(--fw-blue)" }}
-                      />
-                    </div>
+                    <ServiceIcon
+                      name={svc.icon}
+                      className="mb-5 h-5 w-5"
+                      style={{ color: "var(--fw-blue)" }}
+                    />
                     <h3
                       className="mb-2 text-sm font-semibold leading-snug"
                       style={{ color: "var(--foreground)" }}

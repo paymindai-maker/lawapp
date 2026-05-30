@@ -1,6 +1,4 @@
 import { SectionLabel } from "@/components/common/section-label"
-import { CrosshatchBg, FloatingShape } from "@/components/common/orb-bg"
-import { DiagonalDivider } from "@/components/common/shape-divider"
 
 const REASONS = [
   {
@@ -24,26 +22,13 @@ export function WhyChooseUs() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden"
+      className="relative"
       style={{
         background: "var(--fw-surface)",
-        clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
-        paddingBottom: "5rem",
-        zIndex: 4,
+        paddingTop: "6rem",
+        paddingBottom: "6rem",
       }}
     >
-      <CrosshatchBg opacity={0.06} />
-      <FloatingShape
-        size={160}
-        top="15%"
-        right="5%"
-        opacity={0.09}
-        animationClass="animate-shape-float-mid"
-        sides={5}
-      />
-
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid gap-16 md:grid-cols-5 md:gap-20">
           {/* Left — large editorial statement */}
@@ -116,9 +101,6 @@ export function WhyChooseUs() {
           </div>
         </div>
       </div>
-
-      {/* Diagonal into dark team section */}
-      <DiagonalDivider fill="var(--fw-navy)" direction="right" height={72} />
     </section>
   )
 }

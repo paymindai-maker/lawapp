@@ -3,7 +3,7 @@ interface CrosshatchBgProps {
   color?: string
 }
 
-export function CrosshatchBg({ opacity = 0.03, color = "oklch(0.50 0.21 255)" }: CrosshatchBgProps) {
+export function CrosshatchBg({ opacity = 0.03, color = "oklch(0.45 0.06 252)" }: CrosshatchBgProps) {
   return (
     <div
       aria-hidden
@@ -28,7 +28,7 @@ interface DotGridBgProps {
 
 export function DotGridBg({
   opacity = 0.07,
-  color = "oklch(0.72 0.16 255)",
+  color = "oklch(0.65 0.06 252)",
   size = 24,
 }: DotGridBgProps) {
   return (
@@ -62,7 +62,7 @@ export function FloatingShape({
   left,
   right,
   bottom,
-  color = "oklch(0.50 0.21 255)",
+  color = "oklch(0.45 0.06 252)",
   opacity = 0.06,
   animationClass = "animate-shape-float",
   sides = 6,
@@ -101,7 +101,7 @@ interface HorizontalRulesBgProps {
 
 export function HorizontalRulesBg({
   opacity = 0.05,
-  color = "oklch(0.72 0.16 255)",
+  color = "oklch(0.65 0.06 252)",
   spacing = 40,
 }: HorizontalRulesBgProps) {
   return (

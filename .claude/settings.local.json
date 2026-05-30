@@ -3,7 +3,8 @@
     "allow": [
       "mcp__shadcn__get_add_command_for_items",
       "PowerShell(npm install sanitize-html @types/sanitize-html 2>&1)",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "Bash(node .agents/skills/impeccable/scripts/cleanup-deprecated.mjs)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -1,7 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { CrosshatchBg } from "@/components/common/orb-bg"
-import { DiagonalDivider } from "@/components/common/shape-divider"
 import { CONTACT_INFO, FIRM_INFO } from "@/lib/data"
 
 const CONTACT_ITEMS = [
@@ -25,11 +23,9 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
         background: "var(--fw-surface)",
         paddingTop: "6rem",
         paddingBottom: variant === "inner" ? "6rem" : "8rem",
-        ...(variant === "homepage" ? { zIndex: 8 } : {}),
+        ...(variant === "homepage" ? { borderTop: "1px solid var(--border)" } : {}),
       }}
     >
-      <CrosshatchBg opacity={0.06} />
-
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Section header */}
         <div className="mb-12">
@@ -71,10 +67,11 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                 return (
                   <div key={item.label} className="flex items-start gap-4">
                     <div
-                      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center"
                       style={{
                         background: "var(--fw-blue-pale)",
                         border: "1px solid var(--border)",
+                        borderRadius: "2px",
                       }}
                     >
                       <Icon className="h-4 w-4" style={{ color: "var(--fw-blue)" }} />
@@ -110,10 +107,11 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
 
           {/* Right — form */}
           <div
-            className="rounded-2xl p-8 md:col-span-3"
+            className="p-8 md:col-span-3"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
+              borderRadius: "3px",
             }}
           >
             <h3
@@ -191,11 +189,6 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
           </div>
         </div>
       </div>
-
-      {/* Diagonal into dark footer — homepage only */}
-      {variant === "homepage" && (
-        <DiagonalDivider fill="var(--fw-navy)" direction="right" height={72} />
-      )}
     </section>
   )
 }

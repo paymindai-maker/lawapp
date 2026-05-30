@@ -10,14 +10,14 @@ interface BlogCardProps {
 }
 
 const TAG_COLORS: Record<string, string> = {
-  Corporate: "oklch(0.42 0.22 264)",
-  Advisory: "oklch(0.50 0.16 155)",
-  Startups: "oklch(0.52 0.18 285)",
-  Taxation: "oklch(0.62 0.12 78)",
-  "IP Law": "oklch(0.50 0.18 310)",
-  Litigation: "oklch(0.50 0.15 20)",
-  Compliance: "oklch(0.42 0.10 200)",
-  General: "oklch(0.46 0.05 255)",
+  Corporate: "oklch(0.42 0.10 258)",
+  Advisory: "oklch(0.46 0.08 165)",
+  Startups: "oklch(0.46 0.09 285)",
+  Taxation: "oklch(0.52 0.08 80)",
+  "IP Law": "oklch(0.46 0.09 320)",
+  Litigation: "oklch(0.46 0.09 30)",
+  Compliance: "oklch(0.44 0.07 220)",
+  General: "oklch(0.46 0.04 258)",
 }
 
 function tagColor(tag: string) {
@@ -34,11 +34,12 @@ export function BlogCard({
   return (
     <a
       href={href}
-      className="blog-card-editorial group flex h-full flex-col overflow-hidden rounded-2xl"
+      className="blog-card-editorial group flex h-full flex-col overflow-hidden"
       style={{
         border: "1px solid var(--border)",
         background: "var(--card)",
         textDecoration: "none",
+        borderRadius: "3px",
       }}
     >
       {/* Cover */}

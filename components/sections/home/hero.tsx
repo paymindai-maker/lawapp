@@ -1,175 +1,114 @@
-import { Scale, ArrowRight } from "lucide-react"
-import { CrosshatchBg, FloatingShape } from "@/components/common/orb-bg"
-import { WaveDivider } from "@/components/common/shape-divider"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { FIRM_INFO } from "@/lib/data"
 
+// Drop your hero photo into /public/hero.jpg (or .webp/.png) then set the path below.
+// Recommended: wide landscape, people/office/court, 1920×1080+.
+// While null → solid navy fallback.
+const HERO_IMAGE: string | null = "/hero.png"
 export function HeroSection() {
   return (
     <section
-      className="relative overflow-hidden"
+      className="relative flex flex-col"
       style={{
-        background: "var(--fw-surface)",
-        minHeight: "100svh",
-        display: "flex",
-        flexDirection: "column",
+        minHeight: "min(82vh, 660px)",
+        background: "var(--fw-navy)",
       }}
     >
-      <CrosshatchBg opacity={0.06} />
+      {/* Background image */}
+      {HERO_IMAGE && (
+        <Image
+          src={HERO_IMAGE}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          style={{ zIndex: 0 }}
+        />
+      )}
 
-      <FloatingShape
-        size={160}
-        top="10%"
-        right="4%"
-        opacity={0.09}
-        animationClass="animate-shape-float-slow"
-        sides={6}
-      />
-      <FloatingShape
-        size={100}
-        bottom="30%"
-        left="2%"
-        opacity={0.07}
-        animationClass="animate-shape-float"
-        sides={3}
-      />
-
+      {/* Dark overlay — always present so text stays legible over any image */}
       <div
-        className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 py-16 md:py-20"
+        className="absolute inset-0"
+        style={{
+          background: HERO_IMAGE
+            ? "oklch(0.14 0.04 258 / 0.68)"
+            : "transparent",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Centered body */}
+      <div
+        className="relative flex flex-1 items-center justify-center px-6 py-14 text-center"
+        style={{ zIndex: 2 }}
       >
-    
+        <div style={{ maxWidth: "38rem" }}>
 
-        {/* Bento grid — equal columns */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
+          {/* Eyebrow */}
+          <p
+            className="mb-7 flex items-center justify-center gap-3 text-[11px] font-semibold uppercase"
+            style={{ color: "var(--fw-gold)", letterSpacing: "0.20em" }}
+          >
+            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
+            Advocates · Chartered Accountants · Compliance
+            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
+          </p>
 
-          {/* Left card — heading + body + CTAs */}
-          <div
-            className="flex flex-col justify-between gap-8 rounded-2xl p-8 md:p-10"
+          {/* Headline — kept short, one line at all breakpoints */}
+          <h1
             style={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
+              fontFamily: "var(--font-display)",
+              color: "oklch(0.97 0.005 258)",
+              fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)",
+              lineHeight: 1.06,
+              letterSpacing: "-0.02em",
             }}
           >
-            <div className="flex flex-col gap-5">
-              <h1
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: "var(--foreground)",
-                  fontSize: "clamp(2.8rem, 6vw, 5.5rem)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Legal counsel for India&rsquo;s businesses.
-              </h1>
+            Built for Business. Backed by Law.
+          </h1>
 
-              <p
-                className="max-w-[48ch] text-base leading-relaxed"
-                style={{ color: "var(--muted-foreground)" }}
-              >
-                {FIRM_INFO.tagline} Corporate law, GST compliance, trademark
-                registration, and startup legal — delivered with precision.
-              </p>
-            </div>
+          {/* Tagline */}
+          <p
+            className="mx-auto mt-6 text-base leading-relaxed"
+            style={{ color: "oklch(0.82 0.012 258)", maxWidth: "44ch" }}
+          >
+            {FIRM_INFO.tagline}
+          </p>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="/contact"
-                className="btn-primary inline-flex items-center gap-2 rounded-sm px-7 py-3 text-sm font-semibold tracking-wide text-white"
-                style={{ background: "var(--fw-navy)", letterSpacing: "0.04em" }}
-              >
-                Start your matter
-              </a>
-              <a
-                href="/team"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold"
-                style={{ color: "var(--fw-blue)" }}
-              >
-                Meet the attorneys
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right bento — 2 rows */}
-          <div className="grid grid-cols-2 grid-rows-[1fr_auto] gap-4">
-
-            {/* Row 1 left — identity */}
-            <div
-              className="flex flex-col justify-between rounded-xl p-5"
-              style={{ background: "var(--fw-navy)" }}
+          {/* CTAs */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-8 py-3.5 text-sm font-semibold transition-opacity hover:opacity-90"
+              style={{
+                background: "var(--fw-gold)",
+                color: "oklch(0.16 0.04 258)",
+                borderRadius: "3px",
+                letterSpacing: "0.02em",
+              }}
             >
-              <Scale className="h-8 w-8 mb-4" style={{ color: "var(--fw-blue-mid)" }} />
-              <div>
-                <p
-                  className="mb-0.5 text-lg leading-none"
-                  style={{ fontFamily: "var(--font-display)", color: "white" }}
-                >
-                  NEXGEN
-                </p>
-                <p
-                  className="text-xs uppercase tracking-widest"
-                  style={{ color: "oklch(0.44 0.055 255)" }}
-                >
-                  Legal Counsel
-                </p>
-              </div>
-            </div>
-
-            {/* Row 1 right — motto */}
-            <div
-              className="flex items-end rounded-xl p-5"
-              style={{ background: "var(--fw-navy-mid)" }}
+              Book a Consultation
+            </Link>
+            <Link
+              href="/services"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold"
+              style={{
+                color: "oklch(0.97 0.005 258)",
+                border: "1px solid oklch(1 0 0 / 0.22)",
+                borderRadius: "3px",
+              }}
             >
-              <p
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
-                  color: "white",
-                  lineHeight: 1.2,
-                }}
-              >
-                Justice.
-                <br />
-                Integrity.
-                <br />
-                Advocacy.
-              </p>
-            </div>
-
-            {/* Row 2 — wide card with established + CTA */}
-            <div
-              className="col-span-2 flex items-center justify-between rounded-xl px-6 py-5"
-              style={{ background: "var(--fw-navy)", borderTop: "3px solid var(--fw-gold)" }}
-            >
-              <div>
-                <p
-                  className="text-xs font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: "var(--fw-gold)" }}
-                >
-                  Founded {FIRM_INFO.established}
-                </p>
-                <p
-                  className="mt-0.5 text-sm"
-                  style={{ color: "oklch(0.52 0.055 255)" }}
-                >
-                  {FIRM_INFO.city}
-                </p>
-              </div>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-sm px-5 py-2.5 text-xs font-semibold tracking-wide text-white transition-all duration-200 hover:opacity-90"
-                style={{ background: "var(--fw-blue)", letterSpacing: "0.04em" }}
-              >
-                Book consultation
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-
+              View Practice Areas
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                style={{ color: "var(--fw-gold)" }}
+              />
+            </Link>
           </div>
         </div>
       </div>
-
-      <WaveDivider fill="var(--fw-navy)" height={88} />
     </section>
   )
 }

@@ -1,6 +1,5 @@
 import { TestimonialCard } from "@/components/common/testimonial-card"
 import { SectionLabel } from "@/components/common/section-label"
-import { CrosshatchBg } from "@/components/common/orb-bg"
 import { TESTIMONIALS } from "@/lib/data"
 
 export function TestimonialsSection() {
@@ -12,15 +11,10 @@ export function TestimonialsSection() {
       className="relative overflow-hidden"
       style={{
         background: "var(--fw-surface)",
-        clipPath: "polygon(0 72px, 100% 0, 100% 100%, 0 100%)",
-        marginTop: "-72px",
-        paddingTop: "calc(72px + 5rem)",
-        paddingBottom: "5rem",
-        zIndex: 6,
+        paddingTop: "6rem",
+        paddingBottom: "6rem",
       }}
     >
-      <CrosshatchBg opacity={0.055} />
-
       {/* Decorative large quote — editorial touch */}
       <span
         aria-hidden

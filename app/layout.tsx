@@ -1,7 +1,6 @@
 import { Libre_Baskerville, Barlow } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
 const libreBaskerville = Libre_Baskerville({
@@ -27,12 +26,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={cn("antialiased", libreBaskerville.variable, barlow.variable)}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

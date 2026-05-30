@@ -2,11 +2,10 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import sanitizeHtml from "sanitize-html"
-import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { getBlogPostBySlug, getRelatedBlogPosts, getAllBlogSlugs } from "@/lib/firestore/blog"
-import type { BlogPostDoc } from "@/types"
 
 export const revalidate = 1800
 
@@ -31,18 +30,27 @@ function safe(html: string) {
 // ─── Tag colors ───────────────────────────────────────────────────────────────
 
 const TAG_COLORS: Record<string, string> = {
-  Corporate:   "oklch(0.42 0.22 264)",
-  Advisory:    "oklch(0.50 0.16 155)",
-  Startups:    "oklch(0.52 0.18 285)",
-  Taxation:    "oklch(0.62 0.12 78)",
-  "IP Law":    "oklch(0.50 0.18 310)",
-  Litigation:  "oklch(0.50 0.15 20)",
-  Compliance:  "oklch(0.42 0.10 200)",
-  General:     "oklch(0.46 0.05 255)",
+  Corporate:   "oklch(0.42 0.10 258)",
+  Advisory:    "oklch(0.46 0.08 165)",
+  Startups:    "oklch(0.46 0.09 285)",
+  Taxation:    "oklch(0.52 0.08 80)",
+  "IP Law":    "oklch(0.46 0.09 320)",
+  Litigation:  "oklch(0.46 0.09 30)",
+  Compliance:  "oklch(0.44 0.07 220)",
+  General:     "oklch(0.46 0.04 258)",
 }
 
 function tagColor(tag: string) {
   return TAG_COLORS[tag] ?? "oklch(0.46 0.05 255)"
+}
+
+// ─── Reading time ───────────────────────────────────────────────────────────────
+
+function readingTime(html?: string) {
+  if (!html) return null
+  const words = html.replace(/<[^>]+>/g, " ").trim().split(/\s+/).filter(Boolean).length
+  if (words === 0) return null
+  return Math.max(1, Math.round(words / 200))
 }
 
 // ─── Static params (ISR) ─────────────────────────────────────────────────────
@@ -77,188 +85,152 @@ export default async function BlogPostPage({ params }: Props) {
 
   const related = await getRelatedBlogPosts(post.id, post.tag)
   const color = tagColor(post.tag)
+  const minutes = readingTime(post.content)
 
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ background: "var(--background)" }}>
 
-        {/* ── Hero ── */}
-        <section
-          style={{ background: "var(--fw-navy)", paddingTop: "5rem", paddingBottom: "4.5rem", position: "relative", zIndex: 1 }}
-        >
-          <div className="mx-auto max-w-4xl px-6">
+        {/* ── Utility bar ── */}
+        <div style={{ borderBottom: "1px solid var(--border)" }}>
+          <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3.5">
             <Link
               href="/blog"
-              className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold transition-all hover:gap-2.5"
-              style={{ color: "oklch(0.50 0.08 255)" }}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-all hover:gap-2.5"
+              style={{ color: "var(--muted-foreground)" }}
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               All articles
             </Link>
+            {minutes && (
+              <span className="text-xs" style={{ color: "var(--muted-foreground)" }}>
+                {minutes} min read
+              </span>
+            )}
+          </div>
+        </div>
 
-            <div className="mb-5">
-              <span
-                className="rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest"
-                style={{
-                  background: `color-mix(in oklch, ${color} 18%, transparent)`,
-                  color,
-                  border: `1px solid color-mix(in oklch, ${color} 28%, transparent)`,
-                }}
-              >
+        {/* ── Article ── */}
+        <article>
+          {/* Header */}
+          <header className="mx-auto max-w-3xl px-6 pb-10 pt-14">
+            <div className="mb-5 flex items-center gap-3 text-xs">
+              <span className="font-bold uppercase tracking-widest" style={{ color }}>
                 {post.tag}
               </span>
+              <span style={{ color: "var(--border)" }}>—</span>
+              <span style={{ color: "var(--muted-foreground)" }}>{post.date}</span>
+              <span style={{ color: "var(--border)" }}>—</span>
+              <span style={{ color: "var(--muted-foreground)" }}>NEXGEN Editorial</span>
             </div>
 
             <h1
               style={{
                 fontFamily: "var(--font-display)",
-                color: "white",
-                fontSize: "clamp(1.9rem, 4.5vw, 3rem)",
-                lineHeight: 1.1,
+                color: "var(--foreground)",
+                fontSize: "clamp(2.1rem, 4.5vw, 3.4rem)",
+                lineHeight: 1.08,
+                letterSpacing: "-0.025em",
+                textWrap: "balance",
               }}
             >
               {post.title}
             </h1>
 
             <p
-              className="mt-4 max-w-[60ch] text-base leading-relaxed"
-              style={{ color: "oklch(0.58 0.055 255)" }}
+              className="mt-5 text-lg leading-relaxed"
+              style={{ color: "var(--muted-foreground)", maxWidth: "62ch" }}
             >
               {post.excerpt}
             </p>
+          </header>
 
-            <div className="mt-6 flex items-center gap-2 text-xs" style={{ color: "oklch(0.44 0.07 255)" }}>
-              <CalendarDays className="h-3.5 w-3.5" />
-              <span>{post.date}</span>
-              <span>·</span>
-              <span>NEXGEN Editorial</span>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Featured image ── */}
-        {post.featuredImage && (
-          <div
-            style={{
-              background: "var(--fw-surface)",
-              clipPath: "polygon(0 48px, 100% 0, 100% 100%, 0 100%)",
-              marginTop: "-48px",
-              paddingTop: "calc(48px + 2.5rem)",
-              paddingBottom: "0",
-              zIndex: 2,
-              position: "relative",
-            }}
-          >
-            <div className="mx-auto max-w-4xl px-6">
-              <div className="overflow-hidden rounded-xl" style={{ border: "1px solid var(--border)" }}>
+          {/* Featured image — wider than text column */}
+          {post.featuredImage && (
+            <div className="mx-auto mb-12 max-w-5xl px-6">
+              <div className="overflow-hidden" style={{ border: "1px solid var(--border)", borderRadius: "3px" }}>
                 <Image
                   src={post.featuredImage}
                   alt={post.title}
-                  width={900}
-                  height={480}
+                  width={1100}
+                  height={560}
                   className="w-full object-cover"
-                  style={{ maxHeight: "480px" }}
+                  style={{ maxHeight: "520px" }}
                   priority
                 />
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ── Article body ── */}
-        <section
-          className="relative"
-          style={{
-            background: "var(--fw-surface)",
-            ...(post.featuredImage
-              ? { paddingTop: "3rem", zIndex: 2 }
-              : {
-                  clipPath: "polygon(0 48px, 100% 0, 100% 100%, 0 100%)",
-                  marginTop: "-48px",
-                  paddingTop: "calc(48px + 3rem)",
-                  zIndex: 2,
-                }),
-            paddingBottom: "5rem",
-          }}
-        >
-          <div className="mx-auto max-w-4xl px-6">
+          {/* Body */}
+          <div className="mx-auto max-w-3xl px-6 pb-20" style={{ paddingTop: post.featuredImage ? 0 : "0.5rem" }}>
             {post.content ? (
               <div
-                className="blog-prose"
+                className="blog-prose article-body"
                 dangerouslySetInnerHTML={{ __html: safe(post.content) }}
               />
             ) : (
-              <div
-                className="rounded-xl p-8 text-center"
-                style={{ background: "var(--card)", border: "1px solid var(--border)" }}
-              >
-                <p className="text-sm" style={{ color: "var(--muted-foreground)" }}>
-                  Full article content coming soon.
-                </p>
-              </div>
+              <p className="text-sm italic" style={{ color: "var(--muted-foreground)" }}>
+                Full article content coming soon.
+              </p>
             )}
 
             <div
-              className="mt-12 flex items-center justify-between pt-6"
+              className="mt-14 flex items-center justify-between pt-6"
               style={{ borderTop: "1px solid var(--border)" }}
             >
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold"
                 style={{ color: "var(--fw-blue)" }}
               >
-                <ArrowLeft className="h-3.5 w-3.5" />
-                Back to blog
+                <ArrowLeft className="h-4 w-4" />
+                Back to all articles
               </Link>
-              <span className="text-xs" style={{ color: "var(--muted-foreground)" }}>
-                {post.date}
-              </span>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold"
+                style={{ color: "var(--fw-blue)" }}
+              >
+                Speak with us
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-        </section>
+        </article>
 
-        {/* ── Related posts ── */}
+        {/* ── Continue reading ── */}
         {related.length > 0 && (
-          <section
-            style={{
-              background: "var(--fw-navy)",
-              clipPath: "polygon(0 0, 100% 56px, 100% 100%, 0 100%)",
-              marginTop: "-56px",
-              paddingTop: "calc(56px + 4rem)",
-              paddingBottom: "5rem",
-              zIndex: 3,
-              position: "relative",
-            }}
-          >
-            <div className="mx-auto max-w-4xl px-6">
-              <p
-                className="mb-6 text-xs font-semibold uppercase tracking-widest"
-                style={{ color: "oklch(0.44 0.08 255)" }}
-              >
-                More in {post.tag}
+          <section style={{ background: "var(--fw-surface)", borderTop: "1px solid var(--border)", paddingTop: "4rem", paddingBottom: "5rem" }}>
+            <div className="mx-auto max-w-5xl px-6">
+              <p className="mb-8 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--muted-foreground)" }}>
+                Continue reading
               </p>
-              <div className="flex flex-col gap-4">
+              <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
                 {related.map((r) => (
                   <Link
                     key={r.id}
                     href={`/blog/${r.slug}`}
-                    className="group flex items-start justify-between gap-4 py-4"
-                    style={{ borderTop: "1px solid oklch(0.22 0.06 255)", textDecoration: "none" }}
+                    className="post-card group flex flex-col p-6 transition-colors"
+                    style={{ background: "var(--card)", textDecoration: "none", minHeight: "180px" }}
                   >
-                    <div className="flex-1">
-                      <p className="text-xs mb-1" style={{ color: "oklch(0.42 0.07 255)" }}>{r.date}</p>
-                      <h3
-                        className="text-sm font-semibold leading-snug"
-                        style={{ color: "white", fontFamily: "var(--font-display)" }}
-                      >
-                        {r.title}
-                      </h3>
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: tagColor(r.tag) }}>
+                        {r.tag}
+                      </span>
+                      <span className="text-[11px]" style={{ color: "var(--muted-foreground)" }}>{r.date}</span>
                     </div>
-                    <ArrowRight
-                      className="mt-4 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1"
-                      style={{ color: "oklch(0.44 0.08 255)" }}
-                    />
+                    <h3
+                      className="text-base font-semibold leading-snug"
+                      style={{ fontFamily: "var(--font-display)", color: "var(--foreground)" }}
+                    >
+                      {r.title}
+                    </h3>
+                    <div className="mt-auto flex items-center gap-1.5 pt-5 text-xs font-semibold" style={{ color: "var(--fw-blue)" }}>
+                      Read article
+                      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </Link>
                 ))}
               </div>

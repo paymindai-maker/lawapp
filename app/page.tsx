@@ -16,7 +16,7 @@ export default function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
-        <StatsStripe />
+        {/* <StatsStripe /> */}
         <ServicesPreview />
         <WhyChooseUs />
         <FeaturedServicesSection />

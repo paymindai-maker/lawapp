@@ -55,29 +55,21 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div
       ref={ref}
-      className="group relative flex flex-col rounded-2xl transition-shadow hover:shadow-md"
-      style={{ border: "1px solid var(--border)", background: "var(--card)" }}
+      className="group relative flex flex-col transition-colors"
+      style={{ border: "1px solid var(--border)", background: "var(--card)", borderRadius: "3px" }}
     >
       {/* Body */}
       <div className="flex flex-1 flex-col p-6">
-        {/* Icon */}
-        <div
-          className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{
-            background: "color-mix(in oklch, var(--fw-blue) 10%, var(--card))",
-            border: "1px solid color-mix(in oklch, var(--fw-blue) 18%, transparent)",
-          }}
-        >
-          <Icon className="h-5 w-5" style={{ color: "var(--fw-blue)" }} />
+        {/* Icon + title */}
+        <div className="mb-3 flex items-center gap-3">
+          <Icon className="h-5 w-5 shrink-0" style={{ color: "var(--fw-blue)" }} />
+          <h3
+            className="text-base font-semibold leading-snug"
+            style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+          >
+            {service.title}
+          </h3>
         </div>
-
-        {/* Title */}
-        <h3
-          className="mb-2.5 text-base font-semibold leading-snug"
-          style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
-        >
-          {service.title}
-        </h3>
 
         {/* Description */}
         <p
@@ -105,8 +97,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
       {/* Action bar */}
       <div
-        className="flex items-center gap-px overflow-hidden rounded-b-2xl"
-        style={{ borderTop: "1px solid var(--border)" }}
+        className="flex items-center gap-px overflow-hidden"
+        style={{ borderTop: "1px solid var(--border)", borderRadius: "0 0 3px 3px" }}
       >
         <Link
           href={`/services/${service.slug}`}
@@ -130,9 +122,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
       {/* Expert panel (slides in above action bar) */}
       {open && (
         <div
-          className="absolute bottom-[45px] left-0 right-0 z-20 rounded-b-none rounded-t-xl p-4"
+          className="absolute bottom-[45px] left-0 right-0 z-20 p-4"
           style={{
             background: "var(--fw-navy)",
+            borderRadius: "3px 3px 0 0",
             boxShadow: "0 -8px 24px -4px oklch(0 0 0 / 0.18)",
           }}
         >
