@@ -1,63 +1,77 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useRef } from "react"
 import { FIRM_INFO } from "@/lib/data"
 
-// Drop your hero photo into /public/hero.jpg (or .webp/.png) then set the path below.
-// Recommended: wide landscape, people/office/court, 1920×1080+.
-// While null → solid navy fallback.
 const HERO_IMAGE: string | null = "/hero.png"
+const ease = [0.16, 1, 0.3, 1] as const
+
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // Parallax: hero image drifts upward slower than scroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  })
+  const rawY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"])
+  const bgY = useSpring(rawY, { stiffness: 100, damping: 30, restDelta: 0.001 })
+
   return (
     <section
-      className="relative flex flex-col"
-      style={{
-        minHeight: "min(82vh, 660px)",
-        background: "var(--fw-navy)",
-      }}
+      ref={sectionRef}
+      className="relative flex flex-col overflow-hidden"
+      style={{ minHeight: "min(82vh, 660px)", background: "var(--fw-navy)" }}
     >
-      {/* Background image */}
+      {/* Parallax background image */}
       {HERO_IMAGE && (
-        <Image
-          src={HERO_IMAGE}
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          style={{ zIndex: 0 }}
-        />
+        <motion.div
+          className="absolute inset-0"
+          style={{ y: bgY, scale: 1.1, zIndex: 0 }}
+        >
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </motion.div>
       )}
 
-      {/* Dark overlay — always present so text stays legible over any image */}
+      {/* Dark overlay */}
       <div
         className="absolute inset-0"
         style={{
-          background: HERO_IMAGE
-            ? "oklch(0.14 0.04 258 / 0.68)"
-            : "transparent",
+          background: HERO_IMAGE ? "oklch(0.14 0.04 258 / 0.68)" : "transparent",
           zIndex: 1,
         }}
       />
 
-      {/* Centered body */}
+      {/* Centered body — staggered entrance */}
       <div
         className="relative flex flex-1 items-center justify-center px-6 py-14 text-center"
         style={{ zIndex: 2 }}
       >
         <div style={{ maxWidth: "38rem" }}>
 
-          {/* Eyebrow */}
-          <p
+          <motion.p
             className="mb-7 flex items-center justify-center gap-3 text-[11px] font-semibold uppercase"
             style={{ color: "var(--fw-gold)", letterSpacing: "0.20em" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease }}
           >
             <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
             Advocates · Chartered Accountants · Compliance
             <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
-          </p>
+          </motion.p>
 
-          {/* Headline — kept short, one line at all breakpoints */}
-          <h1
+          <motion.h1
             style={{
               fontFamily: "var(--font-display)",
               color: "oklch(0.97 0.005 258)",
@@ -65,20 +79,29 @@ export function HeroSection() {
               lineHeight: 1.06,
               letterSpacing: "-0.02em",
             }}
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.22, ease }}
           >
             Built for Business. Backed by Law.
-          </h1>
+          </motion.h1>
 
-          {/* Tagline */}
-          <p
+          <motion.p
             className="mx-auto mt-6 text-base leading-relaxed"
             style={{ color: "oklch(0.82 0.012 258)", maxWidth: "44ch" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.38, ease }}
           >
             {FIRM_INFO.tagline}
-          </p>
+          </motion.p>
 
-          {/* CTAs */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <motion.div
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.52, ease }}
+          >
             <Link
               href="/contact"
               className="inline-flex items-center px-8 py-3.5 text-sm font-semibold transition-opacity hover:opacity-90"
@@ -106,7 +129,8 @@ export function HeroSection() {
                 style={{ color: "var(--fw-gold)" }}
               />
             </Link>
-          </div>
+          </motion.div>
+
         </div>
       </div>
     </section>

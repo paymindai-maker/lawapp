@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { FadeIn } from "@/components/common/fade-in"
 import { FIRM_INFO, CONTACT_INFO } from "@/lib/data"
 import { AboutTabs } from "./about-tabs"
 
@@ -10,9 +11,23 @@ export const revalidate = 3600
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
 export const metadata = {
-  title: "About NEXGEN | Legal, Tax & Compliance Firm in Mumbai, India",
+  title: "About NEXGEN | Legal, Tax & Compliance Firm in Noida, India",
   description:
-    "NEXGEN is a full-service legal and compliance firm in Mumbai with 18+ years of expertise in business registration, GST, income tax, litigation, and corporate advisory. Trusted by 500+ clients.",
+    "NEXGEN is a full-service legal and compliance firm in Noida with 18+ years of expertise in business registration, GST, income tax, litigation, and corporate advisory. Trusted by 500+ clients.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About NEXGEN | Legal, Tax & Compliance Firm in Noida",
+    description:
+      "18+ years of practice. Advocates, Chartered Accountants, and compliance specialists serving 500+ Indian businesses from Noida's Noida since 2006.",
+    url: "/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About NEXGEN | Noida Legal & Tax Firm",
+    description:
+      "18+ years of practice. Advocates, CAs, and compliance specialists serving 500+ Indian businesses from Noida since 2006.",
+  },
 }
 
 const VALID_TABS = ["firm", "why", "process", "team"] as const
@@ -35,7 +50,8 @@ export default async function AboutPage({
         {/* ── Hero ── */}
         <section style={{ background: "var(--background)", borderBottom: "1px solid var(--border)", paddingTop: "3.5rem", paddingBottom: "2.5rem" }}>
           <div className="mx-auto max-w-7xl px-6">
-            <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--fw-gold)" }}>
+            <FadeIn>
+          <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "var(--fw-gold)" }}>
               About · {FIRM_INFO.city} · Est. {FIRM_INFO.established}
             </p>
             <h1
@@ -47,8 +63,9 @@ export default async function AboutPage({
                 maxWidth: "18ch",
               }}
             >
-              The firm behind your legal &amp; tax counsel
+              Noida&apos;s Integrated Legal &amp; Tax Firm
             </h1>
+          </FadeIn>
           </div>
         </section>
 
@@ -60,6 +77,7 @@ export default async function AboutPage({
         {/* ── Final CTA ── */}
         <section style={{ background: "var(--fw-navy)", paddingTop: "5rem", paddingBottom: "6rem" }}>
           <div className="mx-auto max-w-4xl px-6 text-center">
+            <FadeIn>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -98,6 +116,7 @@ export default async function AboutPage({
             <p className="mt-5 text-xs" style={{ color: "oklch(0.40 0.06 255)" }}>
               {CONTACT_INFO.email} · {CONTACT_INFO.phone}
             </p>
+            </FadeIn>
           </div>
         </section>
       </main>

@@ -1,4 +1,6 @@
 import { TestimonialCard } from "@/components/common/testimonial-card"
+import { FadeIn } from "@/components/common/fade-in"
+import { ParallaxDrift } from "@/components/common/parallax"
 import { SectionLabel } from "@/components/common/section-label"
 import { TESTIMONIALS } from "@/lib/data"
 
@@ -15,10 +17,11 @@ export function TestimonialsSection() {
         paddingBottom: "6rem",
       }}
     >
-      {/* Decorative large quote — editorial touch */}
+      {/* Decorative large quote — parallax drift */}
+      <ParallaxDrift offset={40} className="pointer-events-none absolute left-8 top-20 select-none">
       <span
         aria-hidden
-        className="pointer-events-none absolute left-8 top-20 select-none leading-none"
+        className="leading-none"
         style={{
           fontFamily: "var(--font-display)",
           fontSize: "clamp(140px, 18vw, 220px)",
@@ -29,8 +32,10 @@ export function TestimonialsSection() {
       >
         &ldquo;
       </span>
+      </ParallaxDrift>
 
       <div className="relative mx-auto max-w-7xl px-6">
+        <FadeIn>
         <div className="mb-16">
           <SectionLabel>Client Stories</SectionLabel>
           <h2
@@ -44,18 +49,18 @@ export function TestimonialsSection() {
             What our clients say.
           </h2>
         </div>
+        </FadeIn>
 
         <div className="flex flex-col gap-0">
           {quotes.map((t, i) => (
-            <div
-              key={t.name}
-              className="py-10"
-              style={{
-                borderTop: "1px solid var(--border)",
-              }}
-            >
-              <TestimonialCard testimonial={t} index={i} />
-            </div>
+            <FadeIn key={t.name} delay={i * 100}>
+              <div
+                className="py-10"
+                style={{ borderTop: "1px solid var(--border)" }}
+              >
+                <TestimonialCard testimonial={t} index={i} />
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

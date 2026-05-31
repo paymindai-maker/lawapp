@@ -1,0 +1,1028 @@
+[
+  {
+    "title": "Startup Registration",
+    "slug": "startup-registration",
+    "icon": "Building2",
+    "shortDescription": "Launch your startup with the right legal foundation. We help founders register their business, obtain startup recognition, and establish a compliant structure for growth, fundraising, and long-term success.",
+    "hero": {
+      "heading": "Register Your Startup With Confidence",
+      "subheading": "From selecting the right business structure to obtaining startup recognition and completing registrations, we help founders build a legally compliant foundation for growth.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "5–15 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹4,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Right Business Structure Selection",
+        "description": "We help founders choose the most suitable business structure based on ownership, funding plans, liability protection, and future scalability requirements."
+      },
+      {
+        "title": "Startup India Recognition Support",
+        "description": "Eligible startups can benefit from Startup India recognition, enabling access to government schemes, tax benefits, networking opportunities, and startup-focused initiatives."
+      },
+      {
+        "title": "Investor-Ready Foundation",
+        "description": "A properly registered startup builds credibility with investors, accelerators, incubators, banks, and strategic partners."
+      },
+      {
+        "title": "Compliance From Day One",
+        "description": "We guide founders through registrations, documentation, and compliance requirements to reduce future legal and regulatory risks."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "First-time entrepreneurs launching a new business",
+        "note": "Suitable for founders seeking legal recognition and long-term business growth."
+      },
+      {
+        "audience": "Technology startups and digital businesses",
+        "note": "Ideal for startups planning to scale operations or raise external funding."
+      },
+      {
+        "audience": "Founders applying for Startup India recognition",
+        "note": "Business must satisfy applicable DPIIT eligibility conditions."
+      },
+      {
+        "audience": "Businesses transitioning from informal operations",
+        "note": "Formal registration improves credibility and compliance."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of founders",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Business address proof",
+      "Email address and mobile number",
+      "Proposed business activity details",
+      "Founder information and ownership structure",
+      "Additional documents depending on chosen entity type"
+    ],
+    "processSteps": [
+      "Consultation to understand business model and objectives",
+      "Evaluation of suitable legal structure",
+      "Collection and verification of documents",
+      "Business registration and incorporation filing",
+      "Startup India recognition assessment and application",
+      "Government review and approval process",
+      "Issuance of registration certificates",
+      "Post-registration compliance guidance"
+    ],
+    "whyChooseUs": [
+      "Dedicated startup registration specialists",
+      "Guidance on selecting the right business structure",
+      "Startup India recognition assistance",
+      "Transparent pricing and timelines",
+      "End-to-end documentation support",
+      "Ongoing compliance guidance after registration"
+    ],
+    "faqs": [
+      {
+        "q": "What is Startup India recognition?",
+        "a": "Startup India recognition is a government initiative administered through DPIIT that supports eligible startups through various benefits, networking opportunities, and startup-focused programs."
+      },
+      {
+        "q": "Which business structure is best for a startup?",
+        "a": "The answer depends on ownership structure, funding plans, and business objectives. Private Limited Companies are generally preferred by startups seeking investment."
+      },
+      {
+        "q": "How long does startup registration take?",
+        "a": "Most startup registrations are completed within 5–15 business days, depending on the selected business structure and government processing timelines."
+      },
+      {
+        "q": "Can a startup operate without registration?",
+        "a": "While some businesses may begin informally, registration is recommended to improve credibility, legal protection, compliance, and growth opportunities."
+      },
+      {
+        "q": "Do all startups qualify for Startup India benefits?",
+        "a": "No. Eligibility depends on criteria established by DPIIT, including business age, turnover limits, and innovation requirements."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Startup Registration Services in India | Startup India Registration Assistance",
+      "description": "Register your startup with expert guidance. Business registration, Startup India recognition support, compliance assistance, and founder advisory services for growing businesses.",
+      "keywords": "startup registration India, Startup India registration, startup incorporation, startup legal registration, DPIIT startup registration, startup company registration, startup compliance services"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "LLP Incorporation",
+    "slug": "llp-incorporation",
+    "icon": "Building2",
+    "shortDescription": "Register your Limited Liability Partnership (LLP) with complete legal and compliance support. Ideal for consultants, agencies, professionals, and growing service businesses seeking liability protection with operational flexibility.",
+    "hero": {
+      "heading": "Register Your LLP With Professional Guidance",
+      "subheading": "From name reservation and partner documentation to incorporation filing and compliance guidance, we help you establish your Limited Liability Partnership quickly and efficiently.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "7–10 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹5,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Limited Liability Protection",
+        "description": "Partners are generally protected from personal liability arising from business obligations, reducing financial risk compared to traditional partnerships."
+      },
+      {
+        "title": "Lower Compliance Burden",
+        "description": "LLPs typically face fewer compliance requirements compared to private limited companies, making them attractive for professional and service-based businesses."
+      },
+      {
+        "title": "Separate Legal Entity",
+        "description": "An LLP enjoys a distinct legal identity separate from its partners, allowing it to own assets, enter contracts, and continue operations independently."
+      },
+      {
+        "title": "Flexible Management Structure",
+        "description": "Partners can manage operations directly through mutually agreed arrangements without the complex governance structure required by companies."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Consultants, advisors, and professional service providers",
+        "note": "Suitable for businesses seeking flexibility with liability protection."
+      },
+      {
+        "audience": "Partnership firms upgrading their legal structure",
+        "note": "Provides stronger legal recognition and limited liability benefits."
+      },
+      {
+        "audience": "Agencies and service-based startups",
+        "note": "Well suited for businesses not seeking external equity investment."
+      },
+      {
+        "audience": "Businesses with two or more partners",
+        "note": "Minimum two designated partners are required for LLP incorporation."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of all partners",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Email ID and mobile number of partners",
+      "Address proof of partners",
+      "Registered office address proof",
+      "Utility bill for office premises",
+      "NOC from property owner (if rented)"
+    ],
+    "processSteps": [
+      "Consultation and structure assessment",
+      "Collection of partner documents",
+      "DSC application for designated partners",
+      "DPIN allocation and compliance checks",
+      "LLP name reservation filing",
+      "Incorporation filing with MCA",
+      "Drafting and execution of LLP Agreement",
+      "Certificate of Incorporation issuance"
+    ],
+    "whyChooseUs": [
+      "Dedicated LLP incorporation specialists",
+      "End-to-end MCA filing support",
+      "LLP Agreement drafting assistance",
+      "Transparent timelines and pricing",
+      "Compliance guidance after registration",
+      "Direct support throughout the registration process"
+    ],
+    "faqs": [
+      {
+        "q": "How many partners are required to register an LLP?",
+        "a": "A minimum of two partners is required for LLP incorporation in India. There is no upper limit on the number of partners."
+      },
+      {
+        "q": "Can an LLP raise investment from venture capital firms?",
+        "a": "Most venture capital investors prefer investing in private limited companies because they can issue equity shares. LLPs are generally not the preferred structure for venture funding."
+      },
+      {
+        "q": "Is an LLP better than a partnership firm?",
+        "a": "An LLP provides limited liability protection, a separate legal identity, and stronger legal recognition compared to a traditional partnership firm."
+      },
+      {
+        "q": "How long does LLP incorporation take?",
+        "a": "Most LLP registrations are completed within 7–10 business days, subject to document verification and MCA processing timelines."
+      },
+      {
+        "q": "Is an LLP required to file annual compliance returns?",
+        "a": "Yes. LLPs must comply with annual filing and statutory obligations under applicable laws."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "LLP Incorporation Services in India | Register Your LLP Online",
+      "description": "Register your Limited Liability Partnership with expert assistance. LLP incorporation, name reservation, MCA filing, LLP Agreement drafting, and compliance support.",
+      "keywords": "LLP registration India, LLP incorporation services, limited liability partnership registration, LLP agreement drafting, MCA LLP filing, register LLP online"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "One Person Company Registration",
+    "slug": "one-person-company-registration",
+    "icon": "Building2",
+    "shortDescription": "Start your business with the benefits of a corporate structure while maintaining full ownership and control. OPC Registration is ideal for solo entrepreneurs seeking credibility, limited liability protection, and long-term growth opportunities.",
+    "hero": {
+      "heading": "Register Your One Person Company With Ease",
+      "subheading": "Establish a legally recognized business with complete ownership, limited liability protection, and professional registration support from start to finish.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "7–12 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹6,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Single Owner Control",
+        "description": "An OPC allows a single entrepreneur to own and manage the business without requiring additional shareholders or partners."
+      },
+      {
+        "title": "Limited Liability Protection",
+        "description": "The owner's personal assets remain protected from business liabilities and obligations, reducing financial risk."
+      },
+      {
+        "title": "Separate Legal Identity",
+        "description": "An OPC exists as a distinct legal entity capable of entering contracts, owning assets, and conducting business independently."
+      },
+      {
+        "title": "Enhanced Business Credibility",
+        "description": "Operating as a registered company improves trust among customers, vendors, financial institutions, and business partners."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Individual entrepreneurs",
+        "note": "Only natural persons can incorporate an OPC."
+      },
+      {
+        "audience": "Solo business owners",
+        "note": "Ideal for individuals seeking complete ownership and control."
+      },
+      {
+        "audience": "Consultants and freelancers",
+        "note": "Provides professional credibility and legal protection."
+      },
+      {
+        "audience": "Growing startups with a single founder",
+        "note": "Suitable for entrepreneurs planning future business expansion."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of the applicant",
+      "Aadhaar Card or Passport",
+      "Passport-size photograph",
+      "Email ID and mobile number",
+      "Residential address proof",
+      "Registered office address proof",
+      "Utility bill for office premises",
+      "No Objection Certificate (NOC) if office is rented"
+    ],
+    "processSteps": [
+      "Initial consultation and eligibility review",
+      "Collection and verification of documents",
+      "DSC application for the promoter",
+      "DIN generation and compliance review",
+      "Company name reservation filing",
+      "Incorporation application submission",
+      "MCA verification and approval process",
+      "Certificate of Incorporation issuance"
+    ],
+    "whyChooseUs": [
+      "Dedicated company registration specialists",
+      "End-to-end MCA filing support",
+      "Name reservation and incorporation assistance",
+      "Transparent pricing and timelines",
+      "Compliance guidance after registration",
+      "Personalized support throughout the process"
+    ],
+    "faqs": [
+      {
+        "q": "Can one person own an OPC?",
+        "a": "Yes. An OPC is specifically designed for a single entrepreneur who wishes to operate a company independently."
+      },
+      {
+        "q": "Does an OPC provide limited liability protection?",
+        "a": "Yes. The owner's liability is generally limited to the amount invested in the company."
+      },
+      {
+        "q": "Can an OPC be converted into a Private Limited Company?",
+        "a": "Yes. OPCs may be converted into Private Limited Companies when business requirements evolve."
+      },
+      {
+        "q": "How long does OPC registration take?",
+        "a": "Most OPC registrations are completed within 7–12 business days, depending on document readiness and MCA processing timelines."
+      },
+      {
+        "q": "Is an OPC suitable for raising investor funding?",
+        "a": "Most investors prefer Private Limited Companies for equity investment. However, OPCs can later be converted into Private Limited Companies if required."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "One Person Company Registration Services in India | OPC Registration Online",
+      "description": "Register your One Person Company with expert assistance. Complete OPC incorporation services, MCA filing, documentation support, and compliance guidance.",
+      "keywords": "OPC registration India, one person company registration, OPC incorporation services, register OPC online, MCA company registration, single owner company registration"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Partnership Firm Registration",
+    "slug": "partnership-firm-registration",
+    "icon": "Building2",
+    "shortDescription": "Establish your partnership business with a legally recognized structure. Partnership Firm Registration helps partners define responsibilities, protect business interests, and build credibility with clients, vendors, and financial institutions.",
+    "hero": {
+      "heading": "Register Your Partnership Firm With Confidence",
+      "subheading": "Launch your partnership business with proper documentation, legal recognition, and professional registration support tailored to your business objectives.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "5–10 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹3,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Simple Business Structure",
+        "description": "Partnership firms offer a straightforward business structure with minimal setup requirements, making them suitable for small and medium-sized businesses."
+      },
+      {
+        "title": "Shared Responsibility",
+        "description": "Partners contribute skills, capital, and expertise, allowing businesses to benefit from collective decision-making and resource sharing."
+      },
+      {
+        "title": "Cost-Effective Setup",
+        "description": "Partnership registration is generally less expensive and easier to manage than more complex corporate structures."
+      },
+      {
+        "title": "Improved Business Credibility",
+        "description": "A registered partnership firm enhances trust among clients, suppliers, financial institutions, and potential business partners."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Businesses operated by two or more individuals",
+        "note": "A minimum of two partners is required to establish a partnership firm."
+      },
+      {
+        "audience": "Family-owned businesses",
+        "note": "Suitable for family members jointly managing business operations."
+      },
+      {
+        "audience": "Professional service providers",
+        "note": "Commonly used by consultants, agencies, and local service businesses."
+      },
+      {
+        "audience": "Small and medium-sized enterprises",
+        "note": "Ideal for businesses seeking operational flexibility and shared management."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of all partners",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Address proof of partners",
+      "Business address proof",
+      "Partnership Deed",
+      "Utility bill of registered office",
+      "No Objection Certificate (NOC) if applicable"
+    ],
+    "processSteps": [
+      "Consultation and business structure review",
+      "Collection of partner information and documents",
+      "Drafting of Partnership Deed",
+      "Review and execution of deed by partners",
+      "Preparation of registration application",
+      "Submission to relevant authority",
+      "Verification and approval process",
+      "Issuance of registration certificate"
+    ],
+    "whyChooseUs": [
+      "Experienced business registration professionals",
+      "Professionally drafted Partnership Deeds",
+      "End-to-end registration support",
+      "Transparent pricing and timelines",
+      "Fast documentation assistance",
+      "Ongoing business compliance guidance"
+    ],
+    "faqs": [
+      {
+        "q": "Is partnership registration mandatory in India?",
+        "a": "Partnership registration is not mandatory under the Indian Partnership Act, 1932. However, registration provides important legal advantages and is strongly recommended."
+      },
+      {
+        "q": "How many partners are required to form a partnership firm?",
+        "a": "A minimum of two partners is required to establish a partnership firm."
+      },
+      {
+        "q": "What is a Partnership Deed?",
+        "a": "A Partnership Deed is a legal document that outlines the rights, responsibilities, profit-sharing ratio, capital contributions, and operational rules agreed upon by the partners."
+      },
+      {
+        "q": "How long does partnership registration take?",
+        "a": "Most partnership registrations are completed within 5–10 business days, depending on document readiness and local registration procedures."
+      },
+      {
+        "q": "Can a partnership firm open a bank account?",
+        "a": "Yes. Registered partnership firms can open business bank accounts using their registration documents and Partnership Deed."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Partnership Firm Registration Services in India | Register Partnership Firm Online",
+      "description": "Register your partnership firm with expert assistance. Partnership Deed drafting, registration support, legal documentation, and compliance guidance for growing businesses.",
+      "keywords": "partnership firm registration India, partnership deed registration, register partnership firm online, business partnership registration, partnership registration services, partnership deed drafting"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Proprietorship Firm Registration",
+    "slug": "proprietorship-firm-registration",
+    "icon": "Building2",
+    "shortDescription": "Start your business quickly and affordably with Proprietorship Firm Registration. Ideal for freelancers, consultants, traders, retailers, and small business owners seeking a simple business structure with minimal compliance requirements.",
+    "hero": {
+      "heading": "Start Your Proprietorship Business With Confidence",
+      "subheading": "Launch your business with a legally recognized proprietorship structure and receive expert guidance for registrations, compliance, and business documentation.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "3–7 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹2,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Easy Business Setup",
+        "description": "Proprietorships are among the simplest business structures to establish, making them ideal for first-time entrepreneurs and small business owners."
+      },
+      {
+        "title": "Minimal Compliance Requirements",
+        "description": "Compared to companies and LLPs, proprietorship businesses generally have fewer regulatory and filing obligations."
+      },
+      {
+        "title": "Complete Business Control",
+        "description": "The owner maintains full authority over business decisions, operations, finances, and management activities."
+      },
+      {
+        "title": "Cost-Effective Registration",
+        "description": "Low registration and maintenance costs make proprietorships a practical option for startups and local businesses."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Individual entrepreneurs",
+        "note": "Only one individual can own and operate a proprietorship business."
+      },
+      {
+        "audience": "Freelancers and consultants",
+        "note": "Suitable for professionals providing independent services."
+      },
+      {
+        "audience": "Retailers and traders",
+        "note": "Commonly used by local shops and trading businesses."
+      },
+      {
+        "audience": "Small business owners",
+        "note": "Ideal for businesses seeking a low-cost entry into entrepreneurship."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of proprietor",
+      "Aadhaar Card or Passport",
+      "Passport-size photograph",
+      "Residential address proof",
+      "Business address proof",
+      "Utility bill for business premises",
+      "Bank account details",
+      "Supporting documents for applicable registrations"
+    ],
+    "processSteps": [
+      "Business consultation and requirement assessment",
+      "Collection of proprietor documents",
+      "Selection of supporting registrations",
+      "Preparation of application documents",
+      "Submission of registration applications",
+      "Government verification process",
+      "Issuance of registration certificates",
+      "Business setup and compliance guidance"
+    ],
+    "whyChooseUs": [
+      "Fast business setup assistance",
+      "Guidance on required registrations",
+      "GST and MSME registration support",
+      "Affordable service packages",
+      "Transparent documentation process",
+      "Dedicated support throughout registration"
+    ],
+    "faqs": [
+      {
+        "q": "Is proprietorship registration mandatory?",
+        "a": "There is no specific registration certificate exclusively for proprietorships. However, supporting registrations such as GST, Udyam, or Shop & Establishment Registration are commonly used to establish the business legally."
+      },
+      {
+        "q": "Can a proprietorship open a business bank account?",
+        "a": "Yes. Proprietorship businesses can open business bank accounts using supporting business registration documents."
+      },
+      {
+        "q": "Who controls a proprietorship business?",
+        "a": "The proprietor maintains complete ownership and control over all business activities and decisions."
+      },
+      {
+        "q": "How long does proprietorship registration take?",
+        "a": "Most supporting registrations required to establish a proprietorship can be completed within 3–7 business days."
+      },
+      {
+        "q": "Can a proprietorship be converted into an LLP or company later?",
+        "a": "Yes. Many businesses begin as proprietorships and later transition to LLPs or Private Limited Companies as they grow."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Proprietorship Firm Registration Services in India | Start Your Business Easily",
+      "description": "Register your proprietorship business with expert assistance. GST registration, MSME registration, business setup support, and compliance guidance for entrepreneurs and small businesses.",
+      "keywords": "proprietorship registration India, sole proprietorship registration, start proprietorship business, proprietorship firm registration, MSME registration, GST registration for proprietorship"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Section 8 Company Registration",
+    "slug": "section-8-company-registration",
+    "icon": "Building2",
+    "shortDescription": "Establish your non-profit organization with a legally recognized structure designed for charitable, educational, social welfare, environmental, and public benefit activities. We provide complete assistance for Section 8 Company incorporation and compliance.",
+    "hero": {
+      "heading": "Register Your Section 8 Company With Expert Guidance",
+      "subheading": "Build a legally recognized non-profit organization with professional support for incorporation, documentation, licensing, and compliance requirements.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "15–25 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹12,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Recognized Non-Profit Structure",
+        "description": "Section 8 Companies enjoy strong legal recognition and credibility among donors, government agencies, institutions, and stakeholders."
+      },
+      {
+        "title": "Separate Legal Entity",
+        "description": "The organization exists independently of its members, allowing it to own assets, enter contracts, and operate continuously."
+      },
+      {
+        "title": "Enhanced Funding Opportunities",
+        "description": "Many grant providers, CSR contributors, and institutional donors prefer working with registered Section 8 Companies."
+      },
+      {
+        "title": "Limited Liability Protection",
+        "description": "Members generally enjoy limited liability protection while contributing to charitable and social objectives."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Non-profit organizations",
+        "note": "Suitable for entities pursuing charitable and public welfare objectives."
+      },
+      {
+        "audience": "Educational institutions",
+        "note": "Ideal for organizations focused on learning, training, and skill development initiatives."
+      },
+      {
+        "audience": "Social enterprises",
+        "note": "Suitable for organizations creating social impact rather than distributing profits."
+      },
+      {
+        "audience": "Charitable foundations and NGOs",
+        "note": "Provides a recognized legal structure for long-term operations and funding activities."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of directors and members",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Residential address proof",
+      "Registered office address proof",
+      "Utility bill for office premises",
+      "No Objection Certificate (NOC) for office address",
+      "Draft objectives and mission statement",
+      "Director and member details",
+      "Additional declarations and incorporation documents"
+    ],
+    "processSteps": [
+      "Consultation and objective assessment",
+      "Selection of company name",
+      "Collection and verification of documents",
+      "Drafting of MOA and AOA",
+      "Preparation of incorporation applications",
+      "Filing with Ministry of Corporate Affairs",
+      "Review and approval by authorities",
+      "Issuance of Section 8 Company Incorporation Certificate"
+    ],
+    "whyChooseUs": [
+      "Experienced NGO and non-profit registration specialists",
+      "Complete Section 8 incorporation support",
+      "MOA and AOA drafting assistance",
+      "Transparent registration process",
+      "Compliance-focused advisory services",
+      "Ongoing post-incorporation guidance"
+    ],
+    "faqs": [
+      {
+        "q": "What is the purpose of a Section 8 Company?",
+        "a": "A Section 8 Company is established to promote charitable, educational, social, environmental, cultural, or public welfare objectives without distributing profits to members."
+      },
+      {
+        "q": "Can a Section 8 Company earn income?",
+        "a": "Yes. A Section 8 Company may generate income, but profits must be used to further its stated objectives rather than being distributed among members."
+      },
+      {
+        "q": "Is Section 8 Company registration better than a Trust or Society?",
+        "a": "Each structure has its advantages. Section 8 Companies generally offer stronger governance, greater credibility, and a more structured compliance framework."
+      },
+      {
+        "q": "How long does Section 8 Company registration take?",
+        "a": "Most registrations are completed within 15–25 business days depending on document readiness and regulatory processing timelines."
+      },
+      {
+        "q": "Can a Section 8 Company receive CSR funding?",
+        "a": "Yes. Many organizations receive CSR contributions, grants, and institutional funding, subject to applicable legal and eligibility requirements."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Section 8 Company Registration Services in India | NGO Registration Experts",
+      "description": "Register your Section 8 Company with expert assistance. Complete NGO incorporation services, documentation support, MCA filing, and compliance guidance for non-profit organizations.",
+      "keywords": "Section 8 company registration, NGO registration India, non-profit company registration, Section 8 incorporation services, charitable organization registration, NGO company registration, MCA Section 8 registration"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Nidhi Company Registration",
+    "slug": "nidhi-company-registration",
+    "icon": "Building2",
+    "shortDescription": "Establish a Nidhi Company to promote savings and borrowing among members through a regulated mutual benefit structure. We provide complete assistance for Nidhi Company incorporation, documentation, and compliance requirements.",
+    "hero": {
+      "heading": "Register Your Nidhi Company With Expert Assistance",
+      "subheading": "Start a member-focused financial organization with professional guidance for incorporation, documentation, MCA filings, and regulatory compliance.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "15–25 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹14,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Promote Member Savings",
+        "description": "Nidhi Companies encourage systematic savings among members and help create a financially disciplined community."
+      },
+      {
+        "title": "Facilitate Member Borrowing",
+        "description": "Members can access loans within the framework permitted under applicable regulations and company policies."
+      },
+      {
+        "title": "Recognized Corporate Structure",
+        "description": "A Nidhi Company operates as a company registered under the Companies Act and enjoys legal recognition and corporate credibility."
+      },
+      {
+        "title": "Community-Based Financial Model",
+        "description": "The structure is designed to support mutual financial assistance among members while operating under regulated conditions."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Groups seeking a mutual benefit financial structure",
+        "note": "Suitable for organizations focused on member savings and lending activities."
+      },
+      {
+        "audience": "Community-based financial organizations",
+        "note": "Ideal for entities serving specific member communities."
+      },
+      {
+        "audience": "Promoters meeting Nidhi Company requirements",
+        "note": "Must comply with applicable incorporation and post-registration obligations."
+      },
+      {
+        "audience": "Organizations seeking a regulated corporate structure",
+        "note": "Suitable for groups preferring company-based governance and legal recognition."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of directors",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Residential address proof",
+      "Registered office address proof",
+      "Utility bill of office premises",
+      "No Objection Certificate (NOC) for office address",
+      "Director and shareholder details",
+      "Memorandum of Association (MOA)",
+      "Articles of Association (AOA)"
+    ],
+    "processSteps": [
+      "Consultation and eligibility assessment",
+      "Collection of director and shareholder documents",
+      "DSC and DIN application process",
+      "Company name reservation",
+      "Drafting of incorporation documents",
+      "MCA filing and incorporation application",
+      "Government review and approval process",
+      "Certificate of Incorporation issuance",
+      "Post-incorporation compliance guidance"
+    ],
+    "whyChooseUs": [
+      "Experienced company incorporation professionals",
+      "End-to-end Nidhi Company registration support",
+      "MCA filing and documentation assistance",
+      "Transparent timelines and pricing",
+      "Compliance-focused advisory services",
+      "Post-incorporation support and guidance"
+    ],
+    "faqs": [
+      {
+        "q": "What is the primary purpose of a Nidhi Company?",
+        "a": "A Nidhi Company promotes savings among members and facilitates borrowing activities within its membership community under applicable regulations."
+      },
+      {
+        "q": "Can a Nidhi Company accept deposits?",
+        "a": "Yes. Nidhi Companies may accept deposits from members subject to applicable legal and regulatory requirements."
+      },
+      {
+        "q": "Can a Nidhi Company provide loans?",
+        "a": "Yes. Loans may be provided to members in accordance with applicable regulations and company policies."
+      },
+      {
+        "q": "How long does Nidhi Company registration take?",
+        "a": "Most registrations are completed within 15–25 business days depending on document readiness and MCA processing timelines."
+      },
+      {
+        "q": "Is a Nidhi Company the same as a bank?",
+        "a": "No. Nidhi Companies operate under a mutual benefit model for members and are not traditional banking institutions."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Nidhi Company Registration Services in India | Register Nidhi Company Online",
+      "description": "Register your Nidhi Company with expert assistance. Complete incorporation support, MCA filing, documentation, compliance guidance, and member-focused company registration services.",
+      "keywords": "Nidhi company registration, Nidhi company incorporation, register Nidhi company online, mutual benefit company registration, Nidhi company compliance, MCA Nidhi registration"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Trust Registration",
+    "slug": "trust-registration",
+    "icon": "Building2",
+    "shortDescription": "Establish a legally recognized trust for charitable, religious, educational, healthcare, or social welfare activities. We provide complete assistance for trust formation, trust deed drafting, registration, and compliance support.",
+    "hero": {
+      "heading": "Register Your Trust With Expert Legal Guidance",
+      "subheading": "Build a strong legal foundation for your charitable or social mission with professional trust registration services and end-to-end documentation support.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "10–20 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹7,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Legal Recognition for Charitable Activities",
+        "description": "Trust registration provides formal legal recognition, helping organizations operate transparently and build credibility with donors, institutions, and government bodies."
+      },
+      {
+        "title": "Asset Protection and Management",
+        "description": "A trust structure enables proper management and utilization of assets dedicated to charitable, educational, religious, or social welfare objectives."
+      },
+      {
+        "title": "Enhanced Donor Confidence",
+        "description": "Registered trusts often enjoy greater trust among contributors, supporters, grant providers, and stakeholders."
+      },
+      {
+        "title": "Long-Term Organizational Stability",
+        "description": "A trust can continue functioning beyond the involvement of its founders, ensuring continuity of charitable and social objectives."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Charitable organizations",
+        "note": "Suitable for groups pursuing public welfare and social impact initiatives."
+      },
+      {
+        "audience": "Educational institutions",
+        "note": "Ideal for organizations operating schools, training centers, and educational programs."
+      },
+      {
+        "audience": "Religious and cultural organizations",
+        "note": "Suitable for entities promoting religious, spiritual, and cultural objectives."
+      },
+      {
+        "audience": "Healthcare and community development initiatives",
+        "note": "Provides a structured framework for long-term social impact projects."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of trustees",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Address proof of trustees",
+      "Registered office address proof",
+      "Utility bill of office premises",
+      "No Objection Certificate (NOC) if applicable",
+      "Draft Trust Deed",
+      "Details of trustees and beneficiaries",
+      "Trust objectives and activity details"
+    ],
+    "processSteps": [
+      "Consultation and objective assessment",
+      "Selection of trust structure and trustees",
+      "Drafting of Trust Deed",
+      "Collection and verification of documents",
+      "Execution of Trust Deed",
+      "Submission for registration",
+      "Review and approval by authorities",
+      "Issuance of registration certificate"
+    ],
+    "whyChooseUs": [
+      "Experienced trust registration specialists",
+      "Professionally drafted Trust Deeds",
+      "End-to-end registration support",
+      "Transparent documentation process",
+      "Guidance on future NGO registrations",
+      "Ongoing compliance assistance"
+    ],
+    "faqs": [
+      {
+        "q": "What is the purpose of a Trust?",
+        "a": "A Trust is established to manage assets and pursue charitable, educational, religious, healthcare, social welfare, or community development objectives."
+      },
+      {
+        "q": "How many trustees are required to register a Trust?",
+        "a": "Requirements vary by jurisdiction, but generally a minimum number of trustees is required to establish and manage the trust."
+      },
+      {
+        "q": "Is a Trust suitable for charitable activities?",
+        "a": "Yes. Trusts are one of the most commonly used legal structures for charitable and social welfare initiatives."
+      },
+      {
+        "q": "How long does Trust registration take?",
+        "a": "Most trust registrations are completed within 10–20 business days depending on document readiness and local registration procedures."
+      },
+      {
+        "q": "Can a Trust receive donations?",
+        "a": "Yes. Registered trusts may receive donations subject to applicable laws and regulatory requirements."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Trust Registration Services in India | Register a Charitable Trust",
+      "description": "Register your trust with expert assistance. Trust Deed drafting, charitable trust registration, legal documentation, and compliance support for non-profit organizations.",
+      "keywords": "trust registration India, charitable trust registration, trust deed registration, NGO trust registration, public trust registration, trust formation services"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  },
+  {
+    "title": "Society Registration",
+    "slug": "society-registration",
+    "icon": "Building2",
+    "shortDescription": "Register your society to establish a legally recognized organization for charitable, educational, cultural, scientific, literary, social welfare, or community development activities. We provide complete assistance with society registration, documentation, and compliance requirements.",
+    "hero": {
+      "heading": "Register Your Society With Professional Guidance",
+      "subheading": "Build a legally recognized organization with expert support for society registration, documentation, governance structure, and regulatory compliance.",
+      "ctaText": "Book a Free Consultation"
+    },
+    "quickInfo": {
+      "timeline": "10–20 Business Days",
+      "consultation": "Free Initial Call",
+      "startingPrice": "Starting at ₹8,999"
+    },
+    "benefits": [],
+    "eligibility": [],
+    "benefitItems": [
+      {
+        "title": "Legal Recognition and Credibility",
+        "description": "Society registration provides formal legal recognition and enhances credibility with donors, institutions, government agencies, and stakeholders."
+      },
+      {
+        "title": "Structured Governance Framework",
+        "description": "A registered society operates under defined rules, member responsibilities, and governance mechanisms that support transparency and accountability."
+      },
+      {
+        "title": "Suitable for Community Development",
+        "description": "Societies are widely used for educational, cultural, social welfare, literary, scientific, and charitable activities."
+      },
+      {
+        "title": "Improved Funding Opportunities",
+        "description": "Registration helps organizations access grants, donations, partnerships, and various support programs from institutions and contributors."
+      }
+    ],
+    "eligibilityItems": [
+      {
+        "audience": "Educational organizations",
+        "note": "Suitable for schools, training institutions, research organizations, and educational initiatives."
+      },
+      {
+        "audience": "Cultural and social welfare groups",
+        "note": "Ideal for organizations promoting community development and public welfare activities."
+      },
+      {
+        "audience": "Professional and membership associations",
+        "note": "Suitable for groups formed around common professional, cultural, or social interests."
+      },
+      {
+        "audience": "Non-profit organizations",
+        "note": "Provides a recognized legal structure for charitable and social impact initiatives."
+      }
+    ],
+    "requiredDocuments": [
+      "PAN Card of founding members",
+      "Aadhaar Card or Passport",
+      "Passport-size photographs",
+      "Residential address proof of members",
+      "Registered office address proof",
+      "Utility bill of office premises",
+      "No Objection Certificate (NOC) if applicable",
+      "Memorandum of Association (MOA)",
+      "Rules and Regulations document",
+      "Details of governing body members"
+    ],
+    "processSteps": [
+      "Consultation and objective assessment",
+      "Formation of founding member group",
+      "Drafting of Memorandum of Association",
+      "Preparation of Rules and Regulations",
+      "Collection and verification of documents",
+      "Submission of registration application",
+      "Authority review and approval process",
+      "Issuance of Society Registration Certificate"
+    ],
+    "whyChooseUs": [
+      "Experienced society registration specialists",
+      "MOA and Rules drafting assistance",
+      "End-to-end registration support",
+      "Transparent documentation process",
+      "Guidance on NGO-related registrations",
+      "Long-term compliance assistance"
+    ],
+    "faqs": [
+      {
+        "q": "What is the purpose of Society Registration?",
+        "a": "Society registration provides legal recognition to organizations formed for educational, charitable, cultural, scientific, literary, social welfare, or community development objectives."
+      },
+      {
+        "q": "How many members are required to register a Society?",
+        "a": "Generally, a minimum of seven founding members is required for society registration, although requirements may vary depending on applicable laws."
+      },
+      {
+        "q": "Can a registered Society receive donations?",
+        "a": "Yes. Registered societies may receive donations and other contributions subject to applicable legal and regulatory requirements."
+      },
+      {
+        "q": "How long does Society Registration take?",
+        "a": "Most society registrations are completed within 10–20 business days depending on documentation and authority processing timelines."
+      },
+      {
+        "q": "What is the difference between a Trust, Society, and Section 8 Company?",
+        "a": "Each structure has distinct governance, compliance, and operational characteristics. The most suitable option depends on the organization's objectives, funding plans, and governance preferences."
+      }
+    ],
+    "relatedServices": [],
+    "seo": {
+      "title": "Society Registration Services in India | Register Society Online",
+      "description": "Register your society with expert assistance. Society registration, MOA drafting, governance documentation, and compliance support for educational, charitable, and social organizations.",
+      "keywords": "society registration India, register society online, society formation services, NGO society registration, educational society registration, charitable society registration, societies registration act"
+    },
+    "content": "",
+    "featuredImage": "",
+    "status": "published"
+  }
+]

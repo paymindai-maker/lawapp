@@ -30,6 +30,19 @@ export interface FooterColumn {
   links: { label: string; href: string }[]
 }
 
+// ─── Rich service content types ───────────────────────────────────────────────
+
+export interface BenefitItem {
+  title: string
+  description: string
+  icon?: string
+}
+
+export interface EligibilityItem {
+  audience: string
+  note?: string
+}
+
 // ─── Firestore document types ─────────────────────────────────────────────────
 
 export interface ServiceDoc {
@@ -49,8 +62,10 @@ export interface ServiceDoc {
     consultation: string
     startingPrice: string
   }
-  benefits: string[]
-  eligibility: string[]
+  benefits: string[]           // legacy flat strings (kept for old docs)
+  eligibility: string[]        // legacy flat strings (kept for old docs)
+  benefitItems?: BenefitItem[]
+  eligibilityItems?: EligibilityItem[]
   requiredDocuments: string[]
   processSteps: string[]
   whyChooseUs: string[]

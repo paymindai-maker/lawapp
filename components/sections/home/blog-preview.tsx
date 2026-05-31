@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 import { BlogCard } from "@/components/common/blog-card"
+import { FadeIn } from "@/components/common/fade-in"
 import { SectionLabel } from "@/components/common/section-label"
 
 import { getRecentBlogPosts } from "@/lib/firestore/blog"
@@ -27,6 +28,7 @@ export async function BlogPreview() {
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
+        <FadeIn>
         <div className="mb-12 flex items-end justify-between">
           <div>
             <SectionLabel>Legal Insights</SectionLabel>
@@ -53,15 +55,18 @@ export async function BlogPreview() {
           </Link>
         </div>
 
+        </FadeIn>
+
         {/* Blog Grid */}
         <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           {posts.map((post, i) => (
-            <BlogCard
-              key={post.slug}
-              post={post}
-              href={`/blog/${post.slug}`}
-              featured={i === 0}
-            />
+            <FadeIn key={post.slug} delay={i * 80}>
+              <BlogCard
+                post={post}
+                href={`/blog/${post.slug}`}
+                featured={i === 0}
+              />
+            </FadeIn>
           ))}
         </div>
 

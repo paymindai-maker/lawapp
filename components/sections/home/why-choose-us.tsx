@@ -1,3 +1,5 @@
+import { FadeIn } from "@/components/common/fade-in"
+import { ParallaxDrift } from "@/components/common/parallax"
 import { SectionLabel } from "@/components/common/section-label"
 
 const REASONS = [
@@ -32,7 +34,8 @@ export function WhyChooseUs() {
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid gap-16 md:grid-cols-5 md:gap-20">
           {/* Left — large editorial statement */}
-          <div className="flex flex-col justify-center gap-8 md:col-span-2">
+          <FadeIn direction="left" className="md:col-span-2">
+          <ParallaxDrift offset={20} className="flex flex-col justify-center gap-8">
             <SectionLabel>Our Approach</SectionLabel>
             <h2
               style={{
@@ -54,15 +57,17 @@ export function WhyChooseUs() {
               className="text-sm leading-relaxed"
               style={{ color: "var(--muted-foreground)", maxWidth: "30ch" }}
             >
-              NEXGEN has operated from Mumbai&rsquo;s BKC since 2006. Our multidiscipline
+              NEXGEN has operated from Noida since 2006. Our multidiscipline
               team covers every legal need a growing Indian business will encounter.
             </p>
             <div className="h-px w-16" style={{ background: "var(--fw-gold)" }} />
-          </div>
+          </ParallaxDrift>
+          </FadeIn>
 
           {/* Right — numbered reasons */}
           <div className="flex flex-col justify-center gap-0 md:col-span-3">
             {REASONS.map((r, i) => (
+              <FadeIn key={r.num} delay={i * 100}>
               <div
                 key={r.num}
                 className="flex gap-6 py-8"
@@ -97,6 +102,7 @@ export function WhyChooseUs() {
                   </p>
                 </div>
               </div>
+              </FadeIn>
             ))}
           </div>
         </div>

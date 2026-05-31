@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { SectionLabel } from "@/components/common/section-label"
+import { FadeIn } from "@/components/common/fade-in"
 import { getAllCategories } from "@/lib/firestore/services"
 
 export async function ServicesPreview() {
@@ -17,6 +18,7 @@ export async function ServicesPreview() {
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
+        <FadeIn>
         <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel>What We Do</SectionLabel>
@@ -97,13 +99,14 @@ export async function ServicesPreview() {
         <div className="mt-10 flex items-center justify-end gap-2">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-sm font-semibold"
+            className="link-underline inline-flex items-center gap-2 text-sm font-semibold"
             style={{ color: "var(--fw-blue)" }}
           >
             View all practice areas
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+        </FadeIn>
       </div>
     </section>
   )

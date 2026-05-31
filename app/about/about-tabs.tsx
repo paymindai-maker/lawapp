@@ -151,7 +151,7 @@ function FirmPanel() {
       <div className="grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-20">
         <div className="flex flex-col gap-5">
           <p className="leading-relaxed" style={{ color: "var(--foreground)", maxWidth: "60ch", fontSize: "1.05rem" }}>
-            NEXGEN is a Mumbai-based legal and compliance firm that has served 500+ businesses
+            NEXGEN is a Noida-based legal and compliance firm that has served 500+ businesses
             across India since 2006. Our integrated team of qualified Advocates and Chartered
             Accountants covers every compliance need your business faces — from first registration
             to complex commercial litigation.

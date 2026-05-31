@@ -4,7 +4,11 @@
       "mcp__shadcn__get_add_command_for_items",
       "PowerShell(npm install sanitize-html @types/sanitize-html 2>&1)",
       "PowerShell(New-Item *)",
-      "Bash(node .agents/skills/impeccable/scripts/cleanup-deprecated.mjs)"
+      "Bash(node .agents/skills/impeccable/scripts/cleanup-deprecated.mjs)",
+      "Bash(node C:\\\\Users\\\\Mohit\\\\.claude\\\\skills\\\\impeccable\\\\scripts\\\\cleanup-deprecated.mjs)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "WebFetch(domain:docs.google.com)",
+      "WebFetch(domain:doc-10-88-docstext.googleusercontent.com)"
     ]
   },
   "enableAllProjectMcpServers": true,

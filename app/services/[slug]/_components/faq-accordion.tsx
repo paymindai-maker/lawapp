@@ -17,7 +17,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
         <div key={i} style={{ borderBottom: "1px solid var(--border)" }}>
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="flex w-full items-start justify-between gap-6 py-5 text-left"
+            className="faq-btn flex w-full items-start justify-between gap-6 py-5 text-left"
           >
             <span
               className="text-sm font-medium leading-snug"
@@ -38,7 +38,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
             style={{
               display: "grid",
               gridTemplateRows: open === i ? "1fr" : "0fr",
-              transition: "grid-template-rows 280ms cubic-bezier(0.16, 1, 0.3, 1)",
+              transition: "grid-template-rows 300ms cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
             <div className="min-h-0 overflow-hidden">

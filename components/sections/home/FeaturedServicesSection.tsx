@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { FadeIn } from "@/components/common/fade-in"
 import { SectionLabel } from "@/components/common/section-label"
 import { ServiceCard } from "@/components/common/service-card"
 import { getFeaturedServices } from "@/lib/firestore/services"
@@ -16,6 +17,7 @@ export async function FeaturedServicesSection() {
     >
       <div className="mx-auto max-w-7xl px-6">
         {/* Header */}
+        <FadeIn>
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel>Our Services</SectionLabel>
@@ -41,6 +43,7 @@ export async function FeaturedServicesSection() {
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+        </FadeIn>
 
         {/* Cards grid */}
         <div
@@ -50,8 +53,10 @@ export async function FeaturedServicesSection() {
             gap: "1.25rem",
           }}
         >
-          {services.map((svc) => (
-            <ServiceCard key={svc.id} service={svc} />
+          {services.map((svc, i) => (
+            <FadeIn key={svc.id} delay={i * 75}>
+              <ServiceCard service={svc} />
+            </FadeIn>
           ))}
         </div>
       </div>

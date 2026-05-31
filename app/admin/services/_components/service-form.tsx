@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useEffect, useRef } from "react"
+import dynamic from "next/dynamic"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -20,8 +21,17 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { ImageUpload } from "@/components/ui/image-upload"
-import { RichTextEditor } from "@/components/ui/rich-text-editor"
+import { Skeleton } from "@/components/ui/skeleton"
+
+const ImageUpload = dynamic(
+  () => import("@/components/ui/image-upload").then((m) => ({ default: m.ImageUpload })),
+  { loading: () => <Skeleton className="h-32 w-full rounded-md" />, ssr: false }
+)
+
+const RichTextEditor = dynamic(
+  () => import("@/components/ui/rich-text-editor").then((m) => ({ default: m.RichTextEditor })),
+  { loading: () => <Skeleton className="h-64 w-full rounded-md" />, ssr: false }
+)
 
 const ICON_OPTIONS = [
   "Building2",
@@ -45,6 +55,17 @@ const STATUS_OPTIONS = ["draft", "published", "archived"] as const
 
 const listItemSchema = z.object({ value: z.string().min(1, "Required") })
 
+const benefitItemSchema = z.object({
+  title: z.string().min(1, "Required"),
+  description: z.string().min(1, "Required"),
+  icon: z.string().optional(),
+})
+
+const eligibilityItemSchema = z.object({
+  audience: z.string().min(1, "Required"),
+  note: z.string().optional(),
+})
+
 const serviceSchema = z.object({
   title: z.string().min(2, "Required"),
   slug: z
@@ -64,8 +85,8 @@ const serviceSchema = z.object({
     consultation: z.string().min(1, "Required"),
     startingPrice: z.string().min(1, "Required"),
   }),
-  benefits: z.array(listItemSchema),
-  eligibility: z.array(listItemSchema),
+  benefitItems: z.array(benefitItemSchema),
+  eligibilityItems: z.array(eligibilityItemSchema),
   requiredDocuments: z.array(listItemSchema),
   processSteps: z.array(listItemSchema),
   whyChooseUs: z.array(listItemSchema),
@@ -84,8 +105,6 @@ const serviceSchema = z.object({
 export type ServiceFormValues = z.infer<typeof serviceSchema>
 
 type ListFieldName =
-  | "benefits"
-  | "eligibility"
   | "requiredDocuments"
   | "processSteps"
   | "whyChooseUs"
@@ -99,8 +118,8 @@ const DEFAULT_VALUES: ServiceFormValues = {
   shortDescription: "",
   hero: { heading: "", subheading: "", ctaText: "Book a consultation" },
   quickInfo: { timeline: "", consultation: "", startingPrice: "" },
-  benefits: [{ value: "" }],
-  eligibility: [],
+  benefitItems: [{ title: "", description: "" }],
+  eligibilityItems: [],
   requiredDocuments: [],
   processSteps: [{ value: "" }],
   whyChooseUs: [],
@@ -116,6 +135,16 @@ function listToForm(values?: string[]) {
   return values?.length ? values.map((value) => ({ value })) : []
 }
 
+function benefitItemsToForm(items?: { title: string; description: string; icon?: string }[]) {
+  if (items?.length) return items.map((b) => ({ title: b.title, description: b.description, icon: b.icon ?? "" }))
+  return []
+}
+
+function eligibilityItemsToForm(items?: { audience: string; note?: string }[]) {
+  if (items?.length) return items.map((e) => ({ audience: e.audience, note: e.note ?? "" }))
+  return []
+}
+
 function toFormValues(service: ServiceDoc): ServiceFormValues {
   return {
     title: service.title ?? "",
@@ -125,8 +154,8 @@ function toFormValues(service: ServiceDoc): ServiceFormValues {
     shortDescription: service.shortDescription ?? "",
     hero: service.hero ?? { heading: service.title ?? "", subheading: service.shortDescription ?? "", ctaText: "Book a consultation" },
     quickInfo: service.quickInfo ?? { timeline: "", consultation: "", startingPrice: "" },
-    benefits: listToForm(service.benefits),
-    eligibility: listToForm(service.eligibility),
+    benefitItems: benefitItemsToForm(service.benefitItems),
+    eligibilityItems: eligibilityItemsToForm(service.eligibilityItems),
     requiredDocuments: listToForm(service.requiredDocuments),
     processSteps: listToForm(service.processSteps),
     whyChooseUs: listToForm(service.whyChooseUs),
@@ -164,8 +193,22 @@ export function buildServiceData(values: ServiceFormValues) {
       consultation: values.quickInfo.consultation.trim(),
       startingPrice: values.quickInfo.startingPrice.trim(),
     },
-    benefits: compactList(values.benefits),
-    eligibility: compactList(values.eligibility),
+    benefitItems: values.benefitItems
+      .map((b) => ({
+        title: b.title.trim(),
+        description: b.description.trim(),
+        ...(b.icon?.trim() ? { icon: b.icon.trim() } : {}),
+      }))
+      .filter((b) => b.title && b.description),
+    eligibilityItems: values.eligibilityItems
+      .map((e) => ({
+        audience: e.audience.trim(),
+        ...(e.note?.trim() ? { note: e.note.trim() } : {}),
+      }))
+      .filter((e) => e.audience),
+    // legacy fields cleared — kept in schema for backward compat reads
+    benefits: [] as string[],
+    eligibility: [] as string[],
     requiredDocuments: compactList(values.requiredDocuments),
     processSteps: compactList(values.processSteps),
     whyChooseUs: compactList(values.whyChooseUs),
@@ -378,8 +421,8 @@ export function ServiceForm({
         </div>
       </FormSection>
 
-      <ListSection control={control} register={register} errors={errors} name="benefits" title="Benefits" />
-      <ListSection control={control} register={register} errors={errors} name="eligibility" title="Eligibility" />
+      <BenefitItemsSection control={control} register={register} errors={errors} />
+      <EligibilityItemsSection control={control} register={register} errors={errors} />
       <ListSection control={control} register={register} errors={errors} name="requiredDocuments" title="Required Documents" />
       <ListSection control={control} register={register} errors={errors} name="processSteps" title="Process Steps" />
       <ListSection control={control} register={register} errors={errors} name="whyChooseUs" title="Why Choose Us" />
@@ -494,6 +537,133 @@ function ListSection({
               <Button type="button" variant="ghost" size="sm" className="h-8 w-8 shrink-0 p-0 text-destructive hover:text-destructive" onClick={() => remove(index)}>
                 <X className="h-3.5 w-3.5" />
               </Button>
+            </div>
+          ))
+        )}
+      </div>
+    </FormSection>
+  )
+}
+
+function BenefitItemsSection({
+  control,
+  register,
+  errors,
+}: {
+  control: ServiceFormControl
+  register: ServiceFormRegister
+  errors: ServiceFormErrors
+}) {
+  const { fields, append, remove } = useFieldArray({ control, name: "benefitItems" })
+
+  return (
+    <FormSection title="Benefits">
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="h-7 gap-1 text-xs"
+          onClick={() => append({ title: "", description: "", icon: "" })}
+        >
+          <Plus className="h-3 w-3" /> Add benefit
+        </Button>
+      </div>
+      <div className="flex flex-col gap-3">
+        {fields.length === 0 ? (
+          <p className="text-sm" style={{ color: "var(--muted-foreground)" }}>No benefits yet.</p>
+        ) : (
+          fields.map((field, index) => (
+            <div key={field.id} className="rounded-lg border bg-muted p-3">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs font-medium" style={{ color: "var(--muted-foreground)" }}>
+                  Benefit {index + 1}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                  onClick={() => remove(index)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Field label="Title" error={errors.benefitItems?.[index]?.title?.message}>
+                  <Input placeholder="Fast government processing" {...register(`benefitItems.${index}.title`)} />
+                </Field>
+                <Field label="Description" error={errors.benefitItems?.[index]?.description?.message}>
+                  <Textarea
+                    rows={2}
+                    placeholder="We handle all filings directly with the MCA portal, typically approved within 7-10 days."
+                    {...register(`benefitItems.${index}.description`)}
+                  />
+                </Field>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </FormSection>
+  )
+}
+
+function EligibilityItemsSection({
+  control,
+  register,
+  errors,
+}: {
+  control: ServiceFormControl
+  register: ServiceFormRegister
+  errors: ServiceFormErrors
+}) {
+  const { fields, append, remove } = useFieldArray({ control, name: "eligibilityItems" })
+
+  return (
+    <FormSection title="Eligibility">
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="h-7 gap-1 text-xs"
+          onClick={() => append({ audience: "", note: "" })}
+        >
+          <Plus className="h-3 w-3" /> Add eligibility
+        </Button>
+      </div>
+      <div className="flex flex-col gap-3">
+        {fields.length === 0 ? (
+          <p className="text-sm" style={{ color: "var(--muted-foreground)" }}>No eligibility items yet.</p>
+        ) : (
+          fields.map((field, index) => (
+            <div key={field.id} className="rounded-lg border bg-muted p-3">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs font-medium" style={{ color: "var(--muted-foreground)" }}>
+                  Who qualifies {index + 1}
+                </span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                  onClick={() => remove(index)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Field label="Who is this for?" error={errors.eligibilityItems?.[index]?.audience?.message}>
+                  <Input placeholder="Startups and new businesses" {...register(`eligibilityItems.${index}.audience`)} />
+                </Field>
+                <Field label="Note (optional)" error={errors.eligibilityItems?.[index]?.note?.message}>
+                  <Input
+                    placeholder="Minimum 2 directors required"
+                    {...register(`eligibilityItems.${index}.note`)}
+                  />
+                </Field>
+              </div>
             </div>
           ))
         )}

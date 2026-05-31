@@ -62,7 +62,7 @@ export default function EditServicePage() {
       const data = buildServiceData(values)
       await updateDoc(doc(db, "services", service.id), { ...data, updatedAt: serverTimestamp() })
       toast.success("Service updated")
-      await revalidateAfterSave(["/services", `/services/${slug}`, "/about"])
+      await revalidateAfterSave(["/", "/services", `/services/${slug}`, "/about"])
       router.push("/admin/services")
     } catch {
       toast.error("Failed to save. Try again.")

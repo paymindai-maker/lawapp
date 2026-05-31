@@ -55,7 +55,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div
       ref={ref}
-      className="group relative flex flex-col transition-colors"
+      className="service-card group relative flex flex-col"
       style={{ border: "1px solid var(--border)", background: "var(--card)", borderRadius: "3px" }}
     >
       {/* Body */}

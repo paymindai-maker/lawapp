@@ -272,6 +272,118 @@ textarea:focus {
     box-shadow: 0 0 0 2px var(--fw-blue);
 }
 
+/* ─── Service card hover ────────────────────────────────────────────── */
+
+.service-card {
+    transition:
+        box-shadow 0.28s cubic-bezier(0.16,1,0.3,1),
+        transform  0.28s cubic-bezier(0.16,1,0.3,1),
+        border-color 0.22s ease;
+}
+.service-card:hover {
+    box-shadow: 0 16px 44px -10px oklch(0.13 0.055 264 / 0.18);
+    transform: translateY(-5px);
+    border-color: var(--fw-blue-mid) !important;
+}
+
+/* ─── Benefit card hover ─────────────────────────────────────────────
+   No overflow:hidden on the wrapper — shadow must not be clipped      */
+
+.benefit-card {
+    transition:
+        box-shadow  0.28s cubic-bezier(0.16,1,0.3,1),
+        transform   0.28s cubic-bezier(0.16,1,0.3,1),
+        border-color 0.22s ease;
+}
+.benefit-card:hover {
+    box-shadow: 0 20px 48px -12px oklch(0.22 0.045 258 / 0.30);
+    transform: translateY(-6px);
+    border-color: oklch(0.60 0.09 252) !important;
+}
+
+/* ─── Eligibility card hover ────────────────────────────────────────── */
+
+.eligibility-card {
+    transition:
+        background   0.22s ease,
+        border-color 0.22s ease,
+        transform    0.22s cubic-bezier(0.16,1,0.3,1);
+}
+.eligibility-card:hover {
+    background:   oklch(0.94 0.016 252) !important;
+    border-color: oklch(0.72 0.08 252) !important;
+    transform: translateX(6px);
+}
+
+/* ─── Document item hover ───────────────────────────────────────────── */
+
+.doc-item {
+    transition:
+        background   0.22s ease,
+        border-color 0.22s ease,
+        transform    0.22s cubic-bezier(0.16,1,0.3,1);
+}
+.doc-item:hover {
+    background:   oklch(0.94 0.016 252) !important;
+    border-color: oklch(0.72 0.08 252) !important;
+    transform: translateX(6px);
+}
+.doc-icon { transition: color 0.2s ease; }
+.doc-item:hover .doc-icon { color: var(--fw-navy) !important; }
+
+/* ─── Process step hover ────────────────────────────────────────────── */
+
+.process-circle {
+    transition:
+        background   0.25s cubic-bezier(0.16,1,0.3,1),
+        border-color 0.25s cubic-bezier(0.16,1,0.3,1),
+        transform    0.25s cubic-bezier(0.16,1,0.3,1);
+}
+.process-num   { transition: color 0.22s ease; }
+.process-label { transition: color 0.22s ease; }
+
+.process-step:hover .process-circle {
+    background:   var(--fw-gold) !important;
+    border-color: var(--fw-gold) !important;
+    transform: scale(1.18);
+}
+.process-step:hover .process-num   { color: white !important; }
+.process-step:hover .process-label { color: var(--fw-navy) !important; }
+
+/* ─── FAQ button hover ──────────────────────────────────────────────── */
+
+.faq-btn {
+    transition: background 0.18s ease;
+    border-radius: 3px;
+    padding: 1.25rem 0.75rem;
+    margin: 0 -0.75rem;
+    width: calc(100% + 1.5rem);
+}
+.faq-btn:hover { background: oklch(0.96 0.007 255) !important; }
+
+/* ─── Why-us comparison row hover ───────────────────────────────────── */
+
+.why-row { transition: background 0.2s ease; }
+.why-row:hover { background: oklch(0.95 0.01 258) !important; }
+
+/* ─── Link underline utility ────────────────────────────────────────── */
+
+.link-underline {
+    position: relative;
+    display: inline-flex;
+}
+.link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.22s ease-out;
+}
+.link-underline:hover::after { width: 100%; }
+
 /* ─── Reduced motion ────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
@@ -279,7 +391,15 @@ textarea:focus {
     .animate-shape-float-slow,
     .animate-shape-float-mid,
     .animate-card-float { animation: none; }
-    .svc-row { transition: none; }
+
+    .svc-row,
+    .service-card,
+    .benefit-card,
+    .eligibility-card,
+    .doc-item,
+    .process-circle,
+    .faq-btn,
+    .why-row { transition: none !important; transform: none !important; }
 }
 
 /* ─── Navbar theming ────────────────────────────────────────────────── */

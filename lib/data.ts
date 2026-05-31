@@ -127,12 +127,12 @@ export const CONTACT_INFO = {
   phoneRaw: "918799741288", // digits-only for tel: and wa.me links
   whatsappGeneral: "https://wa.me/918799741288?text=Hi%2C%20I'd%20like%20to%20connect%20with%20NEXGEN%20for%20legal%20and%20compliance%20services.",
   email: "contact@nexgen.in",
-  address: "Level 12, One BKC, Bandra Kurla Complex, Mumbai 400051",
+  address: "Noida, Uttar Pradesh, India",
 }
 
 export const FIRM_INFO = {
   name: "NEXGEN",
-  tagline: "Mumbai's integrated legal and tax firm — Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
+  tagline: "Noida's integrated legal and tax firm — Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
   established: "2006",
-  city: "Mumbai, India",
+  city: "Noida, India",
 }

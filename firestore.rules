@@ -68,7 +68,7 @@ service cloud.firestore {
         'status',
         'updatedAt'
       ];
-      let allowed = required.concat(['createdAt']);
+      let allowed = required.concat(['createdAt', 'benefitItems', 'eligibilityItems']);
       return data.keys().hasAll(required)
         && data.keys().hasOnly(allowed)
         && (!isCreate || data.keys().hasAll(['createdAt']))
@@ -91,6 +91,8 @@ service cloud.firestore {
         && data.benefits.size() <= 30
         && data.eligibility is list
         && data.eligibility.size() <= 30
+        && (!data.keys().hasAny(['benefitItems']) || (data.benefitItems is list && data.benefitItems.size() <= 30))
+        && (!data.keys().hasAny(['eligibilityItems']) || (data.eligibilityItems is list && data.eligibilityItems.size() <= 30))
         && data.requiredDocuments is list
         && data.requiredDocuments.size() <= 60
         && data.processSteps is list

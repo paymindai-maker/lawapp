@@ -1,27 +1,95 @@
+import { Suspense } from "react"
+import type { Metadata } from "next"
+import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/sections/home/hero"
-import { StatsStripe } from "@/components/sections/home/stats-stripe"
 import { ServicesPreview } from "@/components/sections/home/services-preview"
 import { WhyChooseUs } from "@/components/sections/home/why-choose-us"
 import { FeaturedServicesSection } from "@/components/sections/home/FeaturedServicesSection"
-import { TestimonialsSection } from "@/components/sections/home/testimonials-section"
 import { BlogPreview } from "@/components/sections/home/blog-preview"
 import { ContactSection } from "@/components/sections/home/contact-section"
+import {
+  ServiceRowsSkeleton,
+  CardGridSkeleton,
+  BlogCardsSkeleton,
+} from "@/components/ui/section-skeleton"
+import { CONTACT_INFO, FIRM_INFO } from "@/lib/data"
+
 export const revalidate = 3600
 
-import { Navbar } from "@/components/layout/navbar"
-import { Footer } from "@/components/layout/footer"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexgen.in"
+
+export const metadata: Metadata = {
+  title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+  description:
+    "NEXGEN is Noida's integrated legal and tax firm. Advocates, CAs, and compliance specialists offering business registration, GST, income tax, litigation, and mutual fund advisory since 2006.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+    description:
+      "Noida's integrated legal and tax firm. Business registration, GST, income tax, litigation, and mutual fund advisory. Trusted by 500+ businesses since 2006.",
+    url: "/",
+    type: "website",
+  },
+}
+
+// ─── Organization JSON-LD ────────────────────────────────────────────────────
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LegalService", "Organization"],
+  name: FIRM_INFO.name,
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  foundingDate: FIRM_INFO.established,
+  description: FIRM_INFO.tagline,
+  telephone: CONTACT_INFO.phone,
+  email: CONTACT_INFO.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Noida",
+    addressRegion: "Uttar Pradesh",
+    postalCode: "201301",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 28.5355,
+    longitude: 77.3910,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "India",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "09:00",
+    closes: "19:00",
+  },
+  priceRange: "₹₹",
+}
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
       <Navbar />
       <main>
         <HeroSection />
-        {/* <StatsStripe /> */}
-        <ServicesPreview />
+        <Suspense fallback={<ServiceRowsSkeleton />}>
+          <ServicesPreview />
+        </Suspense>
         <WhyChooseUs />
-        <FeaturedServicesSection />
-        <TestimonialsSection />
-        <BlogPreview />
+        <Suspense fallback={<CardGridSkeleton count={4} />}>
+          <FeaturedServicesSection />
+        </Suspense>
+        <Suspense fallback={<BlogCardsSkeleton count={3} />}>
+          <BlogPreview />
+        </Suspense>
         <ContactSection />
       </main>
       <Footer />

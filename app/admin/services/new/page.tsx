@@ -50,10 +50,12 @@ export default function NewServicePage() {
       const data = buildServiceData(values)
       await addDoc(collection(db, "services"), { ...data, createdAt: serverTimestamp() })
       toast.success("Service added")
-      await revalidateAfterSave(["/services", `/services/${slug}`, "/about"])
+      await revalidateAfterSave(["/", "/services", `/services/${slug}`, "/about"])
       router.push("/admin/services")
-    } catch {
-      toast.error("Failed to save. Try again.")
+    } catch (err) {
+      console.error("Save failed:", err)
+      const msg = err instanceof Error ? err.message : String(err)
+      toast.error(`Failed to save: ${msg}`)
     } finally {
       setSaving(false)
     }

@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react"
+import { FadeIn } from "@/components/common/fade-in"
 import { Input } from "@/components/ui/input"
 import { CONTACT_INFO, FIRM_INFO } from "@/lib/data"
 
@@ -28,6 +29,7 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
     >
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Section header */}
+        <FadeIn>
         <div className="mb-12">
           <div className="mb-4 flex items-center gap-3">
             <div className="h-px w-8" style={{ background: "var(--fw-blue)" }} />
@@ -50,9 +52,11 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
           </h2>
         </div>
 
+        </FadeIn>
+
         <div className="grid gap-10 md:grid-cols-5">
           {/* Left — contact details */}
-          <div className="flex flex-col gap-8 md:col-span-2">
+          <FadeIn direction="left" className="flex flex-col gap-8 md:col-span-2">
             <p
               className="max-w-[36ch] text-sm leading-relaxed"
               style={{ color: "var(--muted-foreground)" }}
@@ -103,11 +107,12 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                 &ldquo;{FIRM_INFO.tagline}&rdquo;
               </p>
             </div>
-          </div>
+          </FadeIn>
 
           {/* Right — form */}
+          <FadeIn delay={140} className="md:col-span-3">
           <div
-            className="p-8 md:col-span-3"
+            className="p-8"
             style={{
               background: "var(--card)",
               border: "1px solid var(--border)",
@@ -187,6 +192,7 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               </button>
             </div>
           </div>
+          </FadeIn>
         </div>
       </div>
     </section>
