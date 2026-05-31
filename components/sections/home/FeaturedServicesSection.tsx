@@ -4,7 +4,6 @@ import { FadeIn } from "@/components/common/fade-in"
 import { SectionLabel } from "@/components/common/section-label"
 import { ServiceCard } from "@/components/common/service-card"
 import { getFeaturedServices } from "@/lib/firestore/services"
-import type { ServiceDoc } from "@/types"
 
 export async function FeaturedServicesSection() {
   const services = await getFeaturedServices()

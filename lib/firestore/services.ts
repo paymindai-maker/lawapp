@@ -71,7 +71,7 @@ export const getAllPublishedServices = cache(async (): Promise<ServiceDoc[]> => 
   }
 })
 
-export const getFeaturedServices = cache(async (n = 5): Promise<ServiceDoc[]> => {
+export const getFeaturedServices = cache(async (n = 4): Promise<ServiceDoc[]> => {
   try {
     const db = getPublicDb()
     const snap = await getDocs(

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore"
+import { collection, doc, getDocs, orderBy, query, runTransaction, serverTimestamp } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
 import { revalidateAfterSave } from "@/lib/revalidate"
@@ -47,8 +47,14 @@ export default function NewServicePage() {
         return
       }
 
+      const serviceRef = doc(db, "services", slug)
       const data = buildServiceData(values)
-      await addDoc(collection(db, "services"), { ...data, createdAt: serverTimestamp() })
+      await runTransaction(db, async (transaction) => {
+        if ((await transaction.get(serviceRef)).exists()) {
+          throw new Error("A service with that document ID already exists.")
+        }
+        transaction.set(serviceRef, { ...data, createdAt: serverTimestamp() })
+      })
       toast.success("Service added")
       await revalidateAfterSave(["/", "/services", `/services/${slug}`, "/about"])
       router.push("/admin/services")

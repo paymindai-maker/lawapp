@@ -142,8 +142,12 @@ service cloud.firestore {
 
     match /services/{serviceId} {
       allow read: if true;
-      allow create: if isAdmin() && validService(request.resource.data, true);
-      allow update: if isAdmin() && validService(request.resource.data, false);
+      allow create: if isAdmin()
+        && serviceId == request.resource.data.slug
+        && validService(request.resource.data, true);
+      allow update: if isAdmin()
+        && serviceId == request.resource.data.slug
+        && validService(request.resource.data, false);
       allow delete: if isAdmin();
     }
 

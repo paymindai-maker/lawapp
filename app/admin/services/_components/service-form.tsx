@@ -320,10 +320,11 @@ export function ServiceForm({
           <Input placeholder="Private Limited Company Registration" {...register("title")} />
         </Field>
         <div className="grid gap-3 md:grid-cols-2">
-          <Field label="Slug" error={errors.slug?.message}>
+          <Field label={initialData ? "Slug (fixed after creation)" : "Slug"} error={errors.slug?.message}>
             <Input
               placeholder="auto-generated-from-title"
               {...register("slug")}
+              readOnly={!!initialData}
               onChange={(e) => { slugEdited.current = true; register("slug").onChange(e) }}
             />
           </Field>
