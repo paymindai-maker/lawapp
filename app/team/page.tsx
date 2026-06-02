@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { TeamCard } from "@/components/common/team-card"
 import { TEAM_MEMBERS } from "@/lib/data"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 
 export const metadata = {
   title: "Our Team | Advocates & Chartered Accountants | NEXGEN Noida",
@@ -57,6 +58,7 @@ export default function TeamPage() {
             </div>
           </div>
         </section>
+        <CrossPageLinks exclude="team" />
       </main>
       <Footer />
     </>

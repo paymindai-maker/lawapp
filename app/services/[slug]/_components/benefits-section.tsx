@@ -50,10 +50,10 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
                 style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}
               >
                 {richBenefits.map((benefit, i) => (
-                  <FadeIn key={i} delay={i * 80} direction="up">
+                  <FadeIn key={i} delay={i * 80} direction="up" className="h-full">
                     {/* benefit-card class: no overflow:hidden so box-shadow works */}
                     <div
-                      className="benefit-card"
+                      className="benefit-card flex h-full flex-col"
                       style={{
                         border: "1px solid var(--border)",
                         borderRadius: "4px",
@@ -107,6 +107,7 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
                           padding: "1.25rem 1.5rem",
                           borderRadius: "0 0 4px 4px",
                           background: "var(--card)",
+                          flex: 1,
                         }}
                       >
                         <p
@@ -184,9 +185,9 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
                 style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
               >
                 {richEligibility.map((item, i) => (
-                  <FadeIn key={i} delay={i * 80}>
+                  <FadeIn key={i} delay={i * 80} className="h-full">
                     <div
-                      className="eligibility-card flex items-start gap-4 py-5 px-5"
+                      className="eligibility-card flex h-full items-start gap-4 py-5 px-5"
                       style={{
                         border: "1px solid var(--border)",
                         borderRadius: "4px",

@@ -55,7 +55,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <div
       ref={ref}
-      className="service-card group relative flex flex-col"
+      className="service-card group relative flex h-full flex-col"
       style={{ border: "1px solid var(--border)", background: "var(--card)", borderRadius: "3px" }}
     >
       {/* Body */}
@@ -64,8 +64,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <div className="mb-3 flex items-center gap-3">
           <Icon className="h-5 w-5 shrink-0" style={{ color: "var(--fw-blue)" }} />
           <h3
-            className="text-base font-semibold leading-snug"
-            style={{ color: "var(--foreground)", fontFamily: "var(--font-display)" }}
+            className="line-clamp-2 text-base font-semibold leading-snug"
+            style={{ color: "var(--foreground)", fontFamily: "var(--font-display)", minHeight: "2.6em" }}
           >
             {service.title}
           </h3>

@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { getAllCategories, getAllPublishedServices } from "@/lib/firestore/services"
 import { ServicesGrid } from "./_components/services-grid"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 
 export const revalidate = 3600
 
@@ -62,6 +63,7 @@ export default async function ServicesPage() {
         <section className="py-20" style={{ background: "var(--fw-surface)" }}>
           <ServicesGrid categories={categories} services={services} />
         </section>
+        <CrossPageLinks exclude="services" />
       </main>
       <Footer />
     </>

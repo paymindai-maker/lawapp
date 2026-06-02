@@ -45,14 +45,17 @@ export function RelatedSection({ services }: { services: ServiceDoc[] }) {
             <Link
               key={svc.id}
               href={`/services/${svc.slug}`}
-              className="group block p-5 transition-colors"
+              className="group flex h-full flex-col p-5 transition-colors"
               style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: "3px" }}
             >
               <ServiceIcon name={svc.icon} className="mb-4 h-5 w-5" style={{ color: "var(--fw-blue)" }} />
-              <p className="mb-2 text-sm font-semibold leading-snug" style={{ color: "var(--fw-navy)" }}>
+              <p
+                className="mb-2 line-clamp-2 text-sm font-semibold leading-snug"
+                style={{ color: "var(--fw-navy)", minHeight: "2.6em" }}
+              >
                 {svc.title}
               </p>
-              <p className="line-clamp-2 text-xs leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
+              <p className="line-clamp-2 flex-1 text-xs leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
                 {svc.shortDescription}
               </p>
               <div className="mt-4 flex items-center gap-1 text-xs font-medium" style={{ color: "var(--fw-blue)" }}>

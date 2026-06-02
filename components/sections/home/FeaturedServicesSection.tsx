@@ -53,7 +53,7 @@ export async function FeaturedServicesSection() {
           }}
         >
           {services.map((svc, i) => (
-            <FadeIn key={svc.id} delay={i * 75}>
+            <FadeIn key={svc.id} delay={i * 75} className="h-full">
               <ServiceCard service={svc} />
             </FadeIn>
           ))}

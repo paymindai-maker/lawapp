@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 import { ContactSection } from "@/components/sections/home/contact-section"
 import { RuleDivider } from "@/components/common/shape-divider"
 import {
@@ -134,6 +135,7 @@ function IndividualServicePage({
         
         {hasRelated && <><RuleDivider /><RelatedSection services={relatedServices} /></>}
         <ContactSection variant="inner" />
+        <CrossPageLinks exclude="services" />
       </main>
       <Footer />
     </>

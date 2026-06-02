@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { HeroSection } from "@/components/sections/home/hero"
+import { AboutUsSection } from "@/components/sections/home/about-us"
 import { ServicesPreview } from "@/components/sections/home/services-preview"
 import { WhyChooseUs } from "@/components/sections/home/why-choose-us"
 import { FeaturedServicesSection } from "@/components/sections/home/FeaturedServicesSection"
@@ -80,6 +81,7 @@ export default function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
+        <AboutUsSection />
         <Suspense fallback={<ServiceRowsSkeleton />}>
           <ServicesPreview />
         </Suspense>

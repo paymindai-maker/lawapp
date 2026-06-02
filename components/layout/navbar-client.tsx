@@ -2,10 +2,14 @@
 
 import { useState, useEffect, useRef, useMemo } from "react"
 import Link from "next/link"
-import { Scale, Menu, ChevronDown, ChevronRight, Plus, Minus } from "lucide-react"
+import { Scale, Menu, ChevronDown, ChevronRight, Plus, Minus, MessageCircle } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { CONTACT_INFO } from "@/lib/data"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
+
+const WA_MSG = "Hi NEXGEN, I'd like to discuss your legal, tax, and compliance services. Please share details and the next steps."
+const WA_URL = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(WA_MSG)}`
 
 interface NavbarClientProps {
   categories: ServiceCategoryDoc[]
@@ -163,13 +167,16 @@ export function NavbarClient({ categories, services }: NavbarClientProps) {
 
         {/* CTA */}
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
             style={{ background: "var(--fw-navy)", borderRadius: "3px", letterSpacing: "0.01em" }}
           >
-            Book Consultation
-          </Link>
+            <MessageCircle className="h-4 w-4" />
+            Talk to Us
+          </a>
         </div>
 
         {/* Mobile */}
@@ -246,14 +253,17 @@ export function NavbarClient({ categories, services }: NavbarClientProps) {
                 <MobileLink href="/contact" onClick={() => setMobileOpen(false)}>Contact</MobileLink>
 
                 <Separator className="my-3" />
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center py-3 text-center text-sm font-semibold text-white"
+                <a
+                  href={WA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 py-3 text-center text-sm font-semibold text-white"
                   style={{ background: "var(--fw-navy)", borderRadius: "3px" }}
                   onClick={() => setMobileOpen(false)}
                 >
-                  Book Consultation
-                </Link>
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp Us
+                </a>
               </div>
             </SheetContent>
           </Sheet>

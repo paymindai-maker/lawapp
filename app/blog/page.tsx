@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/footer"
 import { FadeIn } from "@/components/common/fade-in"
 import { getAllBlogPosts } from "@/lib/firestore/blog"
 import { PostCard } from "./_components/post-card"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 
 export const revalidate = 1800
 
@@ -95,6 +96,7 @@ export default async function BlogPage() {
             )}
           </div>
         </section>
+        <CrossPageLinks exclude="blog" />
       </main>
       <Footer />
     </>

@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer"
 import { FadeIn } from "@/components/common/fade-in"
 import { FIRM_INFO, CONTACT_INFO } from "@/lib/data"
 import { AboutTabs } from "./about-tabs"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 
 export const revalidate = 3600
 
@@ -73,6 +74,8 @@ export default async function AboutPage({
         <div style={{ background: "var(--fw-surface)" }}>
           <AboutTabs initialTab={initialTab} />
         </div>
+
+        <CrossPageLinks exclude="about" />
 
         {/* ── Final CTA ── */}
         <section style={{ background: "var(--fw-navy)", paddingTop: "5rem", paddingBottom: "6rem" }}>

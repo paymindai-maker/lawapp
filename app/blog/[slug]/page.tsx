@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
+import { CrossPageLinks } from "@/components/common/cross-page-links"
 import { getBlogPostBySlug, getRelatedBlogPosts, getAllBlogSlugs } from "@/lib/firestore/blog"
 import { readingTime } from "@/app/blog/_components/blog-utils"
 import { ArticleHeader } from "./_components/article-header"
@@ -77,6 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
           content={post.content}
         />
         <RelatedPosts posts={related} />
+        <CrossPageLinks exclude="blog" />
       </main>
       <Footer />
     </>

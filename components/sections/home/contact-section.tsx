@@ -1,4 +1,7 @@
-import { Phone, Mail, MapPin } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { Phone, Mail, MapPin, MessageCircle, Video } from "lucide-react"
 import { FadeIn } from "@/components/common/fade-in"
 import { Input } from "@/components/ui/input"
 import { CONTACT_INFO, FIRM_INFO } from "@/lib/data"
@@ -15,7 +18,61 @@ interface ContactSectionProps {
   variant?: "homepage" | "inner"
 }
 
+interface FormState {
+  name: string
+  email: string
+  phone: string
+  matter: string
+  preferred: string
+  message: string
+}
+
+const INITIAL: FormState = {
+  name: "",
+  email: "",
+  phone: "",
+  matter: "",
+  preferred: "",
+  message: "",
+}
+
+function buildWhatsAppUrl(f: FormState) {
+  const lines = [
+    "*Google Meet Consultation Request — NEXGEN*",
+    "",
+    `*Name:* ${f.name || "—"}`,
+    `*Email:* ${f.email || "—"}`,
+    `*Phone:* ${f.phone || "—"}`,
+    `*Matter type:* ${f.matter || "—"}`,
+    `*Preferred slot:* ${f.preferred || "—"}`,
+    "",
+    "*Brief:*",
+    f.message || "—",
+    "",
+    "Please share a Google Meet link for the consultation. Thanks!",
+  ]
+  return `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(lines.join("\n"))}`
+}
+
 export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
+  const [form, setForm] = useState<FormState>(INITIAL)
+  const [error, setError] = useState<string | null>(null)
+
+  function update<K extends keyof FormState>(k: K, v: FormState[K]) {
+    setForm((s) => ({ ...s, [k]: v }))
+    if (error) setError(null)
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError("Name and phone are required.")
+      return
+    }
+    const url = buildWhatsAppUrl(form)
+    window.open(url, "_blank", "noopener,noreferrer")
+  }
+
   return (
     <section
       id="contact"
@@ -37,7 +94,7 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               className="text-xs font-semibold uppercase tracking-[0.18em]"
               style={{ color: "var(--fw-blue)" }}
             >
-              Contact Us
+              Book a Google Meet
             </p>
           </div>
           <h2
@@ -48,7 +105,7 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               lineHeight: 1.08,
             }}
           >
-            Start your matter today.
+            Schedule a free consultation.
           </h2>
         </div>
 
@@ -61,8 +118,8 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               className="max-w-[36ch] text-sm leading-relaxed"
               style={{ color: "var(--muted-foreground)" }}
             >
-              Don&rsquo;t face complex legal challenges alone. Our team is available
-              for an initial consultation — let&rsquo;s discuss your matter.
+              Fill the form and we&rsquo;ll receive your details on WhatsApp instantly.
+              Our team will reply with a Google Meet link for your preferred slot.
             </p>
 
             <div className="flex flex-col gap-5">
@@ -111,7 +168,8 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
 
           {/* Right — form */}
           <FadeIn delay={140} className="md:col-span-3">
-          <div
+          <form
+            onSubmit={handleSubmit}
             className="p-8"
             style={{
               background: "var(--card)",
@@ -119,12 +177,15 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               borderRadius: "3px",
             }}
           >
-            <h3
-              className="mb-6 text-lg font-semibold"
-              style={{ color: "var(--foreground)", fontWeight: 700 }}
-            >
-              Send us a message
-            </h3>
+            <div className="mb-6 flex items-center gap-2">
+              <Video className="h-4 w-4" style={{ color: "var(--fw-blue)" }} />
+              <h3
+                className="text-lg font-semibold"
+                style={{ color: "var(--foreground)", fontWeight: 700 }}
+              >
+                Request a Google Meet
+              </h3>
+            </div>
             <div className="flex flex-col gap-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
@@ -132,9 +193,15 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
-                    Name
+                    Name *
                   </label>
-                  <Input placeholder="Your name" className="rounded-sm" />
+                  <Input
+                    placeholder="Your name"
+                    className="rounded-sm"
+                    value={form.name}
+                    onChange={(e) => update("name", e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label
@@ -143,7 +210,13 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                   >
                     Email
                   </label>
-                  <Input placeholder="your@email.com" type="email" className="rounded-sm" />
+                  <Input
+                    placeholder="your@email.com"
+                    type="email"
+                    className="rounded-sm"
+                    value={form.email}
+                    onChange={(e) => update("email", e.target.value)}
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -152,9 +225,16 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
-                    Phone
+                    Phone *
                   </label>
-                  <Input placeholder="+91 …" type="tel" className="rounded-sm" />
+                  <Input
+                    placeholder="+91 …"
+                    type="tel"
+                    className="rounded-sm"
+                    value={form.phone}
+                    onChange={(e) => update("phone", e.target.value)}
+                    required
+                  />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label
@@ -163,8 +243,27 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                   >
                     Matter type
                   </label>
-                  <Input placeholder="e.g. Corporate law" className="rounded-sm" />
+                  <Input
+                    placeholder="e.g. GST, ITR, Litigation"
+                    className="rounded-sm"
+                    value={form.matter}
+                    onChange={(e) => update("matter", e.target.value)}
+                  />
                 </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label
+                  className="text-xs font-semibold uppercase tracking-wider"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
+                  Preferred date &amp; time
+                </label>
+                <Input
+                  placeholder="e.g. Tomorrow 4 PM IST"
+                  className="rounded-sm"
+                  value={form.preferred}
+                  onChange={(e) => update("preferred", e.target.value)}
+                />
               </div>
               <div className="flex flex-col gap-1.5">
                 <label
@@ -175,23 +274,42 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                 </label>
                 <textarea
                   rows={4}
-                  placeholder="Briefly describe your legal issue…"
+                  placeholder="Briefly describe what you need help with…"
                   className="w-full resize-none rounded-sm px-3 py-2.5 text-sm transition-all"
                   style={{
                     border: "1px solid var(--input)",
                     background: "var(--background)",
                     color: "var(--foreground)",
                   }}
+                  value={form.message}
+                  onChange={(e) => update("message", e.target.value)}
                 />
               </div>
+
+              {error && (
+                <p className="text-xs font-medium" style={{ color: "oklch(0.55 0.18 25)" }}>
+                  {error}
+                </p>
+              )}
+
               <button
-                className="btn-primary mt-1 w-full rounded-sm py-3 text-sm font-semibold tracking-wide text-white"
+                type="submit"
+                className="btn-primary mt-1 inline-flex w-full items-center justify-center gap-2 rounded-sm py-3 text-sm font-semibold tracking-wide text-white"
                 style={{ background: "var(--fw-navy)", letterSpacing: "0.04em" }}
               >
-                Submit inquiry
+                <MessageCircle className="h-4 w-4" />
+                Send on WhatsApp
               </button>
+
+              <p
+                className="text-center text-[11px] leading-relaxed"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Submitting opens WhatsApp with your details pre-filled. We&rsquo;ll reply
+                with a Google Meet link.
+              </p>
             </div>
-          </div>
+          </form>
           </FadeIn>
         </div>
       </div>
