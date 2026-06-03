@@ -5,10 +5,20 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { useRef } from "react"
-import { FIRM_INFO } from "@/lib/data"
 
 const HERO_IMAGE: string | null = "/hero.png"
 const ease = [0.16, 1, 0.3, 1] as const
+
+const MARQUEE_ITEMS = [
+  "Business Registration",
+  "Income Tax & ITR Filing",
+  "GST Returns",
+  "TDS Filing",
+  "ROC Annual Compliance",
+  "PAN Application",
+  "Litigation & Advocacy",
+  "Mutual Fund Advisory",
+]
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -83,24 +93,43 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.22, ease }}
           >
-            Built for Business. Backed by Law.
+            One Firm. Every Filing. Zero Run-Around.
           </motion.h1>
 
+          {/* Devanagari accent */}
           <motion.p
-            className="mx-auto mt-6 text-base leading-relaxed"
+            className="mt-5"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)",
+              color: "var(--fw-gold)",
+              letterSpacing: "0.02em",
+              lineHeight: 1.3,
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.32, ease }}
+          >
+            हर फाइलिंग, हर केस — एक छत के नीचे.
+          </motion.p>
+
+          <motion.p
+            className="mx-auto mt-5 text-base leading-relaxed"
             style={{ color: "oklch(0.82 0.012 258)", maxWidth: "44ch" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.38, ease }}
+            transition={{ duration: 0.8, delay: 0.42, ease }}
           >
-            {FIRM_INFO.tagline}
+            Advocates, Chartered Accountants &amp; compliance specialists under one
+            roof — 500+ Indian businesses trust NEXGEN for GST, ITR, ROC filings,
+            and courtroom representation since 2006.
           </motion.p>
 
           <motion.div
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.52, ease }}
+            transition={{ duration: 0.8, delay: 0.56, ease }}
           >
             <Link
               href="/contact"
@@ -133,6 +162,71 @@ export function HeroSection() {
 
         </div>
       </div>
+
+      {/* Bottom marquee — practice areas roll */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.8, ease }}
+        className="relative"
+        style={{
+          borderTop: "1px solid oklch(1 0 0 / 0.12)",
+          borderBottom: "1px solid oklch(1 0 0 / 0.12)",
+          overflow: "hidden",
+          zIndex: 2,
+          padding: "1rem 0",
+          background: "oklch(0.14 0.04 258 / 0.45)",
+          backdropFilter: "blur(4px)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            whiteSpace: "nowrap",
+            animation: "hero-marquee 38s linear infinite",
+            willChange: "transform",
+            width: "max-content",
+          }}
+        >
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-3"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "1.05rem",
+                color: "oklch(0.78 0.022 258)",
+                letterSpacing: "-0.01em",
+                marginRight: "3rem",
+                flexShrink: 0,
+              }}
+            >
+              <span
+                aria-hidden
+                style={{
+                  display: "inline-block",
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "var(--fw-gold)",
+                }}
+              />
+              {item}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Local keyframes */}
+      <style jsx>{`
+        @keyframes hero-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          div[style*="hero-marquee"] { animation: none !important; }
+        }
+      `}</style>
     </section>
   )
 }
