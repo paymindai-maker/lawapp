@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Libre_Baskerville, Barlow } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { MotionProvider } from "@/components/providers/motion-provider"
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -75,7 +76,7 @@ export default function RootLayout({
       lang="en-IN"
       className={cn("antialiased", libreBaskerville.variable, barlow.variable)}
     >
-      <body>{children}</body>
+      <body><MotionProvider>{children}</MotionProvider></body>
     </html>
   )
 }

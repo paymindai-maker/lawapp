@@ -7,8 +7,9 @@ import { toast } from "sonner"
 import { db } from "@/lib/firebase"
 import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
-import { ServiceForm, buildServiceData } from "../_components/service-form"
+import { ServiceForm } from "../_components/service-form"
 import type { ServiceFormValues } from "../_components/service-form"
+import { buildServiceData } from "../_components/service-utils"
 
 export default function NewServicePage() {
   const router = useRouter()

@@ -1,19 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { addDoc, collection, getDocs, serverTimestamp } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
 import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc } from "@/types"
-import { CategoryForm, buildCategoryData } from "../_components/category-form"
+import { CategoryForm } from "../_components/category-form"
 import type { CategoryFormValues } from "../_components/category-form"
+import { buildCategoryData } from "../_components/category-utils"
 
 export default function NewCategoryPage() {
   const router = useRouter()
-  const [categories, setCategories] = useState<ServiceCategoryDoc[]>([])
-  const [serviceSlugs, setServiceSlugs] = useState<string[]>([])
+  const categories = useRef<ServiceCategoryDoc[]>([])
+  const serviceSlugs = useRef<string[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -24,8 +25,8 @@ export default function NewCategoryPage() {
           getDocs(collection(db, "service_categories")),
           getDocs(collection(db, "services")),
         ])
-        setCategories(catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
-        setServiceSlugs(svcSnap.docs.map((d) => String(d.data().slug ?? "")))
+        categories.current = catSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
+        serviceSlugs.current = svcSnap.docs.map((d) => String(d.data().slug ?? ""))
       } catch {
         toast.error("Failed to load data. Please refresh.")
       } finally {
@@ -40,7 +41,7 @@ export default function NewCategoryPage() {
     try {
       const slug = values.slug.trim()
       const slugUsed =
-        categories.some((c) => c.slug === slug) || serviceSlugs.includes(slug)
+        categories.current.some((c) => c.slug === slug) || serviceSlugs.current.includes(slug)
       if (slugUsed) {
         toast.error("That URL slug is already in use.")
         return

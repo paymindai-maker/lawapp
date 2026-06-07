@@ -1,21 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
 import { revalidateAfterSave } from "@/lib/revalidate"
 import type { ServiceCategoryDoc } from "@/types"
-import { CategoryForm, buildCategoryData } from "../../_components/category-form"
+import { CategoryForm } from "../../_components/category-form"
 import type { CategoryFormValues } from "../../_components/category-form"
+import { buildCategoryData } from "../../_components/category-utils"
 
 export default function EditCategoryPage() {
   const router = useRouter()
   const { id } = useParams<{ id: string }>()
   const [category, setCategory] = useState<ServiceCategoryDoc | null>(null)
-  const [allCategories, setAllCategories] = useState<ServiceCategoryDoc[]>([])
-  const [serviceSlugs, setServiceSlugs] = useState<string[]>([])
+  const allCategories = useRef<ServiceCategoryDoc[]>([])
+  const serviceSlugs = useRef<string[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -35,8 +36,8 @@ export default function EditCategoryPage() {
         }
 
         setCategory({ id: catDoc.id, ...(catDoc.data() as Omit<ServiceCategoryDoc, "id">) })
-        setAllCategories(allCatSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) })))
-        setServiceSlugs(svcSnap.docs.map((d) => String(d.data().slug ?? "")))
+        allCategories.current = allCatSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ServiceCategoryDoc, "id">) }))
+        serviceSlugs.current = svcSnap.docs.map((d) => String(d.data().slug ?? ""))
       } catch {
         toast.error("Failed to load data. Please refresh.")
       } finally {
@@ -52,8 +53,8 @@ export default function EditCategoryPage() {
     try {
       const slug = values.slug.trim()
       const slugUsed =
-        allCategories.some((c) => c.slug === slug && c.id !== category.id) ||
-        serviceSlugs.includes(slug)
+        allCategories.current.some((c) => c.slug === slug && c.id !== category.id) ||
+        serviceSlugs.current.includes(slug)
       if (slugUsed) {
         toast.error("That URL slug is already in use.")
         return

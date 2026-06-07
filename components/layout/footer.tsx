@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Scale } from "lucide-react"
 import { FOOTER_COLUMNS, FIRM_INFO } from "@/lib/data"
 
@@ -75,19 +76,19 @@ export function Footer() {
         <div className="my-10 h-px" style={{ background: "var(--border)" }} />
 
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
+          <p className="text-xs" style={{ color: "var(--muted-foreground)" }} suppressHydrationWarning>
             © {new Date().getFullYear()} NEXGEN. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms & Conditions"].map((l) => (
-              <a
-                key={l}
-                href="#"
+            {([["Privacy Policy", "/privacy"], ["Terms & Conditions", "/terms"]] as const).map(([label, href]) => (
+              <Link
+                key={label}
+                href={href}
                 className="text-xs transition-colors"
                 style={{ color: "var(--muted-foreground)" }}
               >
-                {l}
-              </a>
+                {label}
+              </Link>
             ))}
           </div>
         </div>

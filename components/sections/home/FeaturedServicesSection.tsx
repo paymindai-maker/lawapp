@@ -36,7 +36,7 @@ export async function FeaturedServicesSection() {
           <Link
             href="/services"
             className="inline-flex items-center gap-2 text-sm font-semibold self-end"
-            style={{ color: "var(--fw-blue)" }}
+            style={{ color: "var(--fw-accent)" }}
           >
             Browse all services
             <ArrowRight className="h-4 w-4" />

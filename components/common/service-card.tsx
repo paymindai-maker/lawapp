@@ -110,6 +110,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </Link>
         <div style={{ width: "1px", alignSelf: "stretch", background: "var(--border)" }} />
         <button
+          type="button"
           onClick={() => setOpen((v) => !v)}
           className="flex flex-1 items-center justify-center gap-1.5 py-3 text-xs font-semibold transition-colors hover:bg-muted/60"
           style={{ color: open ? "var(--fw-blue)" : "var(--foreground)" }}
@@ -132,6 +133,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           <div className="mb-3 flex items-center justify-between">
             <p className="text-xs font-semibold text-white">Choose how to connect</p>
             <button
+              type="button"
               onClick={() => setOpen(false)}
               className="flex h-5 w-5 items-center justify-center rounded-full transition-colors"
               style={{ color: "oklch(0.55 0.06 255)" }}

@@ -190,12 +190,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label
+                    htmlFor="contact-name"
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     Name *
                   </label>
                   <Input
+                    id="contact-name"
                     placeholder="Your name"
                     className="rounded-sm"
                     value={form.name}
@@ -205,12 +207,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label
+                    htmlFor="contact-email"
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     Email
                   </label>
                   <Input
+                    id="contact-email"
                     placeholder="your@email.com"
                     type="email"
                     className="rounded-sm"
@@ -222,12 +226,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label
+                    htmlFor="contact-phone"
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     Phone *
                   </label>
                   <Input
+                    id="contact-phone"
                     placeholder="+91 …"
                     type="tel"
                     className="rounded-sm"
@@ -238,12 +244,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label
+                    htmlFor="contact-matter"
                     className="text-xs font-semibold uppercase tracking-wider"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     Matter type
                   </label>
                   <Input
+                    id="contact-matter"
                     placeholder="e.g. GST, ITR, Litigation"
                     className="rounded-sm"
                     value={form.matter}
@@ -253,12 +261,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label
+                  htmlFor="contact-preferred"
                   className="text-xs font-semibold uppercase tracking-wider"
                   style={{ color: "var(--muted-foreground)" }}
                 >
                   Preferred date &amp; time
                 </label>
                 <Input
+                  id="contact-preferred"
                   placeholder="e.g. Tomorrow 4 PM IST"
                   className="rounded-sm"
                   value={form.preferred}
@@ -267,12 +277,14 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label
+                  htmlFor="contact-message"
                   className="text-xs font-semibold uppercase tracking-wider"
                   style={{ color: "var(--muted-foreground)" }}
                 >
                   Describe your matter
                 </label>
                 <textarea
+                  id="contact-message"
                   rows={4}
                   placeholder="Briefly describe what you need help with…"
                   className="w-full resize-none rounded-sm px-3 py-2.5 text-sm transition-all"
@@ -294,8 +306,12 @@ export function ContactSection({ variant = "homepage" }: ContactSectionProps) {
 
               <button
                 type="submit"
-                className="btn-primary mt-1 inline-flex w-full items-center justify-center gap-2 rounded-sm py-3 text-sm font-semibold tracking-wide text-white"
-                style={{ background: "var(--fw-navy)", letterSpacing: "0.04em" }}
+                className="btn-primary mt-1 inline-flex w-full items-center justify-center gap-2 rounded-sm py-3 text-sm font-semibold tracking-wide text-white transition-transform hover:-translate-y-0.5"
+                style={{
+                  background: "var(--fw-accent)",
+                  letterSpacing: "0.04em",
+                  boxShadow: "0 10px 28px -8px oklch(0.55 0.22 258 / 0.45)",
+                }}
               >
                 <MessageCircle className="h-4 w-4" />
                 Send on WhatsApp

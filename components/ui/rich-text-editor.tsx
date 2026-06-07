@@ -39,13 +39,11 @@ export function RichTextEditor({ value, onChange, placeholder = "Write your arti
     },
   })
 
-  // Sync external value changes (e.g. edit form load)
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {
       editor.commands.setContent(value)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [editor, value])
 
   async function handleImageUpload(file: File) {
     if (uploading.current) return
@@ -75,14 +73,6 @@ export function RichTextEditor({ value, onChange, placeholder = "Write your arti
   }
 
   if (!editor) return null
-
-  const btn = (active: boolean) =>
-    [
-      "inline-flex h-7 w-7 items-center justify-center rounded transition-colors",
-      active
-        ? "bg-[var(--fw-blue)] text-white"
-        : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
-    ].join(" ")
 
   return (
     <div
@@ -146,6 +136,7 @@ export function RichTextEditor({ value, onChange, placeholder = "Write your arti
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            aria-label="Upload image"
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0]
@@ -174,6 +165,15 @@ export function RichTextEditor({ value, onChange, placeholder = "Write your arti
       />
     </div>
   )
+}
+
+function btn(active: boolean) {
+  return [
+    "inline-flex h-7 w-7 items-center justify-center rounded transition-colors",
+    active
+      ? "bg-[var(--fw-blue)] text-white"
+      : "text-[var(--muted-foreground)] hover:bg-[var(--accent)] hover:text-[var(--foreground)]",
+  ].join(" ")
 }
 
 function ToolbarGroup({ children }: { children: React.ReactNode }) {

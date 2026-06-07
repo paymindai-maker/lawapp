@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
+import Image from "next/image"
 import { ImageIcon, X } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -33,12 +34,13 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
   return (
     <div>
       {value ? (
-        <div className="relative">
-          <img
+        <div className="relative h-48 w-full overflow-hidden rounded-lg" style={{ border: "1px solid var(--border)" }}>
+          <Image
             src={value}
-            alt="Featured image preview"
-            className="h-48 w-full rounded-lg object-cover"
-            style={{ border: "1px solid var(--border)" }}
+            alt="Featured cover"
+            fill
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="object-cover"
           />
           <Button
             type="button"
@@ -85,6 +87,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
         ref={inputRef}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"
+        aria-label="Upload image file"
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0]

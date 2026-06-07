@@ -31,7 +31,7 @@ interface ShapeDividerProps {
   height?: number
 }
 
-export function DiagonalDivider({ fill, direction = "right", height = 80 }: ShapeDividerProps) {
+function DiagonalDivider({ fill, direction = "right", height = 80 }: ShapeDividerProps) {
   const points =
     direction === "right"
       ? `0,${height} 0,${Math.round(height * 0.45)} 1440,0 1440,${height}`
@@ -54,7 +54,7 @@ export function DiagonalDivider({ fill, direction = "right", height = 80 }: Shap
   )
 }
 
-export function WaveDivider({ fill, height = 72 }: Omit<ShapeDividerProps, "direction">) {
+function WaveDivider({ fill, height = 72 }: Omit<ShapeDividerProps, "direction">) {
   const mid = Math.round(height * 0.55)
   const low = height
   const high = Math.round(height * 0.15)

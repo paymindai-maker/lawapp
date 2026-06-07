@@ -123,9 +123,12 @@ export const getRelatedServices = cache(async (ids: string[]): Promise<ServiceDo
   try {
     const db = getPublicDb()
     const snaps = await Promise.all(ids.slice(0, 4).map((id) => getDoc(doc(db, "services", id))))
-    return snaps
-      .filter((d) => d.exists() && (d.data() as ServiceDoc)?.status === "published")
-      .map((d) => toPlain<ServiceDoc>(d.id, d.data()!))
+    return snaps.reduce<ServiceDoc[]>((acc, d) => {
+      if (d.exists() && (d.data() as ServiceDoc)?.status === "published") {
+        acc.push(toPlain<ServiceDoc>(d.id, d.data()!))
+      }
+      return acc
+    }, [])
   } catch {
     return []
   }

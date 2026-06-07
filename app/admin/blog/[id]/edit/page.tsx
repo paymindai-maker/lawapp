@@ -1,21 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { toast } from "sonner"
 import { db } from "@/lib/firebase"
 import { revalidateAfterSave } from "@/lib/revalidate"
 import type { BlogPostDoc } from "@/types"
-import { BlogForm, buildBlogData } from "../../_components/blog-form"
+import { BlogForm } from "../../_components/blog-form"
 import type { BlogFormValues } from "../../_components/blog-form"
+import { buildBlogData } from "../../_components/blog-utils"
 
 export default function EditBlogPostPage() {
   const router = useRouter()
   const { id } = useParams<{ id: string }>()
   const [post, setPost] = useState<BlogPostDoc | null>(null)
-  const [allPosts, setAllPosts] = useState<BlogPostDoc[]>([])
-  const [reservedSlugs, setReservedSlugs] = useState<string[]>([])
+  const allPosts = useRef<BlogPostDoc[]>([])
+  const reservedSlugs = useRef<string[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -36,11 +37,11 @@ export default function EditBlogPostPage() {
         }
 
         setPost({ id: postDoc.id, ...(postDoc.data() as Omit<BlogPostDoc, "id">) })
-        setAllPosts(postsSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) })))
-        setReservedSlugs([
+        allPosts.current = postsSnap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<BlogPostDoc, "id">) }))
+        reservedSlugs.current = [
           ...svcSnap.docs.map((d) => String(d.data().slug ?? "")),
           ...catSnap.docs.map((d) => String(d.data().slug ?? "")),
-        ])
+        ]
       } catch {
         toast.error("Failed to load data. Please refresh.")
       } finally {
@@ -55,11 +56,11 @@ export default function EditBlogPostPage() {
     setSaving(true)
     try {
       const slug = values.slug.trim()
-      if (allPosts.some((p) => p.slug === slug && p.id !== post.id)) {
+      if (allPosts.current.some((p) => p.slug === slug && p.id !== post.id)) {
         toast.error("That blog slug is already in use.")
         return
       }
-      if (reservedSlugs.includes(slug)) {
+      if (reservedSlugs.current.includes(slug)) {
         toast.error("That slug is already used by a service URL.")
         return
       }

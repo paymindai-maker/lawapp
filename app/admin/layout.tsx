@@ -31,12 +31,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect("/admin/login")
   }
 
+  let isAdmin = false
   try {
     const decoded = await adminAuth.verifySessionCookie(session.value, true)
-    if (!decoded.admin) {
-      redirect("/admin/login")
-    }
+    isAdmin = !!decoded.admin
   } catch {
+    // cookie invalid or expired — fall through to redirect
+  }
+  if (!isAdmin) {
     redirect("/admin/login")
   }
 

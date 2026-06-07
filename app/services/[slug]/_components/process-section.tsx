@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
+import { m, useInView } from "framer-motion"
 import { useRef } from "react"
 import { SectionLabel } from "@/components/common/section-label"
 import type { ServiceDoc } from "@/types"
@@ -27,7 +27,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
       }}
     >
       <div className="mx-auto max-w-5xl px-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -44,7 +44,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
           >
             How We Work
           </h2>
-        </motion.div>
+        </m.div>
 
         {/* Vertical timeline — scales to any step count, no scroll */}
         <div ref={timelineRef} className="relative" style={{ paddingLeft: "3.5rem" }}>
@@ -62,7 +62,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
           />
 
           {/* Animated rail fill */}
-          <motion.div
+          <m.div
             className="absolute"
             style={{
               left: "22px",
@@ -82,9 +82,9 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
             {steps.map((step, i) => {
               const delay = i * STEP_STAGGER
               return (
-                <li key={i} className="relative flex items-start">
+                <li key={step} className="relative flex items-start">
                   {/* Circle (positioned over rail) */}
-                  <motion.div
+                  <m.div
                     className="absolute flex items-center justify-center"
                     style={{
                       left: "-3.5rem",
@@ -96,7 +96,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
                       borderRadius: "50%",
                       zIndex: 2,
                     }}
-                    initial={{ scale: 0, opacity: 0 }}
+                    initial={{ scale: 0.6, opacity: 0 }}
                     animate={inView ? { scale: 1, opacity: 1 } : {}}
                     transition={{
                       duration: STEP_DURATION,
@@ -105,7 +105,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
                     }}
                   >
                     {/* Pulse ring */}
-                    <motion.span
+                    <m.span
                       aria-hidden
                       style={{
                         position: "absolute",
@@ -121,7 +121,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
                         ease: "easeOut",
                       }}
                     />
-                    <motion.span
+                    <m.span
                       style={{
                         fontFamily: "var(--font-display)",
                         fontSize: "1rem",
@@ -133,11 +133,11 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
                       transition={{ duration: 0.3, delay: delay + 0.2 }}
                     >
                       {i + 1}
-                    </motion.span>
-                  </motion.div>
+                    </m.span>
+                  </m.div>
 
                   {/* Label card */}
-                  <motion.div
+                  <m.div
                     className="flex-1"
                     style={{ minHeight: "48px", paddingTop: "0.6rem" }}
                     initial={{ opacity: 0, x: -16 }}
@@ -165,7 +165,7 @@ export function ProcessSection({ service }: { service: ServiceDoc }) {
                     >
                       {step}
                     </p>
-                  </motion.div>
+                  </m.div>
                 </li>
               )
             })}

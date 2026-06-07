@@ -126,6 +126,7 @@ export function NavbarClient({ categories, services }: NavbarClientProps) {
             onMouseLeave={scheduleClose}
           >
             <button
+              type="button"
               className="nav-trigger inline-flex items-center gap-1 px-3 py-2 text-sm font-medium"
               style={{ color: aboutOpen ? "var(--foreground)" : "var(--fw-navy-mid)" }}
               aria-expanded={aboutOpen}
@@ -146,6 +147,7 @@ export function NavbarClient({ categories, services }: NavbarClientProps) {
           >
             {hasMega ? (
               <button
+                type="button"
                 className="nav-trigger inline-flex items-center gap-1 px-3 py-2 text-sm font-medium"
                 style={{ color: servicesOpen ? "var(--foreground)" : "var(--fw-navy-mid)" }}
                 aria-expanded={servicesOpen}
@@ -171,8 +173,13 @@ export function NavbarClient({ categories, services }: NavbarClientProps) {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ background: "var(--fw-navy)", borderRadius: "3px", letterSpacing: "0.01em" }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            style={{
+              background: "var(--fw-accent)",
+              borderRadius: "3px",
+              letterSpacing: "0.01em",
+              boxShadow: "0 8px 20px -6px oklch(0.55 0.22 258 / 0.45)",
+            }}
           >
             <MessageCircle className="h-4 w-4" />
             Talk to Us
@@ -487,6 +494,7 @@ function MobileAccordion({
   return (
     <div>
       <button
+        type="button"
         onClick={onToggle}
         className="flex w-full items-center justify-between py-3 text-base font-medium"
         style={{ color: "var(--foreground)" }}

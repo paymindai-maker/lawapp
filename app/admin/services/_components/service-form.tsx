@@ -1,12 +1,11 @@
 "use client"
 
-import { useMemo, useEffect, useRef } from "react"
+import { useMemo, useRef } from "react"
 import dynamic from "next/dynamic"
 import { Controller, useFieldArray, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
-import { serverTimestamp } from "firebase/firestore"
 import { ArrowLeft, GripVertical, Plus, X } from "lucide-react"
 import type { ServiceCategoryDoc, ServiceDoc } from "@/types"
 import { Button } from "@/components/ui/button"
@@ -98,7 +97,7 @@ const serviceSchema = z.object({
     keywords: z.string().min(1, "Required"),
   }),
   content: z.string().min(50, "Min 50 characters"),
-  featuredImage: z.string().url("Enter a valid image URL").or(z.literal("")),
+  featuredImage: z.url("Enter a valid image URL").or(z.literal("")),
   status: z.enum(STATUS_OPTIONS),
 })
 
@@ -168,67 +167,23 @@ function toFormValues(service: ServiceDoc): ServiceFormValues {
   }
 }
 
-function compactList(values: { value: string }[]) {
-  return values.map((item) => item.value.trim()).filter(Boolean)
-}
-
-function compactFaqs(values: { q: string; a: string }[]) {
-  return values.map((f) => ({ q: f.q.trim(), a: f.a.trim() })).filter((f) => f.q && f.a)
-}
-
-export function buildServiceData(values: ServiceFormValues) {
-  return {
-    title: values.title.trim(),
-    slug: values.slug.trim(),
-    categoryId: values.categoryId,
-    icon: values.icon,
-    shortDescription: values.shortDescription.trim(),
-    hero: {
-      heading: values.hero.heading.trim(),
-      subheading: values.hero.subheading.trim(),
-      ctaText: values.hero.ctaText.trim(),
-    },
-    quickInfo: {
-      timeline: values.quickInfo.timeline.trim(),
-      consultation: values.quickInfo.consultation.trim(),
-      startingPrice: values.quickInfo.startingPrice.trim(),
-    },
-    benefitItems: values.benefitItems
-      .map((b) => ({
-        title: b.title.trim(),
-        description: b.description.trim(),
-        ...(b.icon?.trim() ? { icon: b.icon.trim() } : {}),
-      }))
-      .filter((b) => b.title && b.description),
-    eligibilityItems: values.eligibilityItems
-      .map((e) => ({
-        audience: e.audience.trim(),
-        ...(e.note?.trim() ? { note: e.note.trim() } : {}),
-      }))
-      .filter((e) => e.audience),
-    // legacy fields cleared — kept in schema for backward compat reads
-    benefits: [] as string[],
-    eligibility: [] as string[],
-    requiredDocuments: compactList(values.requiredDocuments),
-    processSteps: compactList(values.processSteps),
-    whyChooseUs: compactList(values.whyChooseUs),
-    faqs: compactFaqs(values.faqs),
-    relatedServices: compactList(values.relatedServices),
-    seo: {
-      title: values.seo.title.trim(),
-      description: values.seo.description.trim(),
-      keywords: values.seo.keywords.trim(),
-    },
-    content: values.content.trim(),
-    featuredImage: values.featuredImage.trim(),
-    status: values.status,
-    updatedAt: serverTimestamp(),
-  }
-}
 
 type ServiceFormControl = ReturnType<typeof useForm<ServiceFormValues>>["control"]
 type ServiceFormRegister = ReturnType<typeof useForm<ServiceFormValues>>["register"]
 type ServiceFormErrors = ReturnType<typeof useForm<ServiceFormValues>>["formState"]["errors"]
+
+function SaveButton({ label, saving }: { label: string; saving: boolean }) {
+  return (
+    <Button type="submit" disabled={saving} style={{ background: "var(--fw-blue)", color: "white" }}>
+      {saving ? (
+        <span className="flex items-center gap-2">
+          <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+          Saving…
+        </span>
+      ) : label}
+    </Button>
+  )
+}
 
 export function ServiceForm({
   initialData,
@@ -257,30 +212,13 @@ export function ServiceForm({
   })
 
   const featuredImage = watch("featuredImage")
-  const titleValue = watch("title")
   const slugEdited = useRef(!!initialData)
-
-  useEffect(() => {
-    if (!slugEdited.current) {
-      setValue("slug", toSlug(titleValue), { shouldValidate: false })
-    }
-  }, [titleValue, setValue])
 
   const relatedServiceOptions = useMemo(
     () => allServices.filter((s) => s.id !== initialData?.id),
     [initialData?.id, allServices]
   )
 
-  const SaveButton = ({ label }: { label: string }) => (
-    <Button type="submit" disabled={saving} style={{ background: "var(--fw-blue)", color: "white" }}>
-      {saving ? (
-        <span className="flex items-center gap-2">
-          <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-          Saving…
-        </span>
-      ) : label}
-    </Button>
-  )
 
   return (
     <form onSubmit={handleSubmit(onSave)} className="space-y-6">
@@ -311,13 +249,22 @@ export function ServiceForm({
           <Button type="button" variant="outline" onClick={() => router.push("/admin/services")}>
             Cancel
           </Button>
-          <SaveButton label={initialData ? "Save changes" : "Add service"} />
+          <SaveButton label={initialData ? "Save changes" : "Add service"} saving={saving} />
         </div>
       </div>
 
       <FormSection title="Basics">
         <Field label="Title" error={errors.title?.message}>
-          <Input placeholder="Private Limited Company Registration" {...register("title")} />
+          <Input
+            placeholder="Private Limited Company Registration"
+            {...register("title")}
+            onChange={(e) => {
+              register("title").onChange(e)
+              if (!slugEdited.current) {
+                setValue("slug", toSlug(e.target.value), { shouldValidate: false })
+              }
+            }}
+          />
         </Field>
         <div className="grid gap-3 md:grid-cols-2">
           <Field label={initialData ? "Slug (fixed after creation)" : "Slug"} error={errors.slug?.message}>
@@ -475,7 +422,7 @@ export function ServiceForm({
         <Button type="button" variant="outline" onClick={() => router.push("/admin/services")}>
           Cancel
         </Button>
-        <SaveButton label={initialData ? "Save changes" : "Add service"} />
+        <SaveButton label={initialData ? "Save changes" : "Add service"} saving={saving} />
       </div>
     </form>
   )

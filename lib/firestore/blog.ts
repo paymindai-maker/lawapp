@@ -69,10 +69,13 @@ export const getRelatedBlogPosts = cache(
       const snap = await getDocs(
         query(collection(db, "blog_posts"), where("tag", "==", tag), limit(4))
       )
-      return snap.docs
-        .map((d) => toPlain<BlogPostDoc>(d.id, d.data()))
-        .filter((p) => p.id !== currentId)
-        .slice(0, 3)
+      const results: BlogPostDoc[] = []
+      for (const d of snap.docs) {
+        const post = toPlain<BlogPostDoc>(d.id, d.data())
+        if (post.id !== currentId) results.push(post)
+        if (results.length === 3) break
+      }
+      return results
     } catch {
       return []
     }

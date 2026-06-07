@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import { m, useScroll, useSpring, useTransform } from "framer-motion"
 
 interface ParallaxProps {
   children: React.ReactNode
@@ -38,9 +38,9 @@ export function Parallax({ children, offset = 60, className }: ParallaxProps) {
 
   return (
     <div ref={ref} className={className} style={{ overflow: "hidden" }}>
-      <motion.div style={{ y }}>
+      <m.div style={{ y }}>
         {children}
-      </motion.div>
+      </m.div>
     </div>
   )
 }
@@ -65,8 +65,8 @@ export function ParallaxDrift({
   const smoothY = useSpring(y, { stiffness: 60, damping: 18, restDelta: 0.001 })
 
   return (
-    <motion.div ref={ref} className={className} style={{ y: smoothY }}>
+    <m.div ref={ref} className={className} style={{ y: smoothY }}>
       {children}
-    </motion.div>
+    </m.div>
   )
 }

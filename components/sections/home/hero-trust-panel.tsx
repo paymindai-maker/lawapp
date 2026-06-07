@@ -90,17 +90,20 @@ export function HeroTrustPanel() {
 
         {/* Dots */}
         <div className="mt-6 flex items-center gap-1.5">
-          {TESTIMONIALS.map((_, i) => (
+          {TESTIMONIALS.map((t, i) => (
             <button
-              key={i}
+              type="button"
+              key={t.name}
               onClick={() => goTo(i)}
               aria-label={`Show testimonial ${i + 1}`}
               style={{
-                width: i === active ? "1.5rem" : "0.5rem",
+                width: "1.5rem",
                 height: "4px",
                 borderRadius: "2px",
+                transformOrigin: "left center",
+                transform: i === active ? "scaleX(1)" : "scaleX(0.33)",
                 background: i === active ? "var(--fw-navy)" : "var(--border)",
-                transition: "all 300ms ease",
+                transition: "transform 300ms ease, background 300ms ease",
                 border: "none",
                 cursor: "pointer",
                 padding: 0,

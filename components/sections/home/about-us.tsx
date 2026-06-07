@@ -57,8 +57,13 @@ export function AboutUsSection() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
-                style={{ background: "var(--fw-navy)", color: "white", borderRadius: "3px" }}
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+                style={{
+                  background: "var(--fw-accent)",
+                  color: "white",
+                  borderRadius: "3px",
+                  boxShadow: "0 10px 24px -8px oklch(0.55 0.22 258 / 0.4)",
+                }}
               >
                 Learn more about us
                 <ArrowRight className="h-4 w-4" />

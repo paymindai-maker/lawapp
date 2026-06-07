@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 // ─── Slide definitions ───────────────────────────────────────────────────────
 
@@ -19,20 +19,21 @@ const ROTATE_MS = 4500
 
 export function AboutIllustrationSlider() {
   const [idx, setIdx] = useState(0)
-  const [paused, setPaused] = useState(false)
+  const paused = useRef(false)
 
   useEffect(() => {
-    if (paused) return
-    const t = setInterval(() => setIdx((i) => (i + 1) % SLIDES.length), ROTATE_MS)
+    const t = setInterval(() => {
+      if (!paused.current) setIdx((i) => (i + 1) % SLIDES.length)
+    }, ROTATE_MS)
     return () => clearInterval(t)
-  }, [paused])
+  }, [])
 
   const current = SLIDES[idx]
 
   return (
     <div
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseEnter={() => { paused.current = true }}
+      onMouseLeave={() => { paused.current = false }}
       style={{
         background: "var(--fw-surface)",
         border: "1px solid var(--border)",
@@ -115,17 +116,20 @@ export function AboutIllustrationSlider() {
         <div className="mt-5 flex items-center gap-2">
           {SLIDES.map((s, i) => (
             <button
+              type="button"
               key={s.key}
               onClick={() => setIdx(i)}
               aria-label={`Show ${s.label}`}
               style={{
                 height: "4px",
-                width: i === idx ? "36px" : "16px",
+                width: "36px",
+                transformOrigin: "left center",
+                transform: i === idx ? "scaleX(1)" : "scaleX(0.44)",
                 background: i === idx ? "var(--fw-blue)" : "var(--border)",
                 border: "none",
                 borderRadius: "2px",
                 cursor: "pointer",
-                transition: "width 300ms ease, background 300ms ease",
+                transition: "transform 300ms ease, background 300ms ease",
                 padding: 0,
               }}
             />
@@ -144,17 +148,17 @@ export function AboutIllustrationSlider() {
 
 // ─── Illustrations (pure SVG, brand-token colors) ────────────────────────────
 
+const SVG_SIZE = { width: "82%", height: "82%" } as const
+
 function Illustration({ kind }: { kind: SlideKey }) {
   const navy = "var(--fw-navy)"
   const blue = "var(--fw-blue)"
   const gold = "var(--fw-gold)"
   const surface = "var(--fw-surface)"
 
-  const common = { width: "82%", height: "82%" } as const
-
   if (kind === "legal") {
     return (
-      <svg viewBox="0 0 400 300" {...common} role="img" aria-label="Scales of justice with documents">
+      <svg viewBox="0 0 400 300" {...SVG_SIZE} role="img" aria-label="Scales of justice with documents">
         {/* Backdrop circle */}
         <circle cx="200" cy="150" r="115" fill={surface} stroke={navy} strokeOpacity="0.08" />
         {/* Column */}
@@ -189,7 +193,7 @@ function Illustration({ kind }: { kind: SlideKey }) {
 
   if (kind === "tax") {
     return (
-      <svg viewBox="0 0 400 300" {...common} role="img" aria-label="Calculator with rising tax compliance chart">
+      <svg viewBox="0 0 400 300" {...SVG_SIZE} role="img" aria-label="Calculator with rising tax compliance chart">
         <circle cx="200" cy="150" r="115" fill={surface} stroke={navy} strokeOpacity="0.08" />
         {/* Calculator body */}
         <rect x="80" y="70" width="140" height="180" fill={navy} rx="6" />
@@ -235,7 +239,7 @@ function Illustration({ kind }: { kind: SlideKey }) {
 
   if (kind === "setup") {
     return (
-      <svg viewBox="0 0 400 300" {...common} role="img" aria-label="Building blocks forming a business structure">
+      <svg viewBox="0 0 400 300" {...SVG_SIZE} role="img" aria-label="Building blocks forming a business structure">
         <circle cx="200" cy="150" r="115" fill={surface} stroke={navy} strokeOpacity="0.08" />
         {/* Ground */}
         <line x1="60" y1="240" x2="340" y2="240" stroke={navy} strokeOpacity="0.4" strokeWidth="2" />
@@ -273,7 +277,7 @@ function Illustration({ kind }: { kind: SlideKey }) {
 
   // advisory
   return (
-    <svg viewBox="0 0 400 300" {...common} role="img" aria-label="Shield with upward growth arrow">
+    <svg viewBox="0 0 400 300" {...SVG_SIZE} role="img" aria-label="Shield with upward growth arrow">
       <circle cx="200" cy="150" r="115" fill={surface} stroke={navy} strokeOpacity="0.08" />
       {/* Shield */}
       <path

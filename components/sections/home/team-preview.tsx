@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { TeamCard } from "@/components/common/team-card"
 import { SectionLabel } from "@/components/common/section-label"
 import { TEAM_MEMBERS } from "@/lib/data"
@@ -47,14 +48,14 @@ export function TeamPreview() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <a
+          <Link
             href="/team"
             className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white"
             style={{ background: "var(--fw-navy)", letterSpacing: "0.04em", borderRadius: "3px" }}
           >
             View full team
             <span aria-hidden>→</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

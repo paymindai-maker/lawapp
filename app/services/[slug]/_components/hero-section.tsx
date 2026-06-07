@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { m, useScroll, useTransform, useSpring } from "framer-motion"
 import { ArrowRight, ChevronRight } from "lucide-react"
 import type { ServiceDoc, ServiceCategoryDoc } from "@/types"
 
@@ -131,7 +131,7 @@ export function HeroSection({
             {/* Right — parallax illustration */}
             {hasImage && (
               <div className="hidden md:flex items-center justify-end py-4" style={{ overflow: "hidden" }}>
-                <motion.div
+                <m.div
                   className="relative w-full"
                   style={{ aspectRatio: "4/3", y: imgY }}
                   initial={{ opacity: 0, x: 24 }}
@@ -146,7 +146,7 @@ export function HeroSection({
                     priority
                     sizes="(max-width: 1280px) 45vw, 560px"
                   />
-                </motion.div>
+                </m.div>
               </div>
             )}
 

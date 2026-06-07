@@ -63,7 +63,7 @@ export function WhyUsSection({ service }: { service: ServiceDoc }) {
             {/* Rows */}
             {reasons.map((reason, i) => (
               <div
-                key={i}
+                key={reason}
                 className="why-row grid grid-cols-2"
                 style={{ borderBottom: i < reasons.length - 1 ? "1px solid var(--border)" : "none" }}
               >

@@ -26,7 +26,7 @@ export function DocumentsSection({ service }: { service: ServiceDoc }) {
 
         <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
           {docs.map((doc, i) => (
-            <FadeIn key={i} delay={i * 55} direction="up" className="h-full">
+            <FadeIn key={doc} delay={i * 55} direction="up" className="h-full">
               <div
                 className="doc-item flex h-full items-center gap-3 px-4 py-3.5"
                 style={{

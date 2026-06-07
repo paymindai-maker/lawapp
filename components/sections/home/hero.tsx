@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { m, useScroll, useTransform, useSpring } from "framer-motion"
 import { useRef } from "react"
 
 const HERO_IMAGE: string | null = "/hero.png"
@@ -39,7 +39,7 @@ export function HeroSection() {
     >
       {/* Parallax background image */}
       {HERO_IMAGE && (
-        <motion.div
+        <m.div
           className="absolute inset-0"
           style={{ y: bgY, scale: 1.1, zIndex: 0 }}
         >
@@ -48,9 +48,10 @@ export function HeroSection() {
             alt=""
             fill
             priority
+            sizes="100vw"
             className="object-cover object-center"
           />
-        </motion.div>
+        </m.div>
       )}
 
       {/* Dark overlay */}
@@ -69,19 +70,19 @@ export function HeroSection() {
       >
         <div style={{ maxWidth: "38rem" }}>
 
-          <motion.p
+          <m.p
             className="mb-7 flex items-center justify-center gap-3 text-[11px] font-semibold uppercase"
-            style={{ color: "var(--fw-gold)", letterSpacing: "0.20em" }}
+            style={{ color: "var(--fw-accent)", letterSpacing: "0.20em" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease }}
           >
-            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
+            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-accent)" }} />
             Advocates · Chartered Accountants · Compliance
-            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-gold)" }} />
-          </motion.p>
+            <span className="inline-block h-px w-7 shrink-0" style={{ background: "var(--fw-accent)" }} />
+          </m.p>
 
-          <motion.h1
+          <m.h1
             style={{
               fontFamily: "var(--font-display)",
               color: "oklch(0.97 0.005 258)",
@@ -94,10 +95,10 @@ export function HeroSection() {
             transition={{ duration: 0.9, delay: 0.22, ease }}
           >
             One Firm. Every Filing. Zero Run-Around.
-          </motion.h1>
+          </m.h1>
 
           {/* Devanagari accent */}
-          <motion.p
+          <m.p
             className="mt-5"
             style={{
               fontFamily: "var(--font-display)",
@@ -111,9 +112,9 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.32, ease }}
           >
             हर फाइलिंग, हर केस — एक छत के नीचे.
-          </motion.p>
+          </m.p>
 
-          <motion.p
+          <m.p
             className="mx-auto mt-5 text-base leading-relaxed"
             style={{ color: "oklch(0.82 0.012 258)", maxWidth: "44ch" }}
             initial={{ opacity: 0, y: 20 }}
@@ -123,9 +124,9 @@ export function HeroSection() {
             Advocates, Chartered Accountants &amp; compliance specialists under one
             roof — 500+ Indian businesses trust NEXGEN for GST, ITR, ROC filings,
             and courtroom representation since 2006.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,12 +134,13 @@ export function HeroSection() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center px-8 py-3.5 text-sm font-semibold transition-opacity hover:opacity-90"
+              className="inline-flex items-center px-8 py-3.5 text-sm font-semibold transition-transform hover:-translate-y-0.5"
               style={{
-                background: "var(--fw-gold)",
-                color: "oklch(0.16 0.04 258)",
+                background: "var(--fw-accent)",
+                color: "white",
                 borderRadius: "3px",
                 letterSpacing: "0.02em",
+                boxShadow: "0 12px 32px -8px oklch(0.55 0.22 258 / 0.55)",
               }}
             >
               Book a Consultation
@@ -155,16 +157,16 @@ export function HeroSection() {
               View Practice Areas
               <ArrowRight
                 className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                style={{ color: "var(--fw-gold)" }}
+                style={{ color: "var(--fw-accent)" }}
               />
             </Link>
-          </motion.div>
+          </m.div>
 
         </div>
       </div>
 
       {/* Bottom marquee — practice areas roll */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.8, ease }}
@@ -180,17 +182,17 @@ export function HeroSection() {
         }}
       >
         <div
+          className="hero-marquee"
           style={{
             display: "flex",
             whiteSpace: "nowrap",
             animation: "hero-marquee 38s linear infinite",
-            willChange: "transform",
             width: "max-content",
           }}
         >
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span
-              key={i}
+              key={`${item}-${i}`}
               className="inline-flex items-center gap-3"
               style={{
                 fontFamily: "var(--font-display)",
@@ -208,25 +210,15 @@ export function HeroSection() {
                   width: "6px",
                   height: "6px",
                   borderRadius: "50%",
-                  background: "var(--fw-gold)",
+                  background: "var(--fw-accent)",
                 }}
               />
               {item}
             </span>
           ))}
         </div>
-      </motion.div>
+      </m.div>
 
-      {/* Local keyframes */}
-      <style jsx>{`
-        @keyframes hero-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          div[style*="hero-marquee"] { animation: none !important; }
-        }
-      `}</style>
     </section>
   )
 }

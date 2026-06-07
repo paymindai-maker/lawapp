@@ -12,7 +12,7 @@ import type {
   FooterColumn,
 } from "@/types"
 
-export const NAV_LINKS: NavLink[] = [
+const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },

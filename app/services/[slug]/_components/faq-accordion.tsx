@@ -14,8 +14,9 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   return (
     <div className="flex flex-col" style={{ borderTop: "1px solid var(--border)" }}>
       {faqs.map((faq, i) => (
-        <div key={i} style={{ borderBottom: "1px solid var(--border)" }}>
+        <div key={faq.q} style={{ borderBottom: "1px solid var(--border)" }}>
           <button
+            type="button"
             onClick={() => setOpen(open === i ? null : i)}
             className="faq-btn flex w-full items-start justify-between gap-6 py-5 text-left"
           >

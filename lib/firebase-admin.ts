@@ -30,6 +30,6 @@ export const adminAuth = {
     getAuth(getAdminApp()).setCustomUserClaims(...args),
 }
 
-export function getAdminDb() {
+function getAdminDb() {
   return getFirestore(getAdminApp())
 }

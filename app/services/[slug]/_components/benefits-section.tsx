@@ -50,7 +50,7 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
                 style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}
               >
                 {richBenefits.map((benefit, i) => (
-                  <FadeIn key={i} delay={i * 80} direction="up" className="h-full">
+                  <FadeIn key={benefit.title} delay={i * 80} direction="up" className="h-full">
                     {/* benefit-card class: no overflow:hidden so box-shadow works */}
                     <div
                       className="benefit-card flex h-full flex-col"
@@ -125,7 +125,7 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
               /* Legacy fallback */
               <div className="grid gap-0" style={{ borderTop: "1px solid var(--border)" }}>
                 {legacyBenefits.map((b, i) => (
-                  <FadeIn key={i} delay={i * 60}>
+                  <FadeIn key={b} delay={i * 60}>
                     <div
                       className="grid items-start gap-6 py-6 md:grid-cols-[3rem_1fr]"
                       style={{ borderBottom: "1px solid var(--border)" }}
@@ -185,7 +185,7 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
                 style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}
               >
                 {richEligibility.map((item, i) => (
-                  <FadeIn key={i} delay={i * 80} className="h-full">
+                  <FadeIn key={item.audience} delay={i * 80} className="h-full">
                     <div
                       className="eligibility-card flex h-full items-start gap-4 py-5 px-5"
                       style={{
@@ -230,7 +230,7 @@ export function BenefitsSection({ service }: { service: ServiceDoc }) {
               /* Legacy fallback */
               <div className="grid gap-0" style={{ borderTop: "1px solid var(--border)" }}>
                 {legacyEligibility.map((e, i) => (
-                  <FadeIn key={i} delay={i * 60}>
+                  <FadeIn key={e} delay={i * 60}>
                     <div
                       className="flex items-center gap-5 py-5"
                       style={{ borderBottom: "1px solid var(--border)" }}

@@ -94,6 +94,12 @@
     --fw-navy-surface: oklch(0.34 0.045 258);
     --fw-gold: oklch(0.68 0.07 80);
     --fw-surface: oklch(0.984 0.003 255);
+
+    /* Loud accent — electric cobalt. Used selectively on key CTAs + eyebrows. */
+    --fw-accent: oklch(0.55 0.22 258);
+    --fw-accent-hover: oklch(0.48 0.22 258);
+    --fw-accent-soft: oklch(0.55 0.22 258 / 0.12);
+    --fw-accent-ink: oklch(0.98 0.01 258);
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────────────── */
@@ -133,6 +139,14 @@
 @keyframes row-slide-in {
     from { opacity: 0; transform: translateX(-16px); }
     to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-marquee { animation: none !important; }
 }
 
 /* ─── Animation utilities ───────────────────────────────────────────── */

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -32,7 +32,7 @@ function toSlug(str: string) {
   return str.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-").replace(/-+/g, "-").slice(0, 80)
 }
 
-export const blogSchema = z.object({
+const blogSchema = z.object({
   slug: z.string().min(1, "Required").regex(/^[a-z0-9-]+$/, "Lowercase letters, numbers and hyphens only"),
   tag: z.string().min(1, "Select a tag"),
   title: z.string().min(3, "Required"),
@@ -44,11 +44,11 @@ export const blogSchema = z.object({
 
 export type BlogFormValues = z.infer<typeof blogSchema>
 
-export const BLOG_DEFAULT_VALUES: BlogFormValues = {
+const BLOG_DEFAULT_VALUES: BlogFormValues = {
   slug: "", tag: "", title: "", date: "", excerpt: "", featuredImage: "", content: "",
 }
 
-export function toBlogFormValues(post: BlogPostDoc): BlogFormValues {
+function toBlogFormValues(post: BlogPostDoc): BlogFormValues {
   return {
     slug: post.slug,
     tag: post.tag,
@@ -60,7 +60,7 @@ export function toBlogFormValues(post: BlogPostDoc): BlogFormValues {
   }
 }
 
-export function buildBlogData(values: BlogFormValues) {
+function buildBlogData(values: BlogFormValues) {
   return {
     slug: values.slug.trim(),
     tag: values.tag,
@@ -71,6 +71,19 @@ export function buildBlogData(values: BlogFormValues) {
     content: values.content?.trim() ?? "",
     updatedAt: serverTimestamp(),
   }
+}
+
+function SaveButton({ label, saving }: { label: string; saving: boolean }) {
+  return (
+    <Button type="submit" disabled={saving} style={{ background: "var(--fw-blue)", color: "white" }}>
+      {saving ? (
+        <span className="flex items-center gap-2">
+          <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+          Saving…
+        </span>
+      ) : label}
+    </Button>
+  )
 }
 
 export function BlogForm({
@@ -88,32 +101,14 @@ export function BlogForm({
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<BlogFormValues>({
     resolver: zodResolver(blogSchema),
     defaultValues: initialData ? toBlogFormValues(initialData) : BLOG_DEFAULT_VALUES,
   })
 
-  const titleValue = watch("title")
   const slugEdited = useRef(!!initialData)
 
-  useEffect(() => {
-    if (!slugEdited.current) {
-      setValue("slug", toSlug(titleValue), { shouldValidate: false })
-    }
-  }, [titleValue, setValue])
-
-  const SaveButton = ({ label }: { label: string }) => (
-    <Button type="submit" disabled={saving} style={{ background: "var(--fw-blue)", color: "white" }}>
-      {saving ? (
-        <span className="flex items-center gap-2">
-          <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-          Saving…
-        </span>
-      ) : label}
-    </Button>
-  )
 
   return (
     <form onSubmit={handleSubmit(onSave)} className="space-y-6">
@@ -134,7 +129,7 @@ export function BlogForm({
         </div>
         <div className="flex shrink-0 gap-2">
           <Button type="button" variant="outline" onClick={() => router.push("/admin/blog")}>Cancel</Button>
-          <SaveButton label={initialData ? "Save changes" : "Publish post"} />
+          <SaveButton label={initialData ? "Save changes" : "Publish post"} saving={saving} />
         </div>
       </div>
 
@@ -144,7 +139,16 @@ export function BlogForm({
           <h2 className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>Post Details</h2>
 
           <Field label="Title" error={errors.title?.message}>
-            <Input placeholder="Post title…" {...register("title")} />
+            <Input
+              placeholder="Post title…"
+              {...register("title")}
+              onChange={(e) => {
+                register("title").onChange(e)
+                if (!slugEdited.current) {
+                  setValue("slug", toSlug(e.target.value), { shouldValidate: false })
+                }
+              }}
+            />
           </Field>
 
           <div className="grid grid-cols-2 gap-4">
@@ -213,7 +217,7 @@ export function BlogForm({
 
         <div className="flex justify-end gap-2 pb-8">
           <Button type="button" variant="outline" onClick={() => router.push("/admin/blog")}>Cancel</Button>
-          <SaveButton label={initialData ? "Save changes" : "Publish post"} />
+          <SaveButton label={initialData ? "Save changes" : "Publish post"} saving={saving} />
         </div>
       </div>
     </form>
