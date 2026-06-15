@@ -21,14 +21,14 @@ export const revalidate = 3600
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexgen.in"
 
 export const metadata: Metadata = {
-  title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+  title: "NexGen Associates LLP | Chartered Accountants & Legal Services in India",
   description:
-    "NEXGEN is Noida's integrated legal and tax firm. Advocates, CAs, and compliance specialists offering business registration, GST, income tax, litigation, and mutual fund advisory since 2006.",
+    "NexGen Associates LLP, a trusted CA and legal advisory firm in India. Expert GST filing, tax planning, audit, company registration, and corporate legal services under one roof.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+    title: "NexGen Associates LLP | Chartered Accountants & Legal Services in India",
     description:
-      "Noida's integrated legal and tax firm. Business registration, GST, income tax, litigation, and mutual fund advisory. Trusted by 500+ businesses since 2006.",
+      "Full-service CA and legal advisory under one roof. GST, ITR, audit, company registration, contracts, and corporate legal — trusted by 1,200+ Indian businesses.",
     url: "/",
     type: "website",
   },

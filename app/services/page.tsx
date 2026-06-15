@@ -7,22 +7,22 @@ import { CrossPageLinks } from "@/components/common/cross-page-links"
 export const revalidate = 3600
 
 export const metadata = {
-  title: "Legal & Tax Services | Business Registration, GST, Litigation",
+  title: "CA & Legal Services | GST, ITR, Audit, Company Registration",
   description:
-    "NEXGEN offers business registration, business licensing, income tax & GST compliance, litigation, and mutual fund advisory. Expert Advocates and CAs. Noida-based, serving India since 2006.",
+    "NexGen offers GST filing, income tax, audit & assurance, company registration, legal advisory, and contract drafting. Integrated CA + legal services serving Indian businesses since 2010.",
   alternates: { canonical: "/services" },
   openGraph: {
-    title: "Legal & Tax Services — Business Registration, GST, Litigation | NEXGEN",
+    title: "CA & Legal Services — GST, ITR, Audit, Company Registration | NexGen",
     description:
-      "Business registration, licensing, GST compliance, income tax, litigation, and mutual fund advisory. Advocates and CAs in Noida serving India since 2006.",
+      "GST, income tax, audit, company registration, legal advisory, and contract drafting. Integrated CA + legal services for Indian businesses since 2010.",
     url: "/services",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Legal & Tax Services | NEXGEN Noida",
+    title: "CA & Legal Services | NexGen Associates LLP",
     description:
-      "Business registration, GST, income tax, litigation, and mutual fund advisory from NEXGEN's Advocates and CAs in Noida.",
+      "GST, ITR, audit, company registration, and corporate legal services from NexGen's chartered accountants and legal advisors.",
   },
 }
 

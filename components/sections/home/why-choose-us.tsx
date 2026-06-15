@@ -5,18 +5,23 @@ import { SectionLabel } from "@/components/common/section-label"
 const REASONS = [
   {
     num: "01",
-    title: "Clear Communication",
-    desc: "We keep you informed at every step, ensuring transparency and confidence throughout the entire legal process.",
+    title: "Integrated CA + legal under one roof",
+    desc: "No more coordinating between your accountant and lawyer. Our teams work together so filings, contracts, and compliance stay aligned — with no costly gaps between financial and legal advice.",
   },
   {
     num: "02",
-    title: "Proven Success",
-    desc: "500+ cases resolved across practice areas. A consistent track record of delivering favorable outcomes.",
+    title: "Zero missed deadlines",
+    desc: "Our proprietary compliance calendar tracks every due date for every client. We send reminders and file on time, every time — 98% on-time filing rate across 1,200+ active clients.",
   },
   {
     num: "03",
-    title: "Committed to Results",
-    desc: "Your business is our priority. We work tirelessly to protect your rights and deliver the outcomes you deserve.",
+    title: "Transparent, fixed pricing",
+    desc: "No surprise billing. Pricing is clear, predictable, and tailored to your business. You know exactly what you're paying for and exactly what you receive.",
+  },
+  {
+    num: "04",
+    title: "Pan-India and NRI coverage",
+    desc: "Offices across 6 cities with remote client handling nationwide. We also serve NRIs and foreign companies entering India — FEMA, transfer pricing, and international tax advisory included.",
   },
 ]
 
@@ -36,7 +41,7 @@ export function WhyChooseUs() {
           {/* Left — large editorial statement */}
           <FadeIn direction="left" className="md:col-span-2">
           <ParallaxDrift offset={20} className="flex flex-col justify-center gap-8">
-            <SectionLabel>Our Approach</SectionLabel>
+            <SectionLabel>Why NexGen</SectionLabel>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -45,20 +50,19 @@ export function WhyChooseUs() {
                 lineHeight: 1.08,
               }}
             >
-              Built for
+              Big-4 rigor.
               <br />
-              business.
+              Boutique
               <br />
-              Built to
-              <br />
-              <span style={{ color: "var(--fw-blue)" }}>win.</span>
+              <span style={{ color: "var(--fw-blue)" }}>attention.</span>
             </h2>
             <p
               className="text-sm leading-relaxed"
               style={{ color: "var(--muted-foreground)", maxWidth: "30ch" }}
             >
-              NEXGEN has operated from Noida since 2006. Our multidiscipline
-              team covers every legal need a growing Indian business will encounter.
+              You get a dedicated relationship manager — not a ticket number.
+              One firm covers every CA and legal need a growing Indian business
+              will encounter.
             </p>
             <div className="h-px w-16" style={{ background: "var(--fw-gold)" }} />
           </ParallaxDrift>

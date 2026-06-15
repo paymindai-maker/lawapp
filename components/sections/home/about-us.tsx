@@ -38,20 +38,20 @@ export function AboutUsSection() {
               className="mb-5 text-base leading-relaxed"
               style={{ color: "var(--muted-foreground)", maxWidth: "52ch" }}
             >
-              Since {FIRM_INFO.established}, NEXGEN has helped 500+ Indian businesses
-              navigate the country&apos;s most demanding regulatory frameworks. Our
-              practice brings Advocates, Chartered Accountants, and compliance
-              specialists under a single roof — so business registration, GST, income
-              tax, litigation, and corporate advisory move in lockstep.
+              {FIRM_INFO.name} Associates LLP is a full-service chartered
+              accountancy and legal advisory firm helping Indian businesses stay
+              compliant, grow confidently, and resolve challenges — from
+              incorporation to litigation support.
             </p>
             <p
               className="mb-8 text-base leading-relaxed"
               style={{ color: "var(--muted-foreground)", maxWidth: "52ch" }}
             >
-              We believe legal and financial compliance should be a growth enabler,
-              not a bottleneck. From the first registration to courtroom
-              representation, we deliver clarity, speed, and accountability at every
-              stage.
+              As trusted chartered accountants in India, we deliver integrated
+              financial, taxation, compliance, and corporate legal solutions
+              under one roof. Whether you&apos;re a startup finding your footing
+              or an enterprise scaling operations, NexGen tailors the engagement
+              to your stage and sector.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">

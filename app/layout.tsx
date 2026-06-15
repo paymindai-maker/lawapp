@@ -25,11 +25,11 @@ const OG_IMAGE = `${SITE_URL}/og-default.jpg`
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
-    template: "%s | NEXGEN",
+    default: "NexGen Associates LLP | Chartered Accountants & Legal Services in India",
+    template: "%s | NexGen Associates LLP",
   },
   description:
-    "NEXGEN is Noida's integrated legal and tax firm. Advocates, Chartered Accountants, and compliance specialists serving Indian businesses since 2006. Business registration, GST, income tax, litigation, and mutual fund advisory.",
+    "NexGen Associates LLP is a full-service CA and legal advisory firm in India. Expert GST filing, tax planning, audit, company registration, and corporate legal services — all under one roof.",
   keywords: [
     "legal services Noida",
     "CA firm Noida",
@@ -52,17 +52,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: SITE_URL,
-    siteName: "NEXGEN",
-    title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+    siteName: "NexGen Associates LLP",
+    title: "NexGen Associates LLP | Chartered Accountants & Legal Services in India",
     description:
-      "Noida's integrated legal and tax firm. Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "NEXGEN Legal & Tax" }],
+      "Full-service CA and legal advisory firm in India. GST, ITR, audit, company registration, contracts, and corporate legal — under one roof.",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "NexGen Associates LLP" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NEXGEN — Legal, Tax & Compliance Firm | Noida, India",
+    title: "NexGen Associates LLP | Chartered Accountants & Legal Services in India",
     description:
-      "Noida's integrated legal and tax firm. Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
+      "Full-service CA and legal advisory firm in India. GST, ITR, audit, company registration, contracts, and corporate legal — under one roof.",
     images: [OG_IMAGE],
   },
   alternates: { canonical: SITE_URL },

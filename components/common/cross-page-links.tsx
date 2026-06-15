@@ -42,7 +42,7 @@ const LINKS: LinkItem[] = [
     href: "/about",
     label: "About",
     title: "About the Firm",
-    description: "18+ years of integrated legal and tax practice from Noida, serving 500+ clients.",
+    description: "15+ years of integrated CA + legal practice from Noida, serving 1,200+ clients.",
     icon: Building2,
   },
   {

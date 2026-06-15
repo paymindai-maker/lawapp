@@ -3,7 +3,7 @@ import { ArrowUpRight, MapPin, MessageCircle } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { CrossPageLinks } from "@/components/common/cross-page-links"
-import { FIRM_INFO, CONTACT_INFO, TEAM_MEMBERS } from "@/lib/data"
+import { CONTACT_INFO, TEAM_MEMBERS } from "@/lib/data"
 import { AboutNav } from "./about-nav"
 
 export const revalidate = 3600
@@ -11,22 +11,22 @@ export const revalidate = 3600
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
 export const metadata = {
-  title: "About NEXGEN | Legal, Tax & Compliance Firm in Noida, India",
+  title: "About NexGen Associates LLP | CA + Legal Services in India",
   description:
-    "NEXGEN is a Noida-based legal and compliance firm with 18+ years of expertise. Advocates, Chartered Accountants, and compliance specialists serving 500+ Indian businesses since 2006.",
+    "NexGen Associates LLP is a full-service CA and legal advisory firm with 15+ years of expertise. Chartered Accountants, company secretaries, and legal professionals serving 1,200+ Indian businesses since 2010.",
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About NEXGEN | Integrated Legal & Tax Firm — Noida",
+    title: "About NexGen Associates LLP | Integrated CA + Legal Firm",
     description:
-      "18+ years of practice. Advocates, CAs, and compliance specialists serving 500+ Indian businesses from Noida since 2006.",
+      "15+ years of practice. CAs, company secretaries, and legal professionals serving 1,200+ Indian businesses since 2010.",
     url: "/about",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About NEXGEN | Noida Legal & Tax Firm",
+    title: "About NexGen Associates LLP",
     description:
-      "18+ years. 500+ businesses. Integrated Advocates and CAs serving India from Noida.",
+      "15+ years. 1,200+ businesses. Integrated CA + legal practice serving India.",
   },
 }
 
@@ -36,16 +36,16 @@ const WA_URL = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent
 // ─── Static content (server-rendered for SEO) ────────────────────────────────
 
 const METRICS = [
-  { val: "500+", label: "Businesses served" },
-  { val: "18+", label: "Years of practice" },
-  { val: "5", label: "Practice areas" },
-  { val: "9", label: "Live tax services" },
+  { val: "1,200+", label: "Clients served" },
+  { val: "15+", label: "Years of practice" },
+  { val: "₹500 Cr+", label: "Tax managed" },
+  { val: "98%", label: "On-time filing rate" },
 ]
 
 const WHY_US = [
   {
-    title: "18+ years of proven expertise",
-    body: "Founded in 2006, NEXGEN has guided 500+ businesses through India's evolving legal and tax landscape. Our track record spans startups, SMEs, and listed companies.",
+    title: "15+ years of proven expertise",
+    body: "Founded in 2010, NexGen has guided 1,200+ businesses through India's evolving regulatory landscape. Our track record spans startups, SMEs, and listed companies.",
   },
   {
     title: "Deadline guarantee",
@@ -98,8 +98,8 @@ function HeroBento() {
       style={{
         background: "var(--fw-surface)",
         borderBottom: "1px solid var(--border)",
-        paddingTop: "5rem",
-        paddingBottom: "5rem",
+        paddingTop: "1.75rem",
+        paddingBottom: "4.5rem",
         position: "relative",
         overflow: "hidden",
       }}
@@ -122,30 +122,13 @@ function HeroBento() {
           zIndex: 0,
         }}
       >
-        2006
+        2010
       </span>
 
       <div
         className="relative mx-auto max-w-7xl px-6"
         style={{ zIndex: 1 }}
       >
-        {/* Eyebrow */}
-        <div className="mb-8 flex flex-wrap items-center gap-3">
-          <span
-            className="inline-block h-px w-10"
-            style={{ background: "var(--fw-accent)" }}
-          />
-          <p
-            className="text-[11px] font-semibold uppercase"
-            style={{
-              color: "var(--fw-accent)",
-              letterSpacing: "0.22em",
-            }}
-          >
-            About NEXGEN · {FIRM_INFO.city} · Est. {FIRM_INFO.established}
-          </p>
-        </div>
-
         {/* Bento grid */}
         <div
           style={{
@@ -177,9 +160,9 @@ function HeroBento() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Eighteen years.
+                  Fifteen years.
                   <br />
-                  Five practices.
+                  Six service lines.
                   <br />
                   <span style={{ color: "var(--fw-accent)" }}>One partner.</span>
                 </h1>
@@ -191,9 +174,10 @@ function HeroBento() {
                     maxWidth: "52ch",
                   }}
                 >
-                  NEXGEN brings Advocates, Chartered Accountants, and compliance
-                  specialists into a single integrated practice — serving 500+
-                  Indian businesses from our Noida headquarters since 2006.
+                  NexGen Associates LLP brings Chartered Accountants, company
+                  secretaries, and legal professionals into a single integrated
+                  practice — serving 1,200+ Indian businesses from our Noida
+                  headquarters since 2010.
                 </p>
               </div>
 
@@ -232,22 +216,18 @@ function HeroBento() {
             </div>
           </article>
 
-          {/* Stat — 500+ (dark) */}
+          {/* Stat — 1,200+ (dark) */}
           <article className="col-span-3 md:[grid-column:5/7] md:[grid-row:1/2]">
             <BentoStat
-              val="500+"
-              label="Businesses served across India since 2006"
+              val="1,200+"
+              label="Clients served across India since 2010"
               tone="dark"
             />
           </article>
 
-          {/* Stat — 18+ (light) */}
+          {/* Custom law illustration cell */}
           <article className="col-span-3 md:[grid-column:5/7] md:[grid-row:2/3]">
-            <BentoStat
-              val="18+ yrs"
-              label="Active legal and tax practice"
-              tone="light"
-            />
+            <LawIllustrationCard />
           </article>
 
           {/* Devanagari quote cell */}
@@ -441,6 +421,245 @@ function BentoStat({
           {label}
         </p>
       </div>
+    </div>
+  )
+}
+
+// ─── Custom law illustration cell ────────────────────────────────────────────
+
+function LawIllustrationCard() {
+  return (
+    <div
+      className="law-illus-card group relative flex h-full flex-col justify-between overflow-hidden"
+      style={{
+        background: "var(--card)",
+        border: "1px solid var(--border)",
+        borderRadius: "6px",
+        padding: "1.5rem 1.75rem",
+        minHeight: "100%",
+      }}
+    >
+      {/* Background grid */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        style={{ opacity: 0.5 }}
+      >
+        <defs>
+          <pattern
+            id="law-grid"
+            width="22"
+            height="22"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 22 0 L 0 0 0 22"
+              fill="none"
+              stroke="oklch(0.22 0.045 258 / 0.05)"
+              strokeWidth="1"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#law-grid)" />
+      </svg>
+
+      {/* Kicker */}
+      <p
+        className="relative text-[10px] font-semibold uppercase"
+        style={{
+          color: "var(--muted-foreground)",
+          letterSpacing: "0.22em",
+        }}
+      >
+        Counsel · Compliance
+      </p>
+
+      {/* Custom SVG — scales + pillars + ledger lines */}
+      <div className="relative flex flex-1 items-center justify-center py-3">
+        <svg
+          viewBox="0 0 220 170"
+          width="100%"
+          style={{ maxWidth: "260px", height: "auto", display: "block" }}
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+        >
+          {/* Pillars (back) */}
+          <g stroke="oklch(0.22 0.045 258 / 0.18)" strokeWidth="1.2" fill="none">
+            <rect x="22" y="40" width="10" height="100" rx="1.5" />
+            <rect x="188" y="40" width="10" height="100" rx="1.5" />
+            {/* Capitals */}
+            <rect x="18" y="34" width="18" height="6" rx="1" />
+            <rect x="184" y="34" width="18" height="6" rx="1" />
+            {/* Bases */}
+            <rect x="16" y="140" width="22" height="6" rx="1" />
+            <rect x="182" y="140" width="22" height="6" rx="1" />
+          </g>
+
+          {/* Ledger baseline */}
+          <line
+            x1="10"
+            y1="152"
+            x2="210"
+            y2="152"
+            stroke="var(--fw-navy)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <line
+            x1="40"
+            y1="158"
+            x2="180"
+            y2="158"
+            stroke="oklch(0.22 0.045 258 / 0.25)"
+            strokeWidth="1"
+            strokeLinecap="round"
+          />
+
+          {/* Central post */}
+          <line
+            x1="110"
+            y1="32"
+            x2="110"
+            y2="118"
+            stroke="var(--fw-navy)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          {/* Post finial */}
+          <circle cx="110" cy="28" r="4" fill="var(--fw-gold)" />
+          <circle
+            cx="110"
+            cy="28"
+            r="5.5"
+            fill="none"
+            stroke="var(--fw-navy)"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+
+          {/* Post base */}
+          <path
+            d="M 96 120 L 124 120 L 120 130 L 100 130 Z"
+            fill="var(--fw-navy)"
+          />
+
+          {/* Cross beam */}
+          <line
+            x1="48"
+            y1="50"
+            x2="172"
+            y2="50"
+            stroke="var(--fw-navy)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          {/* Beam chains */}
+          <line
+            x1="62"
+            y1="50"
+            x2="62"
+            y2="72"
+            stroke="var(--fw-navy)"
+            strokeWidth="1.2"
+          />
+          <line
+            x1="158"
+            y1="50"
+            x2="158"
+            y2="72"
+            stroke="var(--fw-navy)"
+            strokeWidth="1.2"
+          />
+
+          {/* Left pan (slightly lower) */}
+          <g className="law-pan-left">
+            <ellipse
+              cx="62"
+              cy="78"
+              rx="22"
+              ry="4"
+              fill="var(--fw-navy)"
+            />
+            <path
+              d="M 42 78 Q 62 96 82 78 Z"
+              fill="none"
+              stroke="var(--fw-navy)"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+            <line
+              x1="48"
+              y1="82"
+              x2="76"
+              y2="82"
+              stroke="var(--fw-gold)"
+              strokeWidth="1"
+              opacity="0.7"
+            />
+          </g>
+
+          {/* Right pan (slightly higher — balance) */}
+          <g className="law-pan-right">
+            <ellipse
+              cx="158"
+              cy="78"
+              rx="22"
+              ry="4"
+              fill="var(--fw-navy)"
+            />
+            <path
+              d="M 138 78 Q 158 96 178 78 Z"
+              fill="none"
+              stroke="var(--fw-navy)"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+            <line
+              x1="144"
+              y1="82"
+              x2="172"
+              y2="82"
+              stroke="var(--fw-gold)"
+              strokeWidth="1"
+              opacity="0.7"
+            />
+          </g>
+
+          {/* Accent dot — center hinge */}
+          <circle cx="110" cy="50" r="3" fill="var(--fw-gold)" />
+        </svg>
+      </div>
+
+      {/* Caption */}
+      <div className="relative flex items-end justify-between gap-3">
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
+            color: "var(--fw-navy)",
+            lineHeight: 1.15,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Balanced advice<span style={{ color: "var(--fw-accent)" }}>.</span>
+        </p>
+        <p
+          className="text-[10px] font-semibold uppercase"
+          style={{
+            color: "var(--muted-foreground)",
+            letterSpacing: "0.18em",
+          }}
+        >
+          CA + Legal
+        </p>
+      </div>
+
+      <style>{`
+        .law-pan-left { transform-origin: 62px 50px; transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .law-pan-right { transform-origin: 158px 50px; transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1); }
+        .law-illus-card:hover .law-pan-left { transform: translateY(-3px); }
+        .law-illus-card:hover .law-pan-right { transform: translateY(3px); }
+      `}</style>
     </div>
   )
 }

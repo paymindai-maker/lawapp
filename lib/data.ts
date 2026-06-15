@@ -63,33 +63,33 @@ export const TEAM_MEMBERS: TeamMember[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "NEXGEN handled my startup's incorporation and trademark filing with precision. Transparent, decisive, and deeply knowledgeable. Exactly what a growing business needs.",
-    name: "Rahul Agarwal",
-    title: "CEO, Mindrise Technologies",
-    initials: "RA",
-  },
-  {
-    quote:
-      "I've worked with several firms, but NEXGEN's clarity of communication set them apart entirely. Our GST compliance was resolved faster than I believed possible.",
+      "NexGen handles our monthly GST, annual audit, and all our supplier contracts. Having one firm cover everything saves us enormous time and prevents costly gaps between financial and legal advice.",
     name: "Sunita Patel",
     title: "Director, Zenith Corp",
     initials: "SP",
   },
   {
     quote:
-      "Their ESOP structuring advice was spot-on and saved us significant tax liability. The team understood our startup context immediately.",
+      "We were a two-person startup with zero idea about compliance. NexGen registered our company, set up accounting, filed our first ITR, and drafted our founders' agreement — all within three weeks.",
     name: "Karan Bhatt",
     title: "Co-founder, Stackly",
     initials: "KB",
+  },
+  {
+    quote:
+      "When we received an income tax scrutiny notice, NexGen responded within 24 hours and managed the entire assessment. No penalty, no stress — just complete professional handling end to end.",
+    name: "Rahul Agarwal",
+    title: "CEO, Mindrise Technologies",
+    initials: "RA",
   },
 ]
 
 
 export const STATS: StatItem[] = [
-  { val: "500+", label: "Businesses Served", icon: Building2 },
-  { val: "18 yrs", label: "Active Legal Practice", icon: Scale },
-  { val: "5", label: "Practice Areas", icon: Shield },
-  { val: "98%", label: "Client Satisfaction", icon: TrendingUp },
+  { val: "1,200+", label: "Clients Served", icon: Building2 },
+  { val: "15+", label: "Years Experience", icon: Scale },
+  { val: "₹500 Cr+", label: "Tax Managed", icon: Shield },
+  { val: "98%", label: "On-Time Filing Rate", icon: TrendingUp },
 ]
 
 export const FOOTER_COLUMNS: FooterColumn[] = [
@@ -131,8 +131,8 @@ export const CONTACT_INFO = {
 }
 
 export const FIRM_INFO = {
-  name: "NEXGEN",
-  tagline: "Noida's integrated legal and tax firm — Advocates, CAs, and compliance specialists serving Indian businesses since 2006.",
-  established: "2006",
+  name: "NexGen",
+  tagline: "Full-service chartered accountancy and legal advisory firm — integrated CA + legal solutions for 1,200+ Indian businesses, from incorporation to litigation support.",
+  established: "2010",
   city: "Noida, India",
 }

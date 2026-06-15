@@ -39,7 +39,7 @@ export async function ServicesPreview() {
             className="max-w-[38ch] text-sm leading-relaxed md:text-right"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Six practice areas. One firm. Serving companies across India since 2006.
+            Integrated CA + legal services. One firm. Serving Indian businesses since 2010.
           </p>
         </div>
 
@@ -70,13 +70,13 @@ export async function ServicesPreview() {
 
                 <div className="min-w-0 flex flex-1 flex-col gap-1.5">
                   <p
-                    className="text-lg font-semibold leading-tight"
+                    className="svc-row-title text-lg font-semibold leading-tight"
                     style={{ color: "var(--fw-navy)", letterSpacing: "-0.02em" }}
                   >
                     {cat.name}
                   </p>
                   <p
-                    className="hidden max-w-[70ch] text-sm leading-relaxed md:block"
+                    className="svc-row-description hidden max-w-[70ch] text-sm leading-relaxed md:block"
                     style={{ color: "var(--muted-foreground)" }}
                   >
                     {cat.description.length > 110
