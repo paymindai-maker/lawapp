@@ -5,6 +5,13 @@ import { Footer } from "@/components/layout/footer"
 import { CrossPageLinks } from "@/components/common/cross-page-links"
 import { CONTACT_INFO, TEAM_MEMBERS } from "@/lib/data"
 import { AboutNav } from "./about-nav"
+import {
+  BentoStat,
+  BentoTextCell,
+  BentoDevanagariCell,
+  BentoIllustrationCard,
+  ScalesIllustration,
+} from "@/components/common/bento"
 
 export const revalidate = 3600
 
@@ -227,72 +234,26 @@ function HeroBento() {
 
           {/* Custom law illustration cell */}
           <article className="col-span-3 md:[grid-column:5/7] md:[grid-row:2/3]">
-            <LawIllustrationCard />
+            <BentoIllustrationCard
+              kicker="Counsel · Compliance"
+              caption="Balanced advice"
+              captionAccent="CA + Legal"
+            >
+              <ScalesIllustration />
+            </BentoIllustrationCard>
           </article>
 
           {/* Devanagari quote cell */}
           <article className="col-span-6 md:[grid-column:1/3] md:[grid-row:3/4]">
-            <div
-              className="flex h-full flex-col justify-between"
-              style={{
-                background: "var(--fw-navy)",
-                color: "white",
-                borderRadius: "6px",
-                padding: "1.5rem 1.75rem",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)",
-                  lineHeight: 1.25,
-                  color: "white",
-                  letterSpacing: "0.005em",
-                }}
-              >
-                हर फाइलिंग, हर केस — एक छत के नीचे.
-              </p>
-              <p
-                className="mt-4 text-[10px] font-semibold uppercase"
-                style={{
-                  color: "oklch(0.72 0.03 258)",
-                  letterSpacing: "0.22em",
-                }}
-              >
-                Every filing, every case — one roof.
-              </p>
-            </div>
+            <BentoDevanagariCell />
           </article>
 
           {/* Mission cell */}
           <article className="col-span-6 md:[grid-column:3/5] md:[grid-row:3/4]">
-            <div
-              className="flex h-full flex-col justify-between"
-              style={{
-                background: "var(--card)",
-                border: "1px solid var(--border)",
-                borderRadius: "6px",
-                padding: "1.5rem 1.75rem",
-              }}
-            >
-              <p
-                className="text-[10px] font-semibold uppercase"
-                style={{
-                  color: "var(--muted-foreground)",
-                  letterSpacing: "0.22em",
-                }}
-              >
-                Our mission
-              </p>
-              <p
-                className="mt-2 text-sm leading-relaxed"
-                style={{ color: "var(--fw-navy)" }}
-              >
-                Simplify legal, tax, and compliance for Indian businesses — with
-                transparent pricing, guaranteed timelines, and zero missed
-                deadlines.
-              </p>
-            </div>
+            <BentoTextCell
+              kicker="Our mission"
+              body="Simplify legal, tax, and compliance for Indian businesses — with transparent pricing, guaranteed timelines, and zero missed deadlines."
+            />
           </article>
 
           {/* Location cell */}
@@ -345,326 +306,6 @@ function HeroBento() {
   )
 }
 
-function BentoStat({
-  val,
-  label,
-  tone,
-}: {
-  val: string
-  label: string
-  tone: "dark" | "light"
-}) {
-  const dark = tone === "dark"
-  return (
-    <div
-      className="flex h-full flex-col justify-between"
-      style={{
-        background: dark ? "var(--fw-navy)" : "var(--card)",
-        color: dark ? "white" : "var(--fw-navy)",
-        border: dark ? "1px solid var(--fw-navy)" : "1px solid var(--border)",
-        borderRadius: "6px",
-        padding: "1.5rem 1.75rem",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* outline echo of the value */}
-      <span
-        aria-hidden
-        style={{
-          position: "absolute",
-          right: "-1rem",
-          bottom: "-2rem",
-          fontFamily: "var(--font-display)",
-          fontSize: "9rem",
-          lineHeight: 0.85,
-          color: "transparent",
-          WebkitTextStroke: dark
-            ? "1.5px oklch(1 0 0 / 0.07)"
-            : "1.5px oklch(0.22 0.045 258 / 0.06)",
-          letterSpacing: "-0.05em",
-          userSelect: "none",
-          pointerEvents: "none",
-        }}
-      >
-        {val}
-      </span>
-
-      <p
-        className="relative text-[10px] font-semibold uppercase"
-        style={{
-          color: dark ? "oklch(0.72 0.03 258)" : "var(--muted-foreground)",
-          letterSpacing: "0.22em",
-        }}
-      >
-        {dark ? "Trusted by" : "Built over"}
-      </p>
-      <div className="relative">
-        <p
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.4rem, 4vw, 3.4rem)",
-            lineHeight: 1,
-            letterSpacing: "-0.025em",
-            color: dark ? "white" : "var(--fw-navy)",
-          }}
-        >
-          {val}
-        </p>
-        <p
-          className="mt-3 text-[13px] leading-relaxed"
-          style={{
-            color: dark ? "oklch(0.82 0.018 258)" : "var(--muted-foreground)",
-            maxWidth: "20ch",
-          }}
-        >
-          {label}
-        </p>
-      </div>
-    </div>
-  )
-}
-
-// ─── Custom law illustration cell ────────────────────────────────────────────
-
-function LawIllustrationCard() {
-  return (
-    <div
-      className="law-illus-card group relative flex h-full flex-col justify-between overflow-hidden"
-      style={{
-        background: "var(--card)",
-        border: "1px solid var(--border)",
-        borderRadius: "6px",
-        padding: "1.5rem 1.75rem",
-        minHeight: "100%",
-      }}
-    >
-      {/* Background grid */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        style={{ opacity: 0.5 }}
-      >
-        <defs>
-          <pattern
-            id="law-grid"
-            width="22"
-            height="22"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 22 0 L 0 0 0 22"
-              fill="none"
-              stroke="oklch(0.22 0.045 258 / 0.05)"
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#law-grid)" />
-      </svg>
-
-      {/* Kicker */}
-      <p
-        className="relative text-[10px] font-semibold uppercase"
-        style={{
-          color: "var(--muted-foreground)",
-          letterSpacing: "0.22em",
-        }}
-      >
-        Counsel · Compliance
-      </p>
-
-      {/* Custom SVG — scales + pillars + ledger lines */}
-      <div className="relative flex flex-1 items-center justify-center py-3">
-        <svg
-          viewBox="0 0 220 170"
-          width="100%"
-          style={{ maxWidth: "260px", height: "auto", display: "block" }}
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden
-        >
-          {/* Pillars (back) */}
-          <g stroke="oklch(0.22 0.045 258 / 0.18)" strokeWidth="1.2" fill="none">
-            <rect x="22" y="40" width="10" height="100" rx="1.5" />
-            <rect x="188" y="40" width="10" height="100" rx="1.5" />
-            {/* Capitals */}
-            <rect x="18" y="34" width="18" height="6" rx="1" />
-            <rect x="184" y="34" width="18" height="6" rx="1" />
-            {/* Bases */}
-            <rect x="16" y="140" width="22" height="6" rx="1" />
-            <rect x="182" y="140" width="22" height="6" rx="1" />
-          </g>
-
-          {/* Ledger baseline */}
-          <line
-            x1="10"
-            y1="152"
-            x2="210"
-            y2="152"
-            stroke="var(--fw-navy)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <line
-            x1="40"
-            y1="158"
-            x2="180"
-            y2="158"
-            stroke="oklch(0.22 0.045 258 / 0.25)"
-            strokeWidth="1"
-            strokeLinecap="round"
-          />
-
-          {/* Central post */}
-          <line
-            x1="110"
-            y1="32"
-            x2="110"
-            y2="118"
-            stroke="var(--fw-navy)"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          {/* Post finial */}
-          <circle cx="110" cy="28" r="4" fill="var(--fw-gold)" />
-          <circle
-            cx="110"
-            cy="28"
-            r="5.5"
-            fill="none"
-            stroke="var(--fw-navy)"
-            strokeWidth="1"
-            opacity="0.6"
-          />
-
-          {/* Post base */}
-          <path
-            d="M 96 120 L 124 120 L 120 130 L 100 130 Z"
-            fill="var(--fw-navy)"
-          />
-
-          {/* Cross beam */}
-          <line
-            x1="48"
-            y1="50"
-            x2="172"
-            y2="50"
-            stroke="var(--fw-navy)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          {/* Beam chains */}
-          <line
-            x1="62"
-            y1="50"
-            x2="62"
-            y2="72"
-            stroke="var(--fw-navy)"
-            strokeWidth="1.2"
-          />
-          <line
-            x1="158"
-            y1="50"
-            x2="158"
-            y2="72"
-            stroke="var(--fw-navy)"
-            strokeWidth="1.2"
-          />
-
-          {/* Left pan (slightly lower) */}
-          <g className="law-pan-left">
-            <ellipse
-              cx="62"
-              cy="78"
-              rx="22"
-              ry="4"
-              fill="var(--fw-navy)"
-            />
-            <path
-              d="M 42 78 Q 62 96 82 78 Z"
-              fill="none"
-              stroke="var(--fw-navy)"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-            <line
-              x1="48"
-              y1="82"
-              x2="76"
-              y2="82"
-              stroke="var(--fw-gold)"
-              strokeWidth="1"
-              opacity="0.7"
-            />
-          </g>
-
-          {/* Right pan (slightly higher — balance) */}
-          <g className="law-pan-right">
-            <ellipse
-              cx="158"
-              cy="78"
-              rx="22"
-              ry="4"
-              fill="var(--fw-navy)"
-            />
-            <path
-              d="M 138 78 Q 158 96 178 78 Z"
-              fill="none"
-              stroke="var(--fw-navy)"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-            <line
-              x1="144"
-              y1="82"
-              x2="172"
-              y2="82"
-              stroke="var(--fw-gold)"
-              strokeWidth="1"
-              opacity="0.7"
-            />
-          </g>
-
-          {/* Accent dot — center hinge */}
-          <circle cx="110" cy="50" r="3" fill="var(--fw-gold)" />
-        </svg>
-      </div>
-
-      {/* Caption */}
-      <div className="relative flex items-end justify-between gap-3">
-        <p
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
-            color: "var(--fw-navy)",
-            lineHeight: 1.15,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          Balanced advice<span style={{ color: "var(--fw-accent)" }}>.</span>
-        </p>
-        <p
-          className="text-[10px] font-semibold uppercase"
-          style={{
-            color: "var(--muted-foreground)",
-            letterSpacing: "0.18em",
-          }}
-        >
-          CA + Legal
-        </p>
-      </div>
-
-      <style>{`
-        .law-pan-left { transform-origin: 62px 50px; transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1); }
-        .law-pan-right { transform-origin: 158px 50px; transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1); }
-        .law-illus-card:hover .law-pan-left { transform: translateY(-3px); }
-        .law-illus-card:hover .law-pan-right { transform: translateY(3px); }
-      `}</style>
-    </div>
-  )
-}
-
-// ─── Section 01 — The Firm ───────────────────────────────────────────────────
 
 function FirmSection() {
   return (

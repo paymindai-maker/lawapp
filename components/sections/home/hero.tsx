@@ -5,9 +5,24 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { m, useScroll, useTransform, useSpring } from "framer-motion"
 import { useRef } from "react"
+import {
+  BentoStat,
+  BentoDevanagariCell,
+  BentoIllustrationCard,
+  LedgerGrowthIllustration,
+} from "@/components/common/bento"
 
 const HERO_IMAGE = "/hero.png"
 const ease = [0.16, 1, 0.3, 1] as const
+
+const SERVICE_SPINE = [
+  "GST & Indirect Tax",
+  "Income Tax",
+  "Audit & Assurance",
+  "Company Registration",
+  "Legal Advisory",
+  "Contract Drafting",
+]
 
 const TRUST_ITEMS = [
   { val: "1,200+", label: "Clients served" },
@@ -23,165 +38,147 @@ export function HeroSection() {
     target: sectionRef,
     offset: ["start start", "end start"],
   })
-  const rawY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"])
+  const rawY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"])
   const bgY = useSpring(rawY, { stiffness: 90, damping: 28, restDelta: 0.001 })
-  const rawScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.14])
-  const bgScale = useSpring(rawScale, { stiffness: 90, damping: 28, restDelta: 0.001 })
 
   return (
     <section
       ref={sectionRef}
       className="relative"
       style={{
-        background: "var(--background)",
-        paddingTop: "clamp(2rem, 4vw, 3.5rem)",
+        background: "var(--fw-surface)",
+        borderBottom: "1px solid var(--border)",
+        paddingTop: "clamp(1.5rem, 3vw, 2.5rem)",
         paddingBottom: "clamp(3rem, 5vw, 4.5rem)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+      {/* Editorial outline year — bleeds out bottom-left */}
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          left: "-2rem",
+          bottom: "-7rem",
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(14rem, 24vw, 24rem)",
+          lineHeight: 0.85,
+          color: "transparent",
+          WebkitTextStroke: "1.5px oklch(0.22 0.045 258 / 0.06)",
+          letterSpacing: "-0.05em",
+          userSelect: "none",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      >
+        15+
+      </span>
+
+      <div className="relative mx-auto max-w-7xl px-6" style={{ zIndex: 1 }}>
+        {/* Bento grid */}
         <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease }}
-          className="relative mx-auto overflow-hidden"
           style={{
-            width: "100%",
-            height: "clamp(560px, 72vh, 640px)",
-            borderRadius: "clamp(28px, 3vw, 40px)",
-            background: "var(--fw-navy)",
-            boxShadow:
-              "0 30px 80px -30px oklch(0.14 0.04 258 / 0.45), 0 8px 24px -12px oklch(0.14 0.04 258 / 0.25)",
-            isolation: "isolate",
+            display: "grid",
+            gridTemplateColumns: "repeat(6, 1fr)",
+            gridAutoRows: "minmax(120px, auto)",
+            gap: "1rem",
           }}
         >
-          {/* Background image */}
-          <m.div
-            className="absolute inset-0"
-            style={{ y: bgY, scale: bgScale, zIndex: 0 }}
-          >
-            <Image
-              src={HERO_IMAGE}
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 1400px) 95vw, 1330px"
-              className="object-cover object-center"
-            />
-          </m.div>
-
-          {/* Layered overlays — depth + legibility */}
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, oklch(0.14 0.04 258 / 0.55) 0%, oklch(0.14 0.04 258 / 0.62) 55%, oklch(0.10 0.03 258 / 0.80) 100%)",
-              zIndex: 1,
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse at 50% 35%, oklch(0.20 0.05 258 / 0) 0%, oklch(0.10 0.03 258 / 0.35) 75%)",
-              zIndex: 1,
-            }}
-          />
-
-          {/* Content */}
-          <div
-            className="relative flex h-full flex-col items-center justify-center px-6 py-16 sm:px-10 sm:py-20 lg:px-16"
-            style={{ zIndex: 2 }}
-          >
+          {/* Primary cell — eyebrow + h1 + devanagari + sub + CTAs */}
+          <article className="col-span-6 md:[grid-column:1/5] md:[grid-row:1/3]">
             <div
-              className="flex flex-col items-center text-center"
-              style={{ maxWidth: "800px" }}
+              className="flex h-full flex-col justify-between"
+              style={{
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "6px",
+                padding: "clamp(1.75rem, 3vw, 2.5rem)",
+                position: "relative",
+                overflow: "hidden",
+              }}
             >
-              {/* Glass badge */}
-              <m.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.15, ease }}
-                className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-[11px] font-semibold uppercase"
-                style={{
-                  letterSpacing: "0.18em",
-                  color: "oklch(0.96 0.005 258)",
-                  background: "oklch(1 0 0 / 0.08)",
-                  border: "1px solid oklch(1 0 0 / 0.18)",
-                  backdropFilter: "blur(14px) saturate(120%)",
-                  WebkitBackdropFilter: "blur(14px) saturate(120%)",
-                }}
-              >
+              <div>
                 <span
-                  aria-hidden
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-semibold uppercase"
                   style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    background: "var(--fw-gold)",
-                    boxShadow: "0 0 8px var(--fw-gold)",
+                    color: "var(--fw-accent)",
+                    letterSpacing: "0.22em",
+                    background: "oklch(0.55 0.22 258 / 0.06)",
+                    border: "1px solid oklch(0.55 0.22 258 / 0.16)",
                   }}
-                />
-                Chartered Accountants · Legal Advisory
-              </m.span>
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "50%",
+                      background: "var(--fw-gold)",
+                    }}
+                  />
+                  Chartered Accountants · Legal Advisory
+                </span>
 
-              {/* Headline */}
-              <m.h1
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.28, ease }}
-                style={{
-                  fontFamily: "var(--font-display)",
-                  color: "oklch(0.99 0.003 258)",
-                  fontSize: "clamp(2.4rem, 5.2vw, 4.4rem)",
-                  lineHeight: 1.04,
-                  letterSpacing: "-0.025em",
-                  marginTop: "1.75rem",
-                  textWrap: "balance" as const,
-                  textShadow: "0 2px 24px oklch(0 0 0 / 0.25)",
-                }}
-              >
-                A partner who handles both
-                <br className="hidden sm:block" /> numbers and law.
-              </m.h1>
+                <h1
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    color: "var(--fw-navy)",
+                    fontSize: "clamp(2.4rem, 5.5vw, 4.6rem)",
+                    lineHeight: 0.98,
+                    letterSpacing: "-0.025em",
+                    marginTop: "1.5rem",
+                    marginBottom: "1.25rem",
+                    textWrap: "balance" as const,
+                  }}
+                >
+                  A partner who handles both
+                  <br className="hidden md:block" /> numbers
+                  <span style={{ color: "var(--fw-accent)" }}> and </span>law.
+                </h1>
 
-              {/* Subhead */}
-              <m.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.42, ease }}
-                className="mt-6 text-base sm:text-[1.05rem]"
-                style={{
-                  color: "oklch(0.88 0.012 258)",
-                  lineHeight: 1.6,
-                  maxWidth: "58ch",
-                  letterSpacing: "0.005em",
-                  fontFamily: "var(--font-sans)",
-                }}
-              >
-                One trusted firm — accounting, taxation, compliance,
-                registrations, legal advisory, and business growth under one
-                roof.
-              </m.p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)",
+                    color: "var(--fw-gold)",
+                    letterSpacing: "0.02em",
+                    lineHeight: 1.3,
+                    marginBottom: "1.25rem",
+                  }}
+                >
+                  हर फाइलिंग, हर केस — एक छत के नीचे.
+                </p>
 
-              {/* CTAs */}
-              <m.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.56, ease }}
-                className="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-              >
+                <p
+                  style={{
+                    color: "var(--muted-foreground)",
+                    fontSize: "clamp(0.98rem, 1.2vw, 1.05rem)",
+                    lineHeight: 1.6,
+                    maxWidth: "56ch",
+                  }}
+                >
+                  Full-service chartered accountancy and legal advisory under
+                  one roof. 1,200+ Indian businesses trust NexGen for GST, ITR,
+                  audit, company registration, and corporate legal work since
+                  2010.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href="/contact"
-                  className="hero-cta-primary group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold transition-all"
+                  className="hero-cta-primary group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold transition-all"
                   style={{
                     background: "var(--fw-accent)",
                     color: "white",
-                    borderRadius: "999px",
+                    borderRadius: "3px",
                     letterSpacing: "0.01em",
                     boxShadow:
-                      "0 14px 32px -10px oklch(0.55 0.22 258 / 0.6), inset 0 1px 0 oklch(1 0 0 / 0.18)",
+                      "0 12px 28px -10px oklch(0.55 0.22 258 / 0.55)",
                   }}
                 >
                   Book a free consultation
@@ -189,25 +186,151 @@ export function HeroSection() {
                 </Link>
                 <Link
                   href="/services"
-                  className="hero-cta-secondary group inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold transition-all"
+                  className="hero-cta-secondary group inline-flex items-center gap-2 px-5 py-3.5 text-sm font-semibold"
                   style={{
-                    color: "oklch(0.98 0.005 258)",
-                    background: "oklch(1 0 0 / 0.06)",
-                    border: "1px solid oklch(1 0 0 / 0.28)",
-                    borderRadius: "999px",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
+                    color: "var(--fw-navy)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "3px",
                   }}
                 >
                   Explore our services
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 opacity-80" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 opacity-70" />
                 </Link>
-              </m.div>
+              </div>
             </div>
-          </div>
+          </article>
+
+          {/* Image cell — parallax */}
+          <article className="col-span-6 md:[grid-column:5/7] md:[grid-row:1/2]">
+            <div
+              className="relative h-full overflow-hidden"
+              style={{
+                borderRadius: "6px",
+                border: "1px solid var(--border)",
+                background: "var(--fw-navy)",
+                minHeight: "220px",
+              }}
+            >
+              <m.div className="absolute inset-0" style={{ y: bgY, scale: 1.08 }}>
+                <Image
+                  src={HERO_IMAGE}
+                  alt=""
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="object-cover object-center"
+                />
+              </m.div>
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, oklch(0.14 0.04 258 / 0.45) 0%, oklch(0.10 0.03 258 / 0.65) 100%)",
+                }}
+              />
+              <div
+                className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-3 p-4"
+                style={{ color: "white" }}
+              >
+                <span
+                  className="text-[10px] font-semibold uppercase"
+                  style={{
+                    letterSpacing: "0.22em",
+                    color: "oklch(0.82 0.018 258)",
+                  }}
+                >
+                  Noida · Pan-India
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "0.95rem",
+                    letterSpacing: "0.04em",
+                    color: "var(--fw-gold)",
+                  }}
+                >
+                  Est. 2010
+                </span>
+              </div>
+            </div>
+          </article>
+
+          {/* Dark stat — 1,200+ */}
+          <article className="col-span-6 md:[grid-column:5/7] md:[grid-row:2/3]">
+            <BentoStat
+              val="1,200+"
+              label="Indian businesses trust us with their compliance"
+              tone="dark"
+              kicker="Clients served"
+            />
+          </article>
+
+          {/* Devanagari quote */}
+          <article className="col-span-6 md:[grid-column:1/3] md:[grid-row:3/4]">
+            <BentoDevanagariCell
+              text="संख्या और कानून — दोनों एक जगह."
+              caption="Numbers and law — together."
+            />
+          </article>
+
+          {/* Service spine */}
+          <article className="col-span-6 md:[grid-column:3/5] md:[grid-row:3/4]">
+            <div
+              className="flex h-full flex-col justify-between"
+              style={{
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "6px",
+                padding: "1.5rem 1.75rem",
+              }}
+            >
+              <p
+                className="text-[10px] font-semibold uppercase"
+                style={{
+                  color: "var(--muted-foreground)",
+                  letterSpacing: "0.22em",
+                }}
+              >
+                What we cover
+              </p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5">
+                {SERVICE_SPINE.map((s) => (
+                  <li
+                    key={s}
+                    className="flex items-center gap-2 text-[12.5px]"
+                    style={{ color: "var(--fw-navy)" }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        width: "4px",
+                        height: "4px",
+                        borderRadius: "50%",
+                        background: "var(--fw-gold)",
+                        flexShrink: 0,
+                      }}
+                    />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+
+          {/* Custom SVG — ledger + growth */}
+          <article className="col-span-6 md:[grid-column:5/7] md:[grid-row:3/4]">
+            <BentoIllustrationCard
+              kicker="Numbers · Law"
+              caption="Compliant growth"
+              captionAccent="Integrated"
+            >
+              <LedgerGrowthIllustration />
+            </BentoIllustrationCard>
+          </article>
         </m.div>
 
-        {/* Stats strip — own identity, breathing space from card */}
+        {/* Stats strip — own identity below bento */}
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -267,11 +390,11 @@ export function HeroSection() {
       <style>{`
         .hero-cta-primary:hover {
           transform: translateY(-1px);
-          box-shadow: 0 18px 40px -10px oklch(0.55 0.22 258 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.22);
+          box-shadow: 0 16px 36px -10px oklch(0.55 0.22 258 / 0.65);
         }
         .hero-cta-secondary:hover {
-          background: oklch(1 0 0 / 0.12);
-          border-color: oklch(1 0 0 / 0.4);
+          background: var(--fw-surface);
+          border-color: var(--fw-navy);
         }
         .hero-stat:hover {
           background: oklch(0.97 0.008 258 / 0.6);
